@@ -1,0 +1,170 @@
+/* Form spacing */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* space-y-5 */
+}
+
+/* Group */
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Label */
+.label {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: var(--card-foreground);
+}
+
+/* Input wrapper */
+.input-wrapper {
+  position: relative;
+  width:100%;
+  display: flex;
+  align-items: center;
+}
+
+.eye-btn {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Icon inside input */
+.input-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: var(--muted-foreground);
+}
+
+/* Input */
+.input {
+  width: 100%;
+  padding: 12px 16px 12px 44px; /* pl-11 */
+  background: var(--input-background);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--foreground);
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+/* Focus state */
+.input:focus {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+/* Options row */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+/* Checkbox */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: var(--muted-foreground);
+}
+
+.checkbox {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+/* Forgot link */
+.forgot-link {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+/* Submit button */
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.submit-btn:hover {
+  opacity: 0.9;
+}
+
+/* Divider */
+.divider {
+  position: relative;
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted-foreground);
+  margin: 24px 0;
+}
+
+.divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  border-top: 1px solid var(--border);
+  transform: translateY(-50%);
+}
+
+.divider span {
+  position: relative;
+  padding: 0 16px;
+  background: var(--card);
+}
+
+/* Social buttons */
+.social-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.social-btn {
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--foreground);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.social-btn:hover {
+  background: var(--accent);
+}
+
+.errors {
+  color: #b91c1c;            /* red-700 */
+  background-color: #fee2e2; /* red-100 */
+  border: 1px solid #fca5a5; /* red-300 */
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  margin-top: 6px;
+}

@@ -1,0 +1,40 @@
+import { isEmailValid, isPasswordValid } from "../validator";
+
+export default async function login(email, password) {
+  let err = [];
+  if (!isEmailValid(email)) {
+    err.push("Email is not valid");
+  }
+  if (!isPasswordValid(password)) {
+    err.push("Password is not valid");
+  }
+
+  if (err.length > 0) return err;
+  return await userVerfy(email, password);
+}
+
+async function userVerfy(email, password) {
+  try {
+    const res = await fetch("http://localhost:5000/api/login/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    });
+
+    const body = await res.json();
+
+    console.log(res.ok, body);
+
+    if (!res.ok || !body || !body.success) {
+      return [body?.message || "Login failed"];
+    }
+    localStorage.setItem("token", body.data.token);
+    return [];
+  } catch (e) {
+    console.error(e.message);
+    return ["Server unreachable"];
+  }
+}

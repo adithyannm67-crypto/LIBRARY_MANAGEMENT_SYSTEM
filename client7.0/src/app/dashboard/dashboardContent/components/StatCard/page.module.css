@@ -1,0 +1,52 @@
+/* Card */
+.statCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+/* Header */
+.statHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+/* Icon container */
+.statIconBox {
+  background: rgba(59, 130, 246, 0.1);
+  padding: 8px;
+  border-radius: 8px;
+}
+
+/* Icon */
+.statIcon {
+  width: 20px;
+  height: 20px;
+  color: var(--primary);
+}
+
+/* Label */
+.statLabel {
+  color: var(--muted-foreground);
+}
+
+/* Body */
+.statBody {
+  margin-top: 8px;
+}
+
+/* Value */
+.statValue {
+  font-size: 30px;
+  color: var(--foreground);
+}
+
+/* Subtitle */
+.statSubtitle {
+  font-size: 14px;
+  color: var(--muted-foreground);
+  margin-top: 4px;
+}

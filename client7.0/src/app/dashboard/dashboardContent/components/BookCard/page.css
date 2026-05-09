@@ -1,0 +1,91 @@
+/* Card */
+.book-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  transition: box-shadow 0.2s ease;
+}
+
+.book-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Row */
+.book-row {
+  display: flex;
+  gap: 16px;
+}
+
+/* Cover */
+.book-cover {
+  background: #ccc32f;
+  
+  
+  width: 80px;
+  height: 112px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Content */
+.book-content {
+  flex: 1;
+  min-width: 0; /* IMPORTANT */
+}
+
+/* Title */
+.book-title {
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Author */
+.book-author {
+  color: var(--muted-foreground);
+  margin-bottom: 12px;
+}
+
+/* Status */
+.book-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: var(--muted-foreground);
+}
+
+/* Overdue state */
+.overdue {
+  color: var(--destructive);
+}
+
+
+.late {
+  color: var(--chart-5);
+}
+/* Returned state */
+
+.returned-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.returned {
+  color: #08a400;
+}
+
+.icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 6px;
+}
+/* Icon */
+.status-icon {
+  width: 16px;
+  height: 16px;
+}
