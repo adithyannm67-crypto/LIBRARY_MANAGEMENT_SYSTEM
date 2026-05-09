@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/src/app/landingpage/components/hero/hero.css"],"sourcesContent":["/* Section spacing */\r\n.hero {\r\n  padding: 5rem 1rem; /* py-20 px-4 */\r\n}\r\n\r\n/* Responsive padding */\r\n@media (min-width: 640px) {\r\n  .hero {\r\n    padding-left: 1.5rem;\r\n    padding-right: 1.5rem;\r\n  }\r\n}\r\n\r\n@media (min-width: 1024px) {\r\n  .hero {\r\n    padding-left: 2rem;\r\n    padding-right: 2rem;\r\n  }\r\n}\r\n\r\n/* Container */\r\n.hero-container {\r\n  max-width: 80rem; /* max-w-7xl */\r\n  margin: 0 auto;\r\n  text-align: center;\r\n}\r\n\r\n/* Title */\r\n.hero-title {\r\n  font-size: 3rem; /* text-5xl */\r\n  margin-bottom: 1.5rem; /* mb-6 */\r\n  color: var(--foreground);\r\n  line-height: 1.2;\r\n}\r\n\r\n/* Responsive title */\r\n@media (min-width: 768px) {\r\n  .hero-title {\r\n    font-size: 3.75rem; /* text-6xl */\r\n  }\r\n}\r\n\r\n/* Description */\r\n.hero-description {\r\n  font-size: 1.25rem; /* text-xl */\r\n  color: var(--muted-foreground);\r\n  max-width: 48rem; /* max-w-3xl */\r\n  margin: 0 auto 2.5rem auto; /* mx-auto mb-10 */\r\n  line-height: 1.6;\r\n}"],"names":[],"mappings":"AACA;;;;AAKA;EACE;;;;;;AAMF;EACE;;;;;;AAOF;;;;;;AAOA;;;;;;;AAQA;EACE;;;;;AAMF"}}]
+}

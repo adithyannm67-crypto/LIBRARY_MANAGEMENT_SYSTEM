@@ -1,0 +1,33 @@
+{"timestamp":"00:00:38.394","source":"Server","level":"LOG","message":""}
+{"timestamp":"00:00:41.561","source":"Server","level":"LOG","message":"○ Compiling / ..."}
+{"timestamp":"00:00:59.669","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:03:07.175","source":"Browser","level":"LOG","message":"false {\"data\":null,\"error\":{\"message\":\"SASL: SCRAM-SERVER-FIRST-MESSAGE: client password must be a string\",\"name\":\"Error\",\"statusCode\":400},\"message\":\"SASL: SCRAM-SERVER-FIRST-MESSAGE: client password must be a string\",\"success\":false}"}
+{"timestamp":"00:03:17.327","source":"Browser","level":"LOG","message":"false {\"data\":null,\"error\":{\"message\":\"SASL: SCRAM-SERVER-FIRST-MESSAGE: client password must be a string\",\"name\":\"Error\",\"statusCode\":400},\"message\":\"SASL: SCRAM-SERVER-FIRST-MESSAGE: client password must be a string\",\"success\":false}"}
+{"timestamp":"00:05:35.960","source":"Browser","level":"LOG","message":"true {\"data\":{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyanVuQGdtYWlsLmNvbSIsInVzZXJpZCI6MSwidXNlcm5hbWUiOiJBcmp1biIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzc4MzUxMDI3LCJleHAiOjE3Nzg0Mzc0Mjd9.QmbxC8UNtcDaMb4lTBl3oWDwl5y3ArtlZXwNZ-DsBT0\"},\"error\":null,\"message\":\"Login Successfull\",\"success\":true}"}
+{"timestamp":"00:05:38.173","source":"Browser","level":"LOG","message":"BOrrowRecord fetching.."}
+{"timestamp":"00:05:38.173","source":"Browser","level":"LOG","message":"BOrrowRecord fetching.."}
+{"timestamp":"00:10:26.768","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:10:26.783","source":"Browser","level":"LOG","message":"BOrrowRecord fetching.."}
+{"timestamp":"00:10:26.814","source":"Browser","level":"LOG","message":"BOrrowRecord fetching.."}
+{"timestamp":"00:20:30.104","source":"Browser","level":"LOG","message":"true {\"data\":{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyanVuQGdtYWlsLmNvbSIsInVzZXJpZCI6MSwidXNlcm5hbWUiOiJBcmp1biIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzc4MzUxOTIxLCJleHAiOjE3Nzg0MzgzMjF9.r_t8-sdJ6ltjd2t3dFgadrRUPJ2dC1oiVFYlsFUTvys\"},\"error\":null,\"message\":\"Login Successfull\",\"success\":true}"}
+{"timestamp":"00:20:30.272","source":"Browser","level":"LOG","message":"BOrrowRecord fetching.."}
+{"timestamp":"00:20:30.273","source":"Browser","level":"LOG","message":"BOrrowRecord fetching.."}
+{"timestamp":"00:25:59.074","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:25:59.126","source":"Browser","level":"LOG","message":"BOrrowRecord fetching.."}
+{"timestamp":"00:25:59.126","source":"Browser","level":"LOG","message":"BOrrowRecord fetching.."}
+{"timestamp":"00:26:09.265","source":"Browser","level":"LOG","message":"false {\"data\":null,\"error\":{\"message\":\"data and hash arguments required\",\"name\":\"Error\",\"statusCode\":400},\"message\":\"data and hash arguments required\",\"success\":false}"}
+{"timestamp":"00:26:11.641","source":"Browser","level":"LOG","message":"false {\"data\":null,\"error\":{\"message\":\"data and hash arguments required\",\"name\":\"Error\",\"statusCode\":400},\"message\":\"data and hash arguments required\",\"success\":false}"}
+{"timestamp":"00:27:45.974","source":"Browser","level":"LOG","message":"false {\"data\":null,\"error\":{\"message\":\"data and hash arguments required\",\"name\":\"Error\",\"statusCode\":400},\"message\":\"data and hash arguments required\",\"success\":false}"}
+{"timestamp":"00:27:46.710","source":"Browser","level":"LOG","message":"false {\"data\":null,\"error\":{\"message\":\"data and hash arguments required\",\"name\":\"Error\",\"statusCode\":400},\"message\":\"data and hash arguments required\",\"success\":false}"}
+{"timestamp":"00:27:49.247","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:27:50.508","source":"Browser","level":"LOG","message":"false {\"data\":null,\"error\":{\"message\":\"data and hash arguments required\",\"name\":\"Error\",\"statusCode\":400},\"message\":\"data and hash arguments required\",\"success\":false}"}
+{"timestamp":"00:28:27.136","source":"Browser","level":"LOG","message":"false {\"data\":null,\"error\":{\"message\":\"eamil is not defined\",\"name\":\"Error\",\"statusCode\":400},\"message\":\"eamil is not defined\",\"success\":false}"}
+{"timestamp":"00:28:31.771","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:28:33.075","source":"Browser","level":"LOG","message":"false {\"data\":null,\"error\":{\"message\":\"eamil is not defined\",\"name\":\"Error\",\"statusCode\":400},\"message\":\"eamil is not defined\",\"success\":false}"}
+{"timestamp":"00:28:54.638","source":"Browser","level":"LOG","message":"false {\"data\":null,\"error\":{\"message\":\"data and hash arguments required\",\"name\":\"Error\",\"statusCode\":400},\"message\":\"data and hash arguments required\",\"success\":false}"}
+{"timestamp":"00:30:41.556","source":"Browser","level":"LOG","message":"true {\"data\":{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyanVuQGdtYWlsLmNvbSIsInVzZXJpZCI6MSwidXNlcm5hbWUiOiJBcmp1biIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzc4MzUyNTMyLCJleHAiOjE3Nzg0Mzg5MzJ9.ZmB1wrWvsWF4l_b_BQn0DPoCAKN6svPi12798xHYPHQ\"},\"error\":null,\"message\":\"Login Successfull\",\"success\":true}"}
+{"timestamp":"00:30:41.708","source":"Browser","level":"LOG","message":"BOrrowRecord fetching.."}
+{"timestamp":"00:30:41.708","source":"Browser","level":"LOG","message":"BOrrowRecord fetching.."}
+{"timestamp":"00:32:24.475","source":"Browser","level":"LOG","message":"true {\"data\":{\"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFyanVuQGdtYWlsLmNvbSIsInVzZXJpZCI6MSwidXNlcm5hbWUiOiJBcmp1biIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzc4MzUyNjM1LCJleHAiOjE3Nzg0MzkwMzV9.HLd9G80_i9jN-oUDI20ntNccrdv8hCLETuGkYL3YTkY\"},\"error\":null,\"message\":\"Login Successfull\",\"success\":true}"}
+{"timestamp":"00:32:24.638","source":"Browser","level":"LOG","message":"BOrrowRecord fetching.."}
+{"timestamp":"00:32:24.638","source":"Browser","level":"LOG","message":"BOrrowRecord fetching.."}

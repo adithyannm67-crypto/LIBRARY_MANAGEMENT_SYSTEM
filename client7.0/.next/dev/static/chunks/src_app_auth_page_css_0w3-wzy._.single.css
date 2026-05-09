@@ -1,0 +1,100 @@
+/* [project]/src/app/auth/page.css [app-client] (css) */
+.container {
+  background: var(--background);
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 48px 16px;
+  display: flex;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 400px;
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.logo-row {
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  display: flex;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  color: var(--primary);
+}
+
+.logo-text {
+  color: var(--foreground);
+  font-size: 24px;
+}
+
+.logo-subtext {
+  color: var(--muted-foreground);
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 10px 25px #0000004d;
+}
+
+.tabs {
+  background: var(--muted);
+  border-radius: 8px;
+  gap: 8px;
+  margin-bottom: 32px;
+  padding: 4px;
+  display: flex;
+}
+
+.tab-btn {
+  color: var(--muted-foreground);
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  flex: 1;
+  padding: 8px 0;
+  transition: all .2s;
+}
+
+.tab-btn:hover {
+  color: var(--foreground);
+}
+
+.tab-btn.active {
+  background: var(--background);
+  color: var(--foreground);
+  box-shadow: 0 2px 6px #0003;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 24px;
+}
+
+.back-btn {
+  color: var(--muted-foreground);
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 14px;
+  transition: color .2s;
+}
+
+.back-btn:hover {
+  color: var(--foreground);
+}
+
+/*# sourceMappingURL=src_app_auth_page_css_0w3-wzy._.single.css.map*/

@@ -1,0 +1,25 @@
+/* [project]/src/app/dashboard/page.module.css [app-client] (css) */
+.page-module__Fx1_7W__app-container {
+  background: var(--background);
+  min-height: 100vh;
+}
+
+.page-module__Fx1_7W__main {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+@media (min-width: 640px) {
+  .page-module__Fx1_7W__main {
+    padding: 32px 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .page-module__Fx1_7W__main {
+    padding: 32px;
+  }
+}
+
+/*# sourceMappingURL=src_app_dashboard_page_module_css_0w3-wzy._.single.css.map*/

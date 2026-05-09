@@ -1,0 +1,121 @@
+/* [project]/src/app/dashboard/dashboardContent/components/RecommendedBook/page.css [app-client] (css) */
+.rec-item {
+  cursor: pointer;
+  border-radius: 8px;
+  gap: 12px;
+  padding: 12px;
+  transition: background .2s;
+  display: flex;
+}
+
+.rec-item:hover {
+  background: var(--accent);
+}
+
+.rec-cover {
+  background: #ccc32f;
+  border-radius: 4px;
+  flex-shrink: 0;
+  width: 80px;
+  height: 112px;
+  box-shadow: 0 2px 6px #0003;
+}
+
+.rec-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.rec-title {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+  overflow: hidden;
+}
+
+.rec-author {
+  color: var(--muted-foreground);
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.rec-meta {
+  align-items: center;
+  gap: 8px;
+  display: flex;
+}
+
+.rec-rating {
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  display: flex;
+}
+
+.rec-star {
+  fill: #facc15;
+  stroke: #facc15;
+  width: 12px;
+  height: 12px;
+}
+
+.rec-genre {
+  color: var(--muted-foreground);
+  font-size: 12px;
+}
+
+.overlay {
+  z-index: 50;
+  background: #00000080;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  position: fixed;
+  inset: 0;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 8px;
+  width: 320px;
+  padding: 24px;
+  box-shadow: 0 10px 15px #0003;
+}
+
+.title {
+  margin-bottom: 8px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.author {
+  color: #4b5563;
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.message {
+  margin-bottom: 24px;
+}
+
+.actions {
+  justify-content: flex-end;
+  gap: 12px;
+  display: flex;
+}
+
+.btn {
+  cursor: pointer;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 4px 12px;
+}
+
+.borrow {
+  color: #fff;
+  background: #000;
+  border: none;
+}
+
+/*# sourceMappingURL=src_app_dashboard_dashboardContent_components_RecommendedBook_page_css_0w3-wzy._.single.css.map*/

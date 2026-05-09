@@ -1,0 +1,520 @@
+/* [project]/src/app/landingpage/components/navbar/navbar.css [app-client] (css) */
+.navbar {
+  border-bottom: 1px solid var(--border);
+}
+
+.navbar-container {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .navbar-container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .navbar-container {
+    padding: 0 2rem;
+  }
+}
+
+.navbar-content {
+  justify-content: space-between;
+  align-items: center;
+  height: 4rem;
+  display: flex;
+}
+
+.navbar-left {
+  justify-content: space-between;
+  align-items: center;
+  gap: .5rem;
+  display: flex;
+}
+
+.icon {
+  width: 2rem;
+  height: 2rem;
+  color: var(--primary);
+}
+
+.logo-text {
+  color: var(--foreground);
+  font-size: 1.25rem;
+}
+
+.navbar-links {
+  align-items: center;
+  gap: 2rem;
+  display: flex;
+}
+
+@media (min-width: 768px) {
+  .navbar-links {
+    display: flex;
+  }
+}
+
+.navbar-links a {
+  color: var(--foreground-muted);
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.navbar-links a:hover {
+  color: var(--foreground);
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  cursor: pointer;
+  border: none;
+  border-radius: .5rem;
+  padding: .5rem 1.5rem;
+  transition: opacity .2s;
+}
+
+.btn-primary:hover {
+  opacity: .9;
+}
+
+/* [project]/src/app/landingpage/components/hero/hero.css [app-client] (css) */
+.hero {
+  padding: 5rem 1rem;
+}
+
+@media (min-width: 640px) {
+  .hero {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.hero-container {
+  text-align: center;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.hero-title {
+  color: var(--foreground);
+  margin-bottom: 1.5rem;
+  font-size: 3rem;
+  line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+  .hero-title {
+    font-size: 3.75rem;
+  }
+}
+
+.hero-description {
+  color: var(--muted-foreground);
+  max-width: 48rem;
+  margin: 0 auto 2.5rem;
+  font-size: 1.25rem;
+  line-height: 1.6;
+}
+
+/* [project]/src/app/landingpage/components/features/features.css [app-client] (css) */
+.features {
+  background-color: #6b72804d;
+  padding: 5rem 1rem;
+}
+
+@media (min-width: 640px) {
+  .features {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .features {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.features-container {
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.features-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.features-title {
+  color: var(--foreground);
+  margin-bottom: 1rem;
+  font-size: 2.25rem;
+}
+
+.features-subtitle {
+  color: var(--muted-foreground);
+  font-size: 1.125rem;
+}
+
+.features-grid {
+  gap: 2rem;
+  display: grid;
+}
+
+@media (min-width: 768px) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .features-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.feature-card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: .75rem;
+  padding: 1.5rem;
+  transition: box-shadow .3s;
+}
+
+.feature-card:hover {
+  box-shadow: 0 10px 20px #00000014;
+}
+
+.feature-icon-box {
+  background-color: #6366f11a;
+  border-radius: .5rem;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+.feature-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--primary);
+}
+
+.feature-title {
+  color: var(--card-foreground);
+  margin-bottom: .5rem;
+}
+
+.feature-text {
+  color: var(--muted-foreground);
+}
+
+/* [project]/src/app/landingpage/components/cta/cta.css [app-client] (css) */
+.cta {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  padding: 5rem 1rem;
+}
+
+@media (min-width: 640px) {
+  .cta {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cta {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.cta-container {
+  text-align: center;
+  max-width: 56rem;
+  margin: 0 auto;
+}
+
+.cta-title {
+  margin-bottom: 1.5rem;
+  font-size: 2.25rem;
+}
+
+.cta-text {
+  opacity: .9;
+  margin-bottom: 2.5rem;
+  font-size: 1.25rem;
+}
+
+.cta-buttons {
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  display: flex;
+}
+
+@media (min-width: 640px) {
+  .cta-buttons {
+    flex-direction: row;
+  }
+}
+
+.cta-btn-primary {
+  background-color: var(--background);
+  color: var(--foreground);
+  cursor: pointer;
+  border: none;
+  border-radius: .5rem;
+  padding: 1rem 2rem;
+  transition: opacity .2s;
+}
+
+.cta-btn-primary:hover {
+  opacity: .9;
+}
+
+.cta-btn-outline {
+  border: 2px solid var(--primary-foreground);
+  color: var(--primary-foreground);
+  cursor: pointer;
+  background: none;
+  border-radius: .5rem;
+  padding: 1rem 2rem;
+  transition: background-color .2s;
+}
+
+.cta-btn-outline:hover {
+  background-color: #ffffff1a;
+}
+
+/* [project]/src/app/landingpage/components/footer/footer.css [app-client] (css) */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 3rem 1rem;
+}
+
+@media (min-width: 640px) {
+  .footer {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.footer-container {
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.footer-grid {
+  gap: 2rem;
+  margin-bottom: 2rem;
+  display: grid;
+}
+
+@media (min-width: 768px) {
+  .footer-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.footer-brand {
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+.footer-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--primary);
+}
+
+.footer-logo {
+  color: var(--foreground);
+}
+
+.footer-text {
+  color: var(--muted-foreground);
+  font-size: .875rem;
+}
+
+.footer-heading {
+  color: var(--foreground);
+  margin-bottom: 1rem;
+}
+
+.footer-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-list li {
+  margin-bottom: .5rem;
+}
+
+.footer-list a {
+  color: var(--muted-foreground);
+  font-size: .875rem;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.footer-list a:hover {
+  color: var(--foreground);
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--border);
+  text-align: center;
+  color: var(--muted-foreground);
+  padding-top: 2rem;
+  font-size: .875rem;
+}
+
+/* [project]/src/app/landingpage/components/benefits/benefits.css [app-client] (css) */
+.about {
+  padding: 5rem 1rem;
+}
+
+@media (min-width: 640px) {
+  .about {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.about-container {
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.about-grid {
+  align-items: center;
+  gap: 3rem;
+  display: grid;
+}
+
+@media (min-width: 768px) {
+  .about-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.about-title {
+  color: var(--foreground);
+  margin-bottom: 1.5rem;
+  font-size: 2.25rem;
+}
+
+.about-description {
+  color: var(--muted-foreground);
+  margin-bottom: 2rem;
+  font-size: 1.125rem;
+}
+
+.about-features {
+  flex-direction: column;
+  gap: 1.5rem;
+  display: flex;
+}
+
+.about-feature {
+  gap: 1rem;
+  display: flex;
+}
+
+.about-icon-box {
+  background-color: #6366f11a;
+  border-radius: .5rem;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+}
+
+.about-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--primary);
+}
+
+.about-feature-title {
+  color: var(--foreground);
+  margin-bottom: .25rem;
+}
+
+.about-feature-text {
+  color: var(--muted-foreground);
+}
+
+.about-stats {
+  border: 1px solid var(--border);
+  background: linear-gradient(to bottom right, #6366f10d, #6366f11a);
+  border-radius: 1rem;
+  padding: 3rem;
+}
+
+.about-stats-inner {
+  flex-direction: column;
+  gap: 2rem;
+  display: flex;
+}
+
+.stat-card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: .5rem;
+  padding: 1.5rem;
+}
+
+.stat-number {
+  color: var(--primary);
+  margin-bottom: .5rem;
+  font-size: 2.25rem;
+}
+
+.stat-label {
+  color: var(--muted-foreground);
+}
+
+/* [project]/src/app/landingpage/page.module.css [app-client] (css) */
+.page-module__wNqTsG__page {
+  background-color: var(--background);
+  min-height: 100vh;
+}
+
+/*# sourceMappingURL=src_app_landingpage_0w23-ij._.css.map*/

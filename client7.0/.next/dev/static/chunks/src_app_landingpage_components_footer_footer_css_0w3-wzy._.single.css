@@ -1,0 +1,94 @@
+/* [project]/src/app/landingpage/components/footer/footer.css [app-client] (css) */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 3rem 1rem;
+}
+
+@media (min-width: 640px) {
+  .footer {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.footer-container {
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.footer-grid {
+  gap: 2rem;
+  margin-bottom: 2rem;
+  display: grid;
+}
+
+@media (min-width: 768px) {
+  .footer-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.footer-brand {
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+.footer-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--primary);
+}
+
+.footer-logo {
+  color: var(--foreground);
+}
+
+.footer-text {
+  color: var(--muted-foreground);
+  font-size: .875rem;
+}
+
+.footer-heading {
+  color: var(--foreground);
+  margin-bottom: 1rem;
+}
+
+.footer-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-list li {
+  margin-bottom: .5rem;
+}
+
+.footer-list a {
+  color: var(--muted-foreground);
+  font-size: .875rem;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.footer-list a:hover {
+  color: var(--foreground);
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--border);
+  text-align: center;
+  color: var(--muted-foreground);
+  padding-top: 2rem;
+  font-size: .875rem;
+}
+
+/*# sourceMappingURL=src_app_landingpage_components_footer_footer_css_0w3-wzy._.single.css.map*/

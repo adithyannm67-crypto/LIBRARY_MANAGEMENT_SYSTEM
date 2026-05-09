@@ -1,0 +1,116 @@
+/* [project]/src/app/landingpage/components/benefits/benefits.css [app-client] (css) */
+.about {
+  padding: 5rem 1rem;
+}
+
+@media (min-width: 640px) {
+  .about {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .about {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.about-container {
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.about-grid {
+  align-items: center;
+  gap: 3rem;
+  display: grid;
+}
+
+@media (min-width: 768px) {
+  .about-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.about-title {
+  color: var(--foreground);
+  margin-bottom: 1.5rem;
+  font-size: 2.25rem;
+}
+
+.about-description {
+  color: var(--muted-foreground);
+  margin-bottom: 2rem;
+  font-size: 1.125rem;
+}
+
+.about-features {
+  flex-direction: column;
+  gap: 1.5rem;
+  display: flex;
+}
+
+.about-feature {
+  gap: 1rem;
+  display: flex;
+}
+
+.about-icon-box {
+  background-color: #6366f11a;
+  border-radius: .5rem;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+}
+
+.about-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--primary);
+}
+
+.about-feature-title {
+  color: var(--foreground);
+  margin-bottom: .25rem;
+}
+
+.about-feature-text {
+  color: var(--muted-foreground);
+}
+
+.about-stats {
+  border: 1px solid var(--border);
+  background: linear-gradient(to bottom right, #6366f10d, #6366f11a);
+  border-radius: 1rem;
+  padding: 3rem;
+}
+
+.about-stats-inner {
+  flex-direction: column;
+  gap: 2rem;
+  display: flex;
+}
+
+.stat-card {
+  background-color: var(--card);
+  border: 1px solid var(--border);
+  border-radius: .5rem;
+  padding: 1.5rem;
+}
+
+.stat-number {
+  color: var(--primary);
+  margin-bottom: .5rem;
+  font-size: 2.25rem;
+}
+
+.stat-label {
+  color: var(--muted-foreground);
+}
+
+/*# sourceMappingURL=src_app_landingpage_components_benefits_benefits_css_0w3-wzy._.single.css.map*/

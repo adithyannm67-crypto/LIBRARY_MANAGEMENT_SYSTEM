@@ -1,0 +1,36 @@
+/* [project]/src/app/dashboard/dashboardContent/page.module.css [app-client] (css) */
+.page-module__9Ezisa__container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.page-module__9Ezisa__content {
+  padding: 32px 0;
+}
+
+@media (min-width: 768px) {
+  .page-module__9Ezisa__statsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.page-module__9Ezisa__mainGrid {
+  grid-template-columns: 1fr;
+  gap: 32px;
+  display: grid;
+}
+
+@media (min-width: 1024px) {
+  .page-module__9Ezisa__mainGrid {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+.page-module__9Ezisa__sidebar {
+  flex-direction: column;
+  gap: 24px;
+  display: flex;
+}
+
+/*# sourceMappingURL=src_app_dashboard_dashboardContent_page_module_css_0w3-wzy._.single.css.map*/

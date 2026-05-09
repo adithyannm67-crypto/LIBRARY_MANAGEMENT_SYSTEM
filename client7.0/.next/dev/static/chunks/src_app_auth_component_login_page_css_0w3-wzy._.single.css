@@ -1,0 +1,160 @@
+/* [project]/src/app/auth/component/login/page.css [app-client] (css) */
+.form {
+  flex-direction: column;
+  gap: 20px;
+  display: flex;
+}
+
+.form-group {
+  flex-direction: column;
+  display: flex;
+}
+
+.label {
+  color: var(--card-foreground);
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.input-wrapper {
+  align-items: center;
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+
+.eye-btn {
+  cursor: pointer;
+  background: none;
+  border: none;
+  position: absolute;
+  right: 10px;
+}
+
+.input-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--muted-foreground);
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+}
+
+.input {
+  background: var(--input-background);
+  border: 1px solid var(--border);
+  width: 100%;
+  color: var(--foreground);
+  border-radius: 8px;
+  outline: none;
+  padding: 12px 16px 12px 44px;
+  transition: all .2s;
+}
+
+.input:focus {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.form-options {
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  display: flex;
+}
+
+.checkbox-label {
+  cursor: pointer;
+  color: var(--muted-foreground);
+  align-items: center;
+  gap: 8px;
+  display: flex;
+}
+
+.checkbox {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  width: 16px;
+  height: 16px;
+}
+
+.forgot-link {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+.submit-btn {
+  background: var(--primary);
+  width: 100%;
+  color: var(--primary-foreground);
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  transition: opacity .2s;
+}
+
+.submit-btn:hover {
+  opacity: .9;
+}
+
+.divider {
+  text-align: center;
+  color: var(--muted-foreground);
+  margin: 24px 0;
+  font-size: 14px;
+  position: relative;
+}
+
+.divider:before {
+  content: "";
+  border-top: 1px solid var(--border);
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.divider span {
+  background: var(--card);
+  padding: 0 16px;
+  position: relative;
+}
+
+.social-buttons {
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  display: grid;
+}
+
+.social-btn {
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  cursor: pointer;
+  background: none;
+  border-radius: 8px;
+  padding: 12px;
+  transition: background .2s;
+}
+
+.social-btn:hover {
+  background: var(--accent);
+}
+
+.errors {
+  color: #b91c1c;
+  background-color: #fee2e2;
+  border: 1px solid #fca5a5;
+  border-radius: 6px;
+  margin-top: 6px;
+  padding: 8px 20px;
+  font-size: .875rem;
+}
+
+/*# sourceMappingURL=src_app_auth_component_login_page_css_0w3-wzy._.single.css.map*/
