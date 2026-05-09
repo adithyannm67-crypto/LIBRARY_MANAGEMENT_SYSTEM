@@ -1,27 +1,39 @@
+"use client";
+
 import style from "./page.module.css";
 import { BookOpen, TrendingUp, Calendar } from "lucide-react";
 import StatCard from "../components/StatCard/page";
+import { useAuth } from "@/app/context/AuthContext";
 
 export default function StatsSection({ borrowedBooks }) {
+  const { totalBorrowsThisYear } = useAuth();
+  const { currentBorrowsCount } = useAuth();
+  const { nearestBorrows } = useAuth();
+  const duedate =
+    nearestBorrows.length > 0 ? nearestBorrows[0].duedate : "No dues";
+  console.log(duedate);
+  const books = nearestBorrows.map((book) => book.title);
   return (
     <div className={style.statsGrid}>
       <StatCard
         icon={BookOpen}
         label="Currently Borrowed"
-        value={borrowedBooks.length}
+        value={currentBorrowsCount}
         subtitle="2 books due this week"
       />
       <StatCard
         icon={TrendingUp}
         label="Books Read This Year"
-        value={12}
-        subtitle="+3 from last month"
+        value={totalBorrowsThisYear}
+        subtitle="need to be updated"
       />
       <StatCard
         icon={Calendar}
         label="Next Due Date"
-        value="Apr 25"
-        subtitle="The Midnight Library"
+        value={duedate}
+        subtitle={books.map((element) => {
+          <span key={element}>{element}</span>;
+        })}
       />
     </div>
   );

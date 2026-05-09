@@ -51,14 +51,7 @@ export async function getFullBorrowRecord(userid) {
        WHERE br.userid = $1`,
       [userid],
     );
-
-    const formattedRows = result.rows.map((record) => ({
-      ...record,
-      returndate: record.returndate?.toISOString().split("T")[0],
-      borrowdate: record.borrowdate?.toISOString().split("T")[0],
-      duedate: record.duedate?.toISOString().split("T")[0],
-    }));
-    return formattedRows;
+    return result.rows;
   } catch (err) {
     const error = new Error("DB Error");
     error.statusCode = 500;

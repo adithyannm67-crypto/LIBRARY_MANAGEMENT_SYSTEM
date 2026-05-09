@@ -5,9 +5,7 @@ import parseBody from "#root/utils/parseBody.js";
 
 // import {bcrypt}  from "bcrypt"
 
-
-export async function login({req}) {
-  
+export async function login({ req }) {
   const body = await parseBody(req);
 
   const { email, password } = body;
@@ -17,17 +15,35 @@ export async function login({req}) {
 
   const user = await getUserDetails(email);
 
+  console.log(user);
+  const {
+    userid,
+    role,
+    name,
+    totalBorrowsThisYear,
+    currentBorrowsCount,
+    nearestBorrows,
+  } = user;
   await passwordVerify(password, user.password);
 
   delete user.password;
 
-  const token = getJWTToken(user);
+  const token = getJWTToken({
+    userid,
+    role,
+    name,
+    email,
+  });
 
   return {
-  
     success: true,
-    data:{token:token},
+    data: {
+      token: token,
+      totalBorrowsThisYear,
+      currentBorrowsCount,
+      nearestBorrows,
+    },
     message: "Login Successfull",
-    error: null
+    error: null,
   };
 }
