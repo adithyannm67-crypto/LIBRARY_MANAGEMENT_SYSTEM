@@ -41,7 +41,7 @@ export async function createBorrowTransaction(userid, bookid, today, status) {
        SET availablecopies = availablecopies - 1 
        WHERE bookid = $1 AND availablecopies > 0 
        RETURNING title, author`,
-      [bookid] ,
+      [bookid],
     );
 
     if (bookResult.rowCount === 0) {
@@ -74,13 +74,16 @@ export async function createBorrowTransaction(userid, bookid, today, status) {
     }
 
     await client.query("COMMIT");
+    console.log(borrowRow);
 
-    const formattedRow ={
+    const formattedRow = {
       ...borrowRow,
       ...bookResult.rows[0],
-      returndate: borrowRow.returndate?.toISOString().split("T")[0],
-      borrowdate: borrowRow.borrowdate?.toISOString().split("T")[0],
-      duedate: borrowRow.duedate?.toISOString().split("T")[0],
+      returndate: borrowRow.returndate
+        ? new Date(borrowRow.returndate).toISOString().split("T")[0]
+        : null,
+      borrowdate: new Date(borrowRow.borrowdate)?.toISOString().split("T")[0],
+      duedate: new Date(borrowRow.duedate)?.toISOString().split("T")[0],
     };
 
     return formattedRow;

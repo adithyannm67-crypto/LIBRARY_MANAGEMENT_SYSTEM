@@ -1,9 +1,7 @@
 import getUserDetails from "./auth.repository.js";
 import passwordVerify from "#root/middleware/validation.middleware.js";
 import { getJWTToken } from "#root/middleware/auth.middleware.js";
-import parseBody from "#root/utils/parseBody.js";
-
-// import {bcrypt}  from "bcrypt"
+import parseBody from "#root/utils/parseBody.js"
 
 export async function login({ req }) {
   const body = await parseBody(req);
@@ -15,7 +13,6 @@ export async function login({ req }) {
 
   const user = await getUserDetails(email);
 
-  console.log(user);
   const {
     userid,
     role,

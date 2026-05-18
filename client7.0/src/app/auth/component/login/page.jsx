@@ -14,18 +14,13 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState();
-  const { setTotalBorrowsThisYear } = useAuth();
-  const { setCurrentBorrowsCount } = useAuth();
-  const { setNearestBorrows } = useAuth();
   const handleLogin = async (e) => {
     e.preventDefault();
 
     const err = await login(
       email,
       password,
-      setTotalBorrowsThisYear,
-      setCurrentBorrowsCount,
-      setNearestBorrows,
+    
     );
     if (err.length > 0) {
       setErrors(err);

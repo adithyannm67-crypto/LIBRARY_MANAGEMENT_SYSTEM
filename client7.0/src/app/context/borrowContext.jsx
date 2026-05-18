@@ -25,6 +25,7 @@ export function BorrowProvider({ children }) {
       setBorrowedBooks(data);
     }
     fetchBorrowedData();
+    
   }, [user]);
   
   function addBorrowedBook(book) {

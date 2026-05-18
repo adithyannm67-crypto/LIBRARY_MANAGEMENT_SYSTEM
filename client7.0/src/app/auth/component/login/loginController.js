@@ -1,12 +1,6 @@
 import { isEmailValid, isPasswordValid } from "../validator";
 
-export default async function login(
-  email,
-  password,
-  setTotalBorrowsThisYear,
-  setCurrentBorrowsCount,
-  setNearestBorrows,
-) {
+export default async function login(email, password) {
   let err = [];
   if (!isEmailValid(email)) {
     err.push("Email is not valid");
@@ -16,22 +10,10 @@ export default async function login(
   }
 
   if (err.length > 0) return err;
-  return await userVerfy(
-    email,
-    password,
-    setTotalBorrowsThisYear,
-    setCurrentBorrowsCount,
-    setNearestBorrows,
-  );
+  return await userVerfy(email, password);
 }
 
-async function userVerfy(
-  email,
-  password,
-  setTotalBorrowsThisYear,
-  setCurrentBorrowsCount,
-  setNearestBorrows,
-) {
+async function userVerfy(email, password) {
   try {
     const res = await fetch("http://localhost:5000/api/login/", {
       method: "POST",
@@ -50,10 +32,6 @@ async function userVerfy(
       return [body?.message || "Login failed"];
     }
     localStorage.setItem("token", body.data.token);
-
-    setTotalBorrowsThisYear(body.data.totalBorrowsThisYear);
-    setCurrentBorrowsCount(body.data.currentBorrowsCount);
-    setNearestBorrows(body.data.nearestBorrows);
 
     return [];
   } catch (e) {

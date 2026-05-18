@@ -1,0 +1,10 @@
+/* [project]/src/app/dashboard/catalog/page.module.css [app-client] (css) */
+.page-module__yZWlAq__bookList {
+  flex-direction: column;
+  gap: 16px;
+  height: 100vh;
+  display: flex;
+  overflow-y: auto;
+}
+
+/*# sourceMappingURL=src_app_dashboard_catalog_page_module_css_0w3-wzy._.single.css.map*/

@@ -29,7 +29,7 @@ __turbopack_context__.s([
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$auth$2f$component$2f$validator$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/app/auth/component/validator.js [app-client] (ecmascript)");
 ;
-async function login(email, password, setTotalBorrowsThisYear, setCurrentBorrowsCount, setNearestBorrows) {
+async function login(email, password) {
     let err = [];
     if (!(0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$auth$2f$component$2f$validator$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["isEmailValid"])(email)) {
         err.push("Email is not valid");
@@ -38,9 +38,9 @@ async function login(email, password, setTotalBorrowsThisYear, setCurrentBorrows
         err.push("Password is not valid");
     }
     if (err.length > 0) return err;
-    return await userVerfy(email, password, setTotalBorrowsThisYear, setCurrentBorrowsCount, setNearestBorrows);
+    return await userVerfy(email, password);
 }
-async function userVerfy(email, password, setTotalBorrowsThisYear, setCurrentBorrowsCount, setNearestBorrows) {
+async function userVerfy(email, password) {
     try {
         const res = await fetch("http://localhost:5000/api/login/", {
             method: "POST",
@@ -60,9 +60,6 @@ async function userVerfy(email, password, setTotalBorrowsThisYear, setCurrentBor
             ];
         }
         localStorage.setItem("token", body.data.token);
-        setTotalBorrowsThisYear(body.data.totalBorrowsThisYear);
-        setCurrentBorrowsCount(body.data.currentBorrowsCount);
-        setNearestBorrows(body.data.nearestBorrows);
         return [];
     } catch (e) {
         console.error(e.message);
@@ -107,12 +104,9 @@ function Login() {
     const [email, setEmail] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     const [showPassword, setShowPassword] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [errors, setErrors] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])();
-    const { setTotalBorrowsThisYear } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$context$2f$AuthContext$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"])();
-    const { setCurrentBorrowsCount } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$context$2f$AuthContext$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"])();
-    const { setNearestBorrows } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$context$2f$AuthContext$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"])();
     const handleLogin = async (e)=>{
         e.preventDefault();
-        const err = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$auth$2f$component$2f$login$2f$loginController$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(email, password, setTotalBorrowsThisYear, setCurrentBorrowsCount, setNearestBorrows);
+        const err = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$auth$2f$component$2f$login$2f$loginController$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"])(email, password);
         if (err.length > 0) {
             setErrors(err);
             return;
@@ -132,7 +126,7 @@ function Login() {
                         children: "Email"
                     }, void 0, false, {
                         fileName: "[project]/src/app/auth/component/login/page.jsx",
-                        lineNumber: 42,
+                        lineNumber: 37,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -142,7 +136,7 @@ function Login() {
                                 className: "input-icon"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/auth/component/login/page.jsx",
-                                lineNumber: 44,
+                                lineNumber: 39,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -153,19 +147,19 @@ function Login() {
                                 onChange: (e)=>setEmail(e.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/auth/component/login/page.jsx",
-                                lineNumber: 45,
+                                lineNumber: 40,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/auth/component/login/page.jsx",
-                        lineNumber: 43,
+                        lineNumber: 38,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/auth/component/login/page.jsx",
-                lineNumber: 41,
+                lineNumber: 36,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -176,7 +170,7 @@ function Login() {
                         children: "Password"
                     }, void 0, false, {
                         fileName: "[project]/src/app/auth/component/login/page.jsx",
-                        lineNumber: 57,
+                        lineNumber: 52,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -186,7 +180,7 @@ function Login() {
                                 className: "input-icon"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/auth/component/login/page.jsx",
-                                lineNumber: 59,
+                                lineNumber: 54,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -197,7 +191,7 @@ function Login() {
                                 onChange: (e)=>setPassword(e.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/auth/component/login/page.jsx",
-                                lineNumber: 60,
+                                lineNumber: 55,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -208,30 +202,30 @@ function Login() {
                                     size: 18
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/auth/component/login/page.jsx",
-                                    lineNumber: 72,
+                                    lineNumber: 67,
                                     columnNumber: 29
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$eye$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Eye$3e$__["Eye"], {
                                     size: 18
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/auth/component/login/page.jsx",
-                                    lineNumber: 72,
+                                    lineNumber: 67,
                                     columnNumber: 52
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/auth/component/login/page.jsx",
-                                lineNumber: 67,
+                                lineNumber: 62,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/auth/component/login/page.jsx",
-                        lineNumber: 58,
+                        lineNumber: 53,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/auth/component/login/page.jsx",
-                lineNumber: 56,
+                lineNumber: 51,
                 columnNumber: 7
             }, this),
             errors && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -240,12 +234,12 @@ function Login() {
                         children: error
                     }, index, false, {
                         fileName: "[project]/src/app/auth/component/login/page.jsx",
-                        lineNumber: 81,
+                        lineNumber: 76,
                         columnNumber: 13
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/app/auth/component/login/page.jsx",
-                lineNumber: 79,
+                lineNumber: 74,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -259,20 +253,20 @@ function Login() {
                                 className: "checkbox"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/auth/component/login/page.jsx",
-                                lineNumber: 89,
+                                lineNumber: 84,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                 children: "Remember me"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/auth/component/login/page.jsx",
-                                lineNumber: 90,
+                                lineNumber: 85,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/auth/component/login/page.jsx",
-                        lineNumber: 88,
+                        lineNumber: 83,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -281,13 +275,13 @@ function Login() {
                         children: "Forgot password?"
                     }, void 0, false, {
                         fileName: "[project]/src/app/auth/component/login/page.jsx",
-                        lineNumber: 93,
+                        lineNumber: 88,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/auth/component/login/page.jsx",
-                lineNumber: 87,
+                lineNumber: 82,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -296,7 +290,7 @@ function Login() {
                 children: "Sign In"
             }, void 0, false, {
                 fileName: "[project]/src/app/auth/component/login/page.jsx",
-                lineNumber: 99,
+                lineNumber: 94,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -305,12 +299,12 @@ function Login() {
                     children: "Or continue with"
                 }, void 0, false, {
                     fileName: "[project]/src/app/auth/component/login/page.jsx",
-                    lineNumber: 105,
+                    lineNumber: 100,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/app/auth/component/login/page.jsx",
-                lineNumber: 104,
+                lineNumber: 99,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -322,7 +316,7 @@ function Login() {
                         children: "Google"
                     }, void 0, false, {
                         fileName: "[project]/src/app/auth/component/login/page.jsx",
-                        lineNumber: 110,
+                        lineNumber: 105,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -331,28 +325,25 @@ function Login() {
                         children: "Microsoft"
                     }, void 0, false, {
                         fileName: "[project]/src/app/auth/component/login/page.jsx",
-                        lineNumber: 113,
+                        lineNumber: 108,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/auth/component/login/page.jsx",
-                lineNumber: 109,
+                lineNumber: 104,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/auth/component/login/page.jsx",
-        lineNumber: 39,
+        lineNumber: 34,
         columnNumber: 5
     }, this);
 }
-_s(Login, "zPg7/OLrPaXQ00MTr9Agyu7U2Bw=", false, function() {
+_s(Login, "OtBTICTBDCR5NuSvIz5k8M1bnGA=", false, function() {
     return [
-        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
-        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$context$2f$AuthContext$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"],
-        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$context$2f$AuthContext$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"],
-        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$context$2f$AuthContext$2e$jsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useAuth"]
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
     ];
 });
 _c = Login;

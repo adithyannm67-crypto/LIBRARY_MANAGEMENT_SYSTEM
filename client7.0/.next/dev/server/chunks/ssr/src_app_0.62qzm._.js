@@ -580,7 +580,7 @@ function BorrowProvider({ children }) {
         children: children
     }, void 0, false, {
         fileName: "[project]/src/app/context/borrowContext.jsx",
-        lineNumber: 45,
+        lineNumber: 46,
         columnNumber: 5
     }, this);
 }
@@ -607,7 +607,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$context$2f$bor
 ;
 ;
 ;
-function Popup({ book, isOpen, onClose }) {
+function Popup({ setBorrowedBooks, setTotalBorrowsThisYear, setCurrentBorrowsCount, setNearestBorrows, book, isOpen, onClose }) {
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const { addBorrowedBook } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$context$2f$borrowContext$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useBorrow"])();
     async function handleBorrow() {
@@ -616,6 +616,7 @@ function Popup({ book, isOpen, onClose }) {
         const id = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["toast"].loading("Borrowing Book...");
         try {
             const { success, message, data } = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$dashboard$2f$dashboardContent$2f$Actions$2f$borrow$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"])(book.bookid);
+            console.log(data);
             __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["toast"].dismiss(id);
             if (success) {
                 onClose();
@@ -624,7 +625,26 @@ function Popup({ book, isOpen, onClose }) {
             } else {
                 __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["toast"].error(message);
             }
-        } catch (err) {
+            setCurrentBorrowsCount((prev)=>prev + 1);
+            setBorrowedBooks((prev)=>[
+                    ...prev,
+                    data
+                ]);
+            setTotalBorrowsThisYear((prev)=>prev + 1);
+            //Need to consider the case :  " if the user is on dec 31 and opens the site for borrowing the book on jan 1st. then the totlalBorrowsThisYear should be 1. As of now it will be added to the previous year."
+            setNearestBorrows((prev)=>prev[0].duedate < data.duedate ? [
+                    data
+                ] : [
+                    ...prev,
+                    data
+                ]);
+        /* 
+      when the book is borrowed the nearest is updated to latest borrow....
+      when refreshes it will be the min date (earler dues)...This neeeds to be addressed...
+      i should create a good ui for the nearest borrow stats card to dues in different scenarios...
+      (eg: if upcoming exists....if all are overdue ,etc)
+      chatgpt: due date logic update
+      */ } catch (err) {
             // setLoading(false);
             __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["toast"].error("Book Borrow Failed");
         } finally{
@@ -646,7 +666,7 @@ function Popup({ book, isOpen, onClose }) {
                     children: book.title
                 }, void 0, false, {
                     fileName: "[project]/src/app/dashboard/dashboardContent/components/RecommendedBook/popup.jsx",
-                    lineNumber: 46,
+                    lineNumber: 70,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -654,7 +674,7 @@ function Popup({ book, isOpen, onClose }) {
                     children: book.author
                 }, void 0, false, {
                     fileName: "[project]/src/app/dashboard/dashboardContent/components/RecommendedBook/popup.jsx",
-                    lineNumber: 48,
+                    lineNumber: 72,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -662,7 +682,7 @@ function Popup({ book, isOpen, onClose }) {
                     children: "Do you want to borrow this book?"
                 }, void 0, false, {
                     fileName: "[project]/src/app/dashboard/dashboardContent/components/RecommendedBook/popup.jsx",
-                    lineNumber: 50,
+                    lineNumber: 74,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -674,7 +694,7 @@ function Popup({ book, isOpen, onClose }) {
                             children: "Cancel"
                         }, void 0, false, {
                             fileName: "[project]/src/app/dashboard/dashboardContent/components/RecommendedBook/popup.jsx",
-                            lineNumber: 53,
+                            lineNumber: 77,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -684,24 +704,24 @@ function Popup({ book, isOpen, onClose }) {
                             children: "Borrow"
                         }, void 0, false, {
                             fileName: "[project]/src/app/dashboard/dashboardContent/components/RecommendedBook/popup.jsx",
-                            lineNumber: 57,
+                            lineNumber: 81,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/dashboard/dashboardContent/components/RecommendedBook/popup.jsx",
-                    lineNumber: 52,
+                    lineNumber: 76,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/dashboard/dashboardContent/components/RecommendedBook/popup.jsx",
-            lineNumber: 45,
+            lineNumber: 69,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/dashboard/dashboardContent/components/RecommendedBook/popup.jsx",
-        lineNumber: 44,
+        lineNumber: 68,
         columnNumber: 5
     }, this);
 }
@@ -725,19 +745,16 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$dashboard$2f$d
 ;
 ;
 ;
-function RecommendationsSection({ user }) {
+function RecommendationsSection({ setBorrowedBooks, setTotalBorrowsThisYear, setCurrentBorrowsCount, setNearestBorrows }) {
     const [availableBooks, setAvailableBooks] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [selectedBook, setSelectedBook] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        if (!user) return;
         async function fetchData() {
             const data = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$dashboard$2f$dashboardContent$2f$Actions$2f$AvailableBooks$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"])();
             setAvailableBooks(data);
         }
         fetchData();
-    }, [
-        user
-    ]);
+    }, []);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$dashboard$2f$dashboardContent$2f$sections$2f$page$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].card,
         children: [
@@ -746,7 +763,7 @@ function RecommendationsSection({ user }) {
                 children: "Recommended for You"
             }, void 0, false, {
                 fileName: "[project]/src/app/dashboard/dashboardContent/sections/recommendation.jsx",
-                lineNumber: 28,
+                lineNumber: 26,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -756,27 +773,31 @@ function RecommendationsSection({ user }) {
                         ...book
                     }, book.bookid, false, {
                         fileName: "[project]/src/app/dashboard/dashboardContent/sections/recommendation.jsx",
-                        lineNumber: 32,
+                        lineNumber: 30,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/app/dashboard/dashboardContent/sections/recommendation.jsx",
-                lineNumber: 30,
+                lineNumber: 28,
                 columnNumber: 7
             }, this),
             selectedBook && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$dashboard$2f$dashboardContent$2f$components$2f$RecommendedBook$2f$popup$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                setBorrowedBooks: setBorrowedBooks,
+                setCurrentBorrowsCount: setCurrentBorrowsCount,
+                setTotalBorrowsThisYear: setTotalBorrowsThisYear,
+                setNearestBorrows: setNearestBorrows,
                 book: selectedBook,
                 isOpen: !!selectedBook,
                 onClose: ()=>setSelectedBook(null)
             }, void 0, false, {
                 fileName: "[project]/src/app/dashboard/dashboardContent/sections/recommendation.jsx",
-                lineNumber: 41,
+                lineNumber: 39,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/dashboard/dashboardContent/sections/recommendation.jsx",
-        lineNumber: 27,
+        lineNumber: 25,
         columnNumber: 5
     }, this);
 }
@@ -886,17 +907,12 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trending$2d$up$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__TrendingUp$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/trending-up.mjs [app-ssr] (ecmascript) <export default as TrendingUp>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$calendar$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Calendar$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/calendar.mjs [app-ssr] (ecmascript) <export default as Calendar>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$dashboard$2f$dashboardContent$2f$components$2f$StatCard$2f$page$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/app/dashboard/dashboardContent/components/StatCard/page.jsx [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$context$2f$AuthContext$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/app/context/AuthContext.jsx [app-ssr] (ecmascript)");
 "use client";
 ;
 ;
 ;
 ;
-;
-function StatsSection({ borrowedBooks }) {
-    const { totalBorrowsThisYear } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$context$2f$AuthContext$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useAuth"])();
-    const { currentBorrowsCount } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$context$2f$AuthContext$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useAuth"])();
-    const { nearestBorrows } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$context$2f$AuthContext$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useAuth"])();
+function StatsSection({ totalBorrowsThisYear, currentBorrowsCount, nearestBorrows }) {
     const duedate = nearestBorrows.length > 0 ? nearestBorrows[0].duedate : "No dues";
     console.log(duedate);
     const books = nearestBorrows.map((book)=>book.title);
@@ -907,7 +923,7 @@ function StatsSection({ borrowedBooks }) {
                 icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$book$2d$open$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__BookOpen$3e$__["BookOpen"],
                 label: "Currently Borrowed",
                 value: currentBorrowsCount,
-                subtitle: "2 books due this week"
+                subtitle: "How many books are in this week?"
             }, void 0, false, {
                 fileName: "[project]/src/app/dashboard/dashboardContent/sections/stats.jsx",
                 lineNumber: 18,
@@ -928,12 +944,15 @@ function StatsSection({ borrowedBooks }) {
                 label: "Next Due Date",
                 value: duedate,
                 subtitle: books.map((element)=>{
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                        children: element
-                    }, element, false, {
+                    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        children: [
+                            element,
+                            ","
+                        ]
+                    }, element, true, {
                         fileName: "[project]/src/app/dashboard/dashboardContent/sections/stats.jsx",
                         lineNumber: 35,
-                        columnNumber: 11
+                        columnNumber: 18
                     }, this);
                 })
             }, void 0, false, {
@@ -1086,8 +1105,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$dashboard$2f$d
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$dashboard$2f$dashboardContent$2f$sections$2f$recommendation$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/app/dashboard/dashboardContent/sections/recommendation.jsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$dashboard$2f$dashboardContent$2f$sections$2f$stats$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/app/dashboard/dashboardContent/sections/stats.jsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$dashboard$2f$dashboardContent$2f$sections$2f$header$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/app/dashboard/dashboardContent/sections/header.jsx [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$context$2f$borrowContext$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/app/context/borrowContext.jsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$context$2f$AuthContext$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/app/context/AuthContext.jsx [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
+"use client";
 ;
 ;
 ;
@@ -1099,7 +1119,37 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$context$2f$Aut
 ;
 function DashboardContent() {
     const { user } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$context$2f$AuthContext$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useAuth"])();
-    const { borrowedBooks } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$context$2f$borrowContext$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useBorrow"])();
+    const [borrowedBooks, setBorrowedBooks] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [totalBorrowsThisYear, setTotalBorrowsThisYear] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(0);
+    const [currentBorrowsCount, setCurrentBorrowsCount] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(0);
+    const [nearestBorrows, setNearestBorrows] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
+    //look recommnedation/popup for creating good ui for  nearest borrow
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        async function loadDashBoardData() {
+            if (!user) return;
+            const token = localStorage.getItem("token");
+            try {
+                const res = await fetch(`http://localhost:5000/api/loadDashboard/`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                    method: "GET"
+                });
+                const body = await res.json();
+                if (!body) throw new Error("fetching Failed");
+                console.log(body);
+                setBorrowedBooks(body.data.currentBorrows);
+                setTotalBorrowsThisYear(body.data.totalBorrowsThisYear);
+                setCurrentBorrowsCount(body.data.currentBorrowsCount);
+                setNearestBorrows(body.data.nearestBorrows);
+            } catch (e) {
+                console.error(e);
+            }
+        }
+        loadDashBoardData();
+    }, [
+        user
+    ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$dashboard$2f$dashboardContent$2f$page$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].container,
         children: [
@@ -1107,17 +1157,19 @@ function DashboardContent() {
                 user: user
             }, void 0, false, {
                 fileName: "[project]/src/app/dashboard/dashboardContent/page.jsx",
-                lineNumber: 20,
+                lineNumber: 50,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: `${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$dashboard$2f$dashboardContent$2f$page$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].containerInner} ${__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$dashboard$2f$dashboardContent$2f$page$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].content}`,
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$dashboard$2f$dashboardContent$2f$sections$2f$stats$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                        borrowedBooks: borrowedBooks
+                        totalBorrowsThisYear: totalBorrowsThisYear,
+                        currentBorrowsCount: currentBorrowsCount,
+                        nearestBorrows: nearestBorrows
                     }, void 0, false, {
                         fileName: "[project]/src/app/dashboard/dashboardContent/page.jsx",
-                        lineNumber: 23,
+                        lineNumber: 53,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1127,46 +1179,49 @@ function DashboardContent() {
                                 borrowedBooks: borrowedBooks
                             }, void 0, false, {
                                 fileName: "[project]/src/app/dashboard/dashboardContent/page.jsx",
-                                lineNumber: 26,
+                                lineNumber: 60,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$dashboard$2f$dashboardContent$2f$page$2e$module$2e$css__$5b$app$2d$ssr$5d$__$28$css__module$29$__["default"].sidebar,
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$dashboard$2f$dashboardContent$2f$sections$2f$recommendation$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                        user: user
+                                        setBorrowedBooks: setBorrowedBooks,
+                                        setCurrentBorrowsCount: setCurrentBorrowsCount,
+                                        setTotalBorrowsThisYear: setTotalBorrowsThisYear,
+                                        setNearestBorrows: setNearestBorrows
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/dashboardContent/page.jsx",
-                                        lineNumber: 29,
+                                        lineNumber: 63,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$app$2f$dashboard$2f$dashboardContent$2f$sections$2f$Reading$2e$jsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                         fileName: "[project]/src/app/dashboard/dashboardContent/page.jsx",
-                                        lineNumber: 31,
+                                        lineNumber: 70,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/dashboard/dashboardContent/page.jsx",
-                                lineNumber: 28,
+                                lineNumber: 62,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/dashboard/dashboardContent/page.jsx",
-                        lineNumber: 25,
+                        lineNumber: 59,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/dashboard/dashboardContent/page.jsx",
-                lineNumber: 22,
+                lineNumber: 52,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/dashboard/dashboardContent/page.jsx",
-        lineNumber: 19,
+        lineNumber: 49,
         columnNumber: 5
     }, this);
 }

@@ -12,6 +12,7 @@ export default async function handlerFunction(req) {
     }
 
     const { route, params } = match;
+    
     console.log("Incoming:", route.method, route.path);
     let user = null;
     if (route.isProtected) {

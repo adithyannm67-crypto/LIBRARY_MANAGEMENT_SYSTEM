@@ -11,16 +11,6 @@ export function AppDataProvider({ children }) {
   useEffect(() => {
     console.log("BOrrowRecord fetching..");
     if (!user) return;
-    async function fetchBorrowedData() {
-        let cached=JSON.parse(localStorage.getItem("borrowedBooks"));
-        if(cached){
-          return
-        }
-      let data = await fetchBorrowedBooks();
-      data = data.filter((book) => !book.returndate);
-      localStorage.setItem("borrowedBooks", JSON.stringify(data));
-    }
-    fetchBorrowedData();
   }, [user]);
 
   return (

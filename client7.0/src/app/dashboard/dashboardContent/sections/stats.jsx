@@ -3,12 +3,12 @@
 import style from "./page.module.css";
 import { BookOpen, TrendingUp, Calendar } from "lucide-react";
 import StatCard from "../components/StatCard/page";
-import { useAuth } from "@/app/context/AuthContext";
 
-export default function StatsSection({ borrowedBooks }) {
-  const { totalBorrowsThisYear } = useAuth();
-  const { currentBorrowsCount } = useAuth();
-  const { nearestBorrows } = useAuth();
+export default function StatsSection({
+  totalBorrowsThisYear,
+  currentBorrowsCount,
+  nearestBorrows,
+}) {
   const duedate =
     nearestBorrows.length > 0 ? nearestBorrows[0].duedate : "No dues";
   console.log(duedate);
@@ -19,7 +19,7 @@ export default function StatsSection({ borrowedBooks }) {
         icon={BookOpen}
         label="Currently Borrowed"
         value={currentBorrowsCount}
-        subtitle="2 books due this week"
+        subtitle="How many books are in this week?"
       />
       <StatCard
         icon={TrendingUp}
@@ -32,7 +32,7 @@ export default function StatsSection({ borrowedBooks }) {
         label="Next Due Date"
         value={duedate}
         subtitle={books.map((element) => {
-          <span key={element}>{element}</span>;
+          return <span key={element}>{element},</span>;
         })}
       />
     </div>

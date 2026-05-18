@@ -4,23 +4,23 @@ import {
 } from "#root/modules/borrow/borrow.controller.js";
 import {
   getAllBooks,
-  getBorrowedBooks,
-  getFullBorrows
+  getFullBorrows,
 } from "#root/modules/book/book.controller.js";
+import { getDashBoarddata } from "#root/modules/user/user.controller.js";
 import { login } from "#root/modules/auth/auth.controller.js";
 
 const routes = [
   {
     method: "GET",
-    path: "api/allbooks/",
-    handler: getAllBooks,
-    isProtected: false,
+    path: "api/loadDashboard/",
+    handler: getDashBoarddata,
+    isProtected: true,
   },
   {
     method: "GET",
-    path: "api/borrowedbooks/",
-    handler: getBorrowedBooks,
-    isProtected: true,
+    path: "api/allbooks/",
+    handler: getAllBooks,
+    isProtected: false,
   },{
     method: "GET",
     path: "api/borrowCatalogue/",
