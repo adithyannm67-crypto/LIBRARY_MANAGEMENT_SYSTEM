@@ -1,5 +1,4 @@
-import { error } from "console";
-import { getBookDetails,getFullBorrowRecord } from "./book.repository.js";
+import { getBookDetails, getFullBorrowRecord } from "./book.repository.js";
 
 export async function getAllBooks() {
   const books = await getBookDetails();

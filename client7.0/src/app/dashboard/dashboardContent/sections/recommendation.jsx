@@ -26,13 +26,14 @@ export default function RecommendationsSection({
       <h3 className={style.cardTitle}>Recommended for You</h3>
 
       <div className={style.recommendList}>
-        {availableBooks.map((book) => (
-          <AvailableBookCard
-            onClick={() => setSelectedBook(book)}
-            key={book.bookid}
-            {...book}
-          />
-        ))}
+        {availableBooks &&
+          availableBooks.map((book) => (
+            <AvailableBookCard
+              onClick={() => setSelectedBook(book)}
+              key={book.bookid}
+              {...book}
+            />
+          ))}
       </div>
 
       {selectedBook && (

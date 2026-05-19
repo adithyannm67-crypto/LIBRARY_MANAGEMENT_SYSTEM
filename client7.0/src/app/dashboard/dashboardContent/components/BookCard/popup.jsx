@@ -1,10 +1,9 @@
 "use client";
 
 import styles from "./page.module.css";
-import borrowBook from "../../Actions/borrow";
+import returnBook from "../../Actions/return";
 import { toast } from "react-hot-toast";
 import { useState } from "react";
-
 
 export default function Popup({
   setBorrowedBooks,
@@ -16,42 +15,33 @@ export default function Popup({
   onClose,
 }) {
   const [loading, setLoading] = useState(false);
-  
-  async function handleBorrow() {
+  async function handleReturn() {
     if (loading) return;
 
     setLoading(true);
 
-    const id = toast.loading("Borrowing Book...");
+    const id = toast.loading("Returning Book...");
 
     try {
-      const { success, message, data } = await borrowBook(book.bookid);
-      if(!success) throw new Error(message);
+      const borrowid = book.borrowid;
+      const { success, message, data } = await returnBook(borrowid);
+      if (!success) throw new Error(message);
 
       toast.dismiss(id);
 
       if (success) {
         onClose();
         toast.success(message);
-
       } else {
         toast.error(message);
       }
-      setCurrentBorrowsCount((prev) => prev + 1);
-      setBorrowedBooks((prev) => [...prev, data]);
-      setTotalBorrowsThisYear((prev) => prev + 1);
+      setCurrentBorrowsCount((prev) => prev - 1);
+      setBorrowedBooks((prev) => prev.filter((b) => b.borrowid !== borrowid));
+      setTotalBorrowsThisYear((prev) => prev - 1);
       //Need to consider the case :  " if the user is on dec 31 and opens the site for borrowing the book on jan 1st. then the totlalBorrowsThisYear should be 1. As of now it will be added to the previous year."
-      setNearestBorrows((prev) => {
-        if (prev.length > 0) {
-          return new Date(prev.duedate) < new Date(data.duedate)
-            ? [data]
-            : [...prev, data];
-        } else {
-          return [data];
-        }
-      });
-
-    
+      setNearestBorrows(
+        (prev) => (prev = prev.filter((b) => b.borrowid !== borrowid)),
+      );
     } catch (err) {
       // setLoading(false);
       toast.error(err.message);
@@ -62,6 +52,7 @@ export default function Popup({
     //An invoice generation code goes here
   }
   if (!isOpen) return null;
+  console.log(book);
 
   return (
     <div className={styles.overlay} onClick={onClose}>
@@ -70,7 +61,7 @@ export default function Popup({
 
         <p className={styles.author}>{book.author}</p>
 
-        <p className={styles.message}>Do you want to borrow this book?</p>
+        <p className={styles.message}>Do you want to return this book?</p>
 
         <div className={styles.actions}>
           <button className={styles.btn} onClick={onClose}>
@@ -78,11 +69,11 @@ export default function Popup({
           </button>
 
           <button
-            className={styles.btn + " " + styles.borrow}
-            onClick={handleBorrow}
+            className={`${styles.btn} ${styles.returnBtn}`}
+            onClick={handleReturn}
             disabled={loading}
           >
-            Borrow
+            Return
           </button>
         </div>
       </div>

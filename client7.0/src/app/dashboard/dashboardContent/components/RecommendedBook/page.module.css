@@ -1,0 +1,127 @@
+/* Container */
+.recItem {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.recItem:hover {
+  background: var(--accent);
+}
+
+/* Cover */
+.recCover {
+
+  width: 80px;
+  height: 112px;
+   background: #ccc32f;
+  border-radius: 4px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Content */
+.recContent {
+  flex: 1;
+  min-width: 0; /* VERY IMPORTANT for truncate */
+}
+
+/* Title */
+.recTitle {
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Author */
+.recAuthor {
+  font-size: 14px;
+  color: var(--muted-foreground);
+  margin-bottom: 4px;
+}
+
+/* Meta row */
+.recMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+/* Genre */
+.recGenre {
+  font-size: 12px;
+  color: var(--muted-foreground);
+}
+
+
+
+/*POP UP*/
+/* fixed inset-0 bg-black/50 flex items-center justify-center z-50 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+/* bg-white p-6 rounded-lg w-80 shadow-lg */
+.modal {
+  background: white;
+  padding: 24px; /* p-6 */
+  border-radius: 8px; /* rounded-lg */
+  width: 320px; /* w-80 */
+  box-shadow: 0 10px 15px rgba(0,0,0,0.2); /* shadow-lg */
+}
+
+/* text-lg font-semibold mb-2 */
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* text-sm text-gray-600 mb-4 */
+.author {
+  font-size: 14px;
+  color: #4b5563; /* gray-600 */
+  margin-bottom: 16px;
+}
+
+/* mb-6 */
+.message {
+  margin-bottom: 24px;
+}
+
+/* flex justify-end gap-3 */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* px-3 py-1 border rounded */
+.btn {
+  padding: 4px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  background: white;
+}
+
+/* bg-black text-white */
+.borrow {
+  background: black;
+  color: white;
+  border: none;
+}

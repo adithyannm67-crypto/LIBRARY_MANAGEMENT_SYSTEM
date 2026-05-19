@@ -8,10 +8,15 @@ export default function StatsSection({
   totalBorrowsThisYear,
   currentBorrowsCount,
   nearestBorrows,
+  borrowedBooks,
 }) {
-  const duedate =
-    nearestBorrows.length > 0 ? nearestBorrows[0].duedate : "No dues";
-  console.log(duedate);
+  const hasUpComing = nearestBorrows.length > 0;
+  const duedate = hasUpComing ? nearestBorrows[0].duedate : null;
+
+  const noOfOverdue = borrowedBooks.filter(
+    (book) => new Date(book.duedate) < new Date(),
+  ).length;
+
   const books = nearestBorrows.map((book) => book.title);
   return (
     <div className={style.statsGrid}>
@@ -25,15 +30,26 @@ export default function StatsSection({
         icon={TrendingUp}
         label="Books Read This Year"
         value={totalBorrowsThisYear}
-        subtitle="need to be updated"
+        subtitle="Books read this month"
       />
       <StatCard
         icon={Calendar}
-        label="Next Due Date"
-        value={duedate}
-        subtitle={books.map((element) => {
-          return <span key={element}>{element},</span>;
-        })}
+        label="Next Return"
+        value={hasUpComing ? duedate : "Nothing to Return"}
+        subtitle={
+          hasUpComing
+            ? books.map((element, index) => {
+                return (
+                  <span key={element}>
+                    {element}
+                    {index !== books.length - 1 && " | "}
+                  </span>
+                );
+              })
+            : noOfOverdue > 0 && (
+                <span className={style.overdue}>{noOfOverdue} overdue</span>
+              )
+        }
       />
     </div>
   );

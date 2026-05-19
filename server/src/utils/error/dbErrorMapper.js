@@ -17,6 +17,6 @@ export default function dbErrorMapper(err) {
         code: err.code,
         message: err.message,
       });
-      return new AppError("Internal Server Error", 500);
+      return err;
   }
 }

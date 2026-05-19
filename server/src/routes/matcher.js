@@ -1,19 +1,19 @@
 import {
-  borrowBook,
-  returnBook,
+  borrowBookController,
+  returnBookController,
 } from "#root/modules/borrow/borrow.controller.js";
 import {
   getAllBooks,
   getFullBorrows,
 } from "#root/modules/book/book.controller.js";
-import { getDashBoarddata } from "#root/modules/user/user.controller.js";
-import { login } from "#root/modules/auth/auth.controller.js";
+import {  getDashBoarddataController } from "#root/modules/user/user.controller.js";
+import { loginController } from "#root/modules/auth/auth.controller.js";
 
 const routes = [
   {
     method: "GET",
     path: "api/loadDashboard/",
-    handler: getDashBoarddata,
+    handler: getDashBoarddataController,
     isProtected: true,
   },
   {
@@ -30,19 +30,19 @@ const routes = [
   {
     method: "POST",
     path: "api/borrow/:bookid/",
-    handler: borrowBook,
+    handler: borrowBookController,
     isProtected: true,
   },
   {
     method: "POST",
     path: "api/returnbook/:borrowid/",
-    handler: returnBook,
+    handler: returnBookController,
     isProtected: true,
   },
   {
     method: "POST",
     path: "api/login/",
-    handler: login,
+    handler: loginController,
     isProtected: false,
   },
 ];

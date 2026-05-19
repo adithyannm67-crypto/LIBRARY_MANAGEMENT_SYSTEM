@@ -1,6 +1,6 @@
-
 import { authenticate } from "../middleware/auth.middleware.js";
 import { matchRoute } from "./matcher.js";
+import dbErrorMapper from "../utils/error/dbErrorMapper.js";
 export default async function handlerFunction(req) {
   try {
     const match = matchRoute(req);
@@ -12,7 +12,7 @@ export default async function handlerFunction(req) {
     }
 
     const { route, params } = match;
-    
+
     console.log("Incoming:", route.method, route.path);
     let user = null;
     if (route.isProtected) {
@@ -20,13 +20,10 @@ export default async function handlerFunction(req) {
     }
     return await route.handler({ params, user, req });
   } catch (err) {
-    
-    //For Auth errors
-    if (err.statusCode) throw err;
-    //For normal errors
-    const e = new Error(err.message || "Something went wrong");
-    e.statusCode = err.statusCode || 400;
+    const mappedError = dbErrorMapper(err);
+    const isUnhandledDbError = err.code && !err.statusCode;
 
-    throw e;
+    if (!isUnhandledDbError) console.error("Error   :  ", mappedError);
+    throw mappedError;
   }
 }

@@ -1,9 +1,11 @@
+import { getDashBoardData } from "./user.service.js";
 
-
-import { getDashBoardDataRepo } from "./user.repository.js";
-
-export async function getDashBoarddata({ user }) {
-    const data = await getDashBoardDataRepo(user.userid)
-    return { success: true, data, message: "Data Fetched Successfully", error: null };
-
+export async function getDashBoarddataController({ user }) {
+  const dashBoardData = await getDashBoardData(user.userid);
+  return {
+    success: true,
+    data: dashBoardData,
+    message: "Data Fetched Successfully",
+    error: null,
+  };
 }

@@ -31,12 +31,41 @@ export default function DashboardContent() {
         });
 
         const body = await res.json();
+
         if (!body) throw new Error("fetching Failed");
-        console.log(body);
-        setBorrowedBooks(body.data.currentBorrows);
-        setTotalBorrowsThisYear(body.data.totalBorrowsThisYear);
-        setCurrentBorrowsCount(body.data.currentBorrowsCount);
-        setNearestBorrows(body.data.nearestBorrows);
+
+        console.log("DashBoardData  : ", body);
+
+        if (!body.success) throw new Error(body.message);
+
+        const { currentBorrows, totalBorrowsThisYear } = body.data;
+
+        const upcomingDates = currentBorrows
+          .filter((record) => new Date() <= new Date(record.duedate))
+          .map((record) => new Date(record.duedate).getTime());
+        const nearestDate =
+          upcomingDates.length > 0
+            ? new Date(Math.min(...upcomingDates)).toISOString().split("T")[0]
+            : null;
+
+        const nearestBorrows =
+          nearestDate === null
+            ? []
+            : currentBorrows
+                .filter(
+                  (record) =>
+                    new Date(record.duedate).toISOString().split("T")[0] ===
+                    nearestDate,
+                )
+                .map((record) => ({
+                  title: record.title,
+                  duedate: record.duedate,
+                }));
+
+        setBorrowedBooks(currentBorrows);
+        setTotalBorrowsThisYear(totalBorrowsThisYear);
+        setCurrentBorrowsCount(currentBorrows.length);
+        setNearestBorrows(nearestBorrows);
       } catch (e) {
         console.error(e);
       }
@@ -54,10 +83,17 @@ export default function DashboardContent() {
           totalBorrowsThisYear={totalBorrowsThisYear}
           currentBorrowsCount={currentBorrowsCount}
           nearestBorrows={nearestBorrows}
+          borrowedBooks={borrowedBooks}
         />
 
         <div className={style.mainGrid}>
-          <BorrowedBooksSection borrowedBooks={borrowedBooks} />
+          <BorrowedBooksSection
+            borrowedBooks={borrowedBooks}
+            setBorrowedBooks={setBorrowedBooks}
+            setCurrentBorrowsCount={setCurrentBorrowsCount}
+            setTotalBorrowsThisYear={setTotalBorrowsThisYear}
+            setNearestBorrows={setNearestBorrows}
+          />
 
           <div className={style.sidebar}>
             <RecommendationsSection

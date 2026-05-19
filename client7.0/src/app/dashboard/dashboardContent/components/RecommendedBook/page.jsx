@@ -1,18 +1,18 @@
 "use client";
-import "./page.css";
+import styles from "./page.module.css";
 
 export default function AvailableBookCard({ title, author, genre, onClick }) {
   return (
-    <div className="rec-item" onClick={onClick}>
-      <div className="rec-cover" />
+    <div className={styles.recItem} onClick={onClick}>
+      <div className={styles.recCover} />
 
-      <div className="rec-content">
-        <h4 className="rec-title">{title}</h4>
+      <div className={styles.recContent}>
+        <h4 className={styles.recTitle}>{title}</h4>
 
-        <p className="rec-author">{author}</p>
+        <p className={styles.recAuthor}>{author}</p>
 
-        <div className="rec-meta">
-          <span className="rec-genre">• {genre}</span>
+        <div className={styles.recMeta}>
+          <span className={styles.recGenre}>• {genre}</span>
         </div>
       </div>
     </div>

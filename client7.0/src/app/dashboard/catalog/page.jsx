@@ -19,7 +19,7 @@ export default function Catalog() {
       <h1 align="center">YOUR BORROW HISTORY</h1>
       <div className={styles.bookList}>
         {borrowedBooks.map((book) => (
-          <BookCard key={book.borrowid} {...book} />
+          <BookCard key={book.borrowid} book={book} />
         ))}
       </div>
     </>

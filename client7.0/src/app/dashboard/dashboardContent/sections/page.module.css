@@ -99,6 +99,9 @@
   overflow-y: auto;
   gap: 16px;
 }
+.overdue {
+  color: var(--destructive);
+}
 
 .browseBtn {
   width: 100%;

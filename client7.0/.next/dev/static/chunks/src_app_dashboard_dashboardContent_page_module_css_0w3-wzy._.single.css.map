@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/src/app/dashboard/dashboardContent/page.module.css"],"sourcesContent":["\r\n\r\n/* Container system */\r\n.container {\r\n  max-width: 1280px;\r\n  margin: 0 auto;\r\n  padding: 0 24px;\r\n}\r\n\r\n/* Content */\r\n.content {\r\n  padding: 32px 0;\r\n}\r\n\r\n\r\n@media (min-width: 768px) {\r\n  .statsGrid {\r\n    grid-template-columns: repeat(3, 1fr);\r\n  }\r\n}\r\n\r\n/* Main layout */\r\n.mainGrid {\r\n  display: grid;\r\n  grid-template-columns: 1fr;\r\n  gap: 32px;\r\n}\r\n\r\n@media (min-width: 1024px) {\r\n  .mainGrid {\r\n    grid-template-columns: 2fr 1fr;\r\n  }\r\n}\r\n\r\n/* Sidebar */\r\n.sidebar {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 24px;\r\n}\r\n"],"names":[],"mappings":"AAGA;;;;;;AAOA;;;;AAKA;EACE;;;;;AAMF;;;;;;AAMA;EACE;;;;;AAMF"}}]
-}

@@ -1,10 +1,15 @@
-import { Clock, AlertCircle, CheckCircle, Dot } from "lucide-react";
-import "./page.css";
+"use client";
 
-export function BookCard({ title, author, duedate, returndate, borrowdate }) {
-  const isOverdue = new Date(duedate) < new Date() && !returndate;
-  const returnedLate = returndate && new Date(returndate) > new Date(duedate);
-  const StatusIcon = returndate
+import { Clock, AlertCircle, CheckCircle, Dot } from "lucide-react";
+import styles from "./page.module.css";
+
+export function BookCard({
+  book,
+  onClick,
+}) {
+  const isOverdue = new Date(book.duedate) < new Date() && !book.returndate;
+  const returnedLate = book.returndate && new Date(book.returndate) > new Date(book.duedate);
+  const StatusIcon = book.returndate
     ? returnedLate
       ? AlertCircle
       : CheckCircle
@@ -12,39 +17,41 @@ export function BookCard({ title, author, duedate, returndate, borrowdate }) {
       ? AlertCircle
       : Clock;
   return (
-    <div className="book-card">
-      <div className="book-row">
-        <div className="book-cover" />
+    <div className={styles.bookCard} onClick={onClick}>
+      <div className={styles.bookRow}>
+        <div className={styles.bookCover} />
 
-        <div className="book-content">
-          <h3 className="book-title">{title}</h3>
+        <div className={styles.bookContent}>
+          <h3 className={styles.bookTitle}>{book.title}</h3>
 
-          <p className="book-author">{author}</p>
+          <p className={styles.bookAuthor}>{book.author}</p>
 
-          <div className={`book-status`}>
-            <div className="icon-wrapper">
+          <div className={styles.bookStatus}>
+            <div className={styles.iconWrapper}>
               <StatusIcon />
             </div>
-            <span>Borrowed on {borrowdate}</span>
+            <span>Borrowed on {book.borrowdate}</span>
 
-            {!returndate && (
+            {!book.returndate && (
               <>
                 <Dot />
-                <span className={`${isOverdue ? "overdue" : ""}`}>
-                  {isOverdue ? "Overdue since " : "Due on "} {duedate}
+                <span className={`${isOverdue ? styles.overdue : ""}`}>
+                  {isOverdue ? "Overdue since " : "Due on "} {book.duedate}
                 </span>
               </>
             )}
 
-            {returndate && (
+            {book.returndate && (
               <>
                 <Dot />
-                <span className="returned">Returned on {returndate}</span>
+                <span className={styles.returned}>
+                  Returned on {book.returndate}
+                </span>
 
                 {returnedLate && (
                   <>
                     <Dot />
-                    <span className="late">Returned late</span>
+                    <span className={styles.late}>Returned late</span>
                   </>
                 )}
               </>

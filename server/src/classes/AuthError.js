@@ -3,5 +3,7 @@ export default class AuthError extends Error {
         super(message);
         this.name = "CustomError";
         this.stsatusCode = stsatusCode;
+        this.isOperational = true;
+        Error.captureStackTrace(this, this.constructor);
     }
 }

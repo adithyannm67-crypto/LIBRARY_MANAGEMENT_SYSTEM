@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/src/app/auth/component/signup/page.css"],"sourcesContent":["/* Terms section */\r\n.terms {\r\n  display: flex;\r\n  align-items: flex-start; /* important */\r\n  gap: 8px;\r\n  font-size: 14px;\r\n  cursor: pointer;\r\n  color: var(--muted-foreground);\r\n}\r\n\r\n/* Checkbox alignment fix */\r\n.checkbox-top {\r\n  margin-top: 4px; /* aligns with text start */\r\n}\r\n\r\n/* Links inside terms */\r\n.link {\r\n  color: var(--primary);\r\n  text-decoration: none;\r\n}\r\n\r\n.link:hover {\r\n  text-decoration: underline;\r\n}"],"names":[],"mappings":"AACA;;;;;;;;;AAUA;;;;AAKA;;;;;AAKA"}}]
-}
