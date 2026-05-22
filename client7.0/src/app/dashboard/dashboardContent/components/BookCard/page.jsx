@@ -1,14 +1,10 @@
-"use client";
-
 import { Clock, AlertCircle, CheckCircle, Dot } from "lucide-react";
 import styles from "./page.module.css";
 
-export function BookCard({
-  book,
-  onClick,
-}) {
+export function BookCard({ book, onClick }) {
   const isOverdue = new Date(book.duedate) < new Date() && !book.returndate;
-  const returnedLate = book.returndate && new Date(book.returndate) > new Date(book.duedate);
+  const returnedLate =
+    book.returndate && new Date(book.returndate) > new Date(book.duedate);
   const StatusIcon = book.returndate
     ? returnedLate
       ? AlertCircle

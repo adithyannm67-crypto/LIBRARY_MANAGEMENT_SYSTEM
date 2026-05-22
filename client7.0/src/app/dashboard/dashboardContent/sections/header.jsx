@@ -1,6 +1,3 @@
-
-
-
 import style from "./page.module.css";
 import { BookOpen, Bell } from "lucide-react";
 import { useRouter } from "next/navigation";

@@ -14,11 +14,22 @@ import { useEffect, useState } from "react";
 
 export default function DashboardContent() {
   const { user } = useAuth();
-  const [borrowedBooks, setBorrowedBooks] = useState([]);
-  const [totalBorrowsThisYear, setTotalBorrowsThisYear] = useState(0);
-  const [currentBorrowsCount, setCurrentBorrowsCount] = useState(0);
-  const [nearestBorrows, setNearestBorrows] = useState([]);
-  //look recommnedation/popup for creating good ui for  nearest borrow
+
+  const [stats, setStats] = useState({
+    activeBorrows: [],
+    totalBorrowsThisYear: 0,
+    currentBorrowsCount: 0,
+    nearestBorrows: [],
+    totalBorrowsThisMonth: 0,
+    totalBorrowsThisWeek: 0,
+  });
+  const updateStats = (updater) => {
+    setStats((prevStats) =>
+      typeof updater === "function"
+        ? updater(prevStats)
+        : { ...prevStats, ...updater },
+    );
+  };
 
   useEffect(() => {
     async function loadDashBoardData() {
@@ -32,42 +43,31 @@ export default function DashboardContent() {
 
         const body = await res.json();
 
-        if (!body) throw new Error("fetching Failed");
+        if (!body.success || !res.ok) throw new Error("fetching Failed");
 
         console.log("DashBoardData  : ", body);
 
         if (!body.success) throw new Error(body.message);
 
-        const { currentBorrows, totalBorrowsThisYear } = body.data;
+        const {
+          totalBorrowsThisYear,
+          activeBorrows,
+          nearestBorrows,
+          totalBorrowsThisMonth,
+          totalBorrowsThisWeek,
+        } = body.data;
 
-        const upcomingDates = currentBorrows
-          .filter((record) => new Date() <= new Date(record.duedate))
-          .map((record) => new Date(record.duedate).getTime());
-        const nearestDate =
-          upcomingDates.length > 0
-            ? new Date(Math.min(...upcomingDates)).toISOString().split("T")[0]
-            : null;
-
-        const nearestBorrows =
-          nearestDate === null
-            ? []
-            : currentBorrows
-                .filter(
-                  (record) =>
-                    new Date(record.duedate).toISOString().split("T")[0] ===
-                    nearestDate,
-                )
-                .map((record) => ({
-                  title: record.title,
-                  duedate: record.duedate,
-                }));
-
-        setBorrowedBooks(currentBorrows);
-        setTotalBorrowsThisYear(totalBorrowsThisYear);
-        setCurrentBorrowsCount(currentBorrows.length);
-        setNearestBorrows(nearestBorrows);
+        updateStats({
+          activeBorrows: activeBorrows,
+          totalBorrowsThisYear,
+          currentBorrowsCount: activeBorrows.length,
+          nearestBorrows,
+          totalBorrowsThisMonth,
+          totalBorrowsThisWeek,
+        });
       } catch (e) {
-        console.error(e);
+        console.log(e);
+        //errors should be handled
       }
     }
 
@@ -79,29 +79,13 @@ export default function DashboardContent() {
       <Header user={user} />
 
       <div className={`${style.containerInner} ${style.content}`}>
-        <StatsSection
-          totalBorrowsThisYear={totalBorrowsThisYear}
-          currentBorrowsCount={currentBorrowsCount}
-          nearestBorrows={nearestBorrows}
-          borrowedBooks={borrowedBooks}
-        />
+        <StatsSection stats={stats} />
 
         <div className={style.mainGrid}>
-          <BorrowedBooksSection
-            borrowedBooks={borrowedBooks}
-            setBorrowedBooks={setBorrowedBooks}
-            setCurrentBorrowsCount={setCurrentBorrowsCount}
-            setTotalBorrowsThisYear={setTotalBorrowsThisYear}
-            setNearestBorrows={setNearestBorrows}
-          />
+          <BorrowedBooksSection stats={stats} updateStats={updateStats} />
 
           <div className={style.sidebar}>
-            <RecommendationsSection
-              setBorrowedBooks={setBorrowedBooks}
-              setCurrentBorrowsCount={setCurrentBorrowsCount}
-              setTotalBorrowsThisYear={setTotalBorrowsThisYear}
-              setNearestBorrows={setNearestBorrows}
-            />
+            <RecommendationsSection updateStats={updateStats} />
 
             <ReadingGoalSection />
           </div>

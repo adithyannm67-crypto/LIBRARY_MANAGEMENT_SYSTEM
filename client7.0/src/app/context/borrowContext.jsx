@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import fetchBorrowedBooks from "../dashboard/dashboardContent/Actions/BorrowedBooks";
+import fetchBorrowedBooks from "../Actions/BorrowedBooks";
 import { useAuth } from "./AuthContext";
 
 const BorrowContext = createContext();

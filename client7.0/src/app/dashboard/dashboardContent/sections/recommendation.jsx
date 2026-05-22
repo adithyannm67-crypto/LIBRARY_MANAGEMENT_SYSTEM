@@ -1,15 +1,13 @@
 import style from "./page.module.css";
 import { useState, useEffect } from "react";
-import fetchAvailableBooks from "../Actions/AvailableBooks";
+import fetchAvailableBooks from "#root/Actions/AvailableBooks";
 import AvailableBookCard from "../components/RecommendedBook/page";
 import Popup from "../components/RecommendedBook/popup";
 
 export default function RecommendationsSection({
-  setBorrowedBooks,
-  setTotalBorrowsThisYear,
-  setCurrentBorrowsCount,
-  setNearestBorrows,
+  updateStats,
 }) {
+  
   const [availableBooks, setAvailableBooks] = useState([]);
 
   const [selectedBook, setSelectedBook] = useState(null);
@@ -38,10 +36,7 @@ export default function RecommendationsSection({
 
       {selectedBook && (
         <Popup
-          setBorrowedBooks={setBorrowedBooks}
-          setCurrentBorrowsCount={setCurrentBorrowsCount}
-          setTotalBorrowsThisYear={setTotalBorrowsThisYear}
-          setNearestBorrows={setNearestBorrows}
+          updateStats={updateStats}
           book={selectedBook}
           isOpen={!!selectedBook}
           onClose={() => setSelectedBook(null)}

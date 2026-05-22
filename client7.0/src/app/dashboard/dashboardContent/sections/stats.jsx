@@ -1,19 +1,27 @@
-"use client";
-
 import style from "./page.module.css";
 import { BookOpen, TrendingUp, Calendar } from "lucide-react";
 import StatCard from "../components/StatCard/page";
 
-export default function StatsSection({
-  totalBorrowsThisYear,
-  currentBorrowsCount,
-  nearestBorrows,
-  borrowedBooks,
-}) {
+export default function StatsSection({ stats }) {
+  console.log(stats);
+  const {
+    nearestBorrows,
+    activeBorrows,
+    currentBorrowsCount,
+    totalBorrowsThisYear,
+    totalBorrowsThisMonth,
+    totalBorrowsThisWeek,
+  } = stats;
   const hasUpComing = nearestBorrows.length > 0;
-  const duedate = hasUpComing ? nearestBorrows[0].duedate : null;
+  const duedate = hasUpComing
+    ? new Date(nearestBorrows[0].duedate).toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "2-digit",
+      })
+    : null;
 
-  const noOfOverdue = borrowedBooks.filter(
+  const noOfOverdue = activeBorrows.filter(
     (book) => new Date(book.duedate) < new Date(),
   ).length;
 
@@ -24,13 +32,13 @@ export default function StatsSection({
         icon={BookOpen}
         label="Currently Borrowed"
         value={currentBorrowsCount}
-        subtitle="How many books are in this week?"
+        subtitle={`This week: ${totalBorrowsThisWeek}`}
       />
       <StatCard
         icon={TrendingUp}
         label="Books Read This Year"
         value={totalBorrowsThisYear}
-        subtitle="Books read this month"
+        subtitle={`This month: ${totalBorrowsThisMonth}`}
       />
       <StatCard
         icon={Calendar}

@@ -1,19 +1,9 @@
-"use client";
-
 import styles from "./page.module.css";
-import returnBook from "../../Actions/return";
+import returnBook from "#root/Actions/return.js";
 import { toast } from "react-hot-toast";
 import { useState } from "react";
 
-export default function Popup({
-  setBorrowedBooks,
-  setTotalBorrowsThisYear,
-  setCurrentBorrowsCount,
-  setNearestBorrows,
-  book,
-  isOpen,
-  onClose,
-}) {
+export default function Popup({ updateStats, book, isOpen, onClose }) {
   const [loading, setLoading] = useState(false);
   async function handleReturn() {
     if (loading) return;
@@ -35,15 +25,20 @@ export default function Popup({
       } else {
         toast.error(message);
       }
-      setCurrentBorrowsCount((prev) => prev - 1);
-      setBorrowedBooks((prev) => prev.filter((b) => b.borrowid !== borrowid));
-      setTotalBorrowsThisYear((prev) => prev - 1);
-      //Need to consider the case :  " if the user is on dec 31 and opens the site for borrowing the book on jan 1st. then the totlalBorrowsThisYear should be 1. As of now it will be added to the previous year."
-      setNearestBorrows(
-        (prev) => (prev = prev.filter((b) => b.borrowid !== borrowid)),
-      );
+
+      updateStats((prev) => ({
+        ...prev,
+        currentBorrowsCount: prev.currentBorrowsCount - 1,
+        activeBorrows: prev.activeBorrows.filter(
+          (b) => b.borrowid !== borrowid,
+        ),
+        nearestBorrows: prev.nearestBorrows.filter(
+          (b) => b.borrowid !== borrowid,
+        ),
+      }));
+
     } catch (err) {
-      // setLoading(false);
+      
       toast.error(err.message);
     } finally {
       toast.dismiss(id);

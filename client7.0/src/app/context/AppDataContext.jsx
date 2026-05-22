@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect } from "react";
 import { useAuth } from "./AuthContext";
-import fetchBorrowedBooks from "../dashboard/dashboardContent/Actions/BorrowedBooks";
+import fetchBorrowedBooks from "../Actions/BorrowedBooks";
 
 export const AppDataContext = createContext();
 export function AppDataProvider({ children }) {

@@ -1,22 +1,11 @@
-"use client";
-
 import styles from "./page.module.css";
-import borrowBook from "../../Actions/borrow";
+import borrowBook from "#root/Actions/borrow";
 import { toast } from "react-hot-toast";
 import { useState } from "react";
 
-
-export default function Popup({
-  setBorrowedBooks,
-  setTotalBorrowsThisYear,
-  setCurrentBorrowsCount,
-  setNearestBorrows,
-  book,
-  isOpen,
-  onClose,
-}) {
+export default function Popup({ updateStats, book, isOpen, onClose }) {
   const [loading, setLoading] = useState(false);
-  
+
   async function handleBorrow() {
     if (loading) return;
 
@@ -26,34 +15,67 @@ export default function Popup({
 
     try {
       const { success, message, data } = await borrowBook(book.bookid);
-      if(!success) throw new Error(message);
+      if (!success) throw new Error(message);
 
       toast.dismiss(id);
 
       if (success) {
         onClose();
         toast.success(message);
-
       } else {
         toast.error(message);
       }
-      setCurrentBorrowsCount((prev) => prev + 1);
-      setBorrowedBooks((prev) => [...prev, data]);
-      setTotalBorrowsThisYear((prev) => prev + 1);
-      //Need to consider the case :  " if the user is on dec 31 and opens the site for borrowing the book on jan 1st. then the totlalBorrowsThisYear should be 1. As of now it will be added to the previous year."
-      setNearestBorrows((prev) => {
-        if (prev.length > 0) {
-          return new Date(prev.duedate) < new Date(data.duedate)
-            ? [data]
-            : [...prev, data];
-        } else {
-          return [data];
-        }
-      });
 
-    
+      updateStats((prev) => {
+        let newTotalBorrowsThisYear = prev.totalBorrowsThisYear;
+        let newTotalBorrowsThisMonth = prev.totalBorrowsThisMonth;
+        let newTotalBorrowsThisWeek = prev.totalBorrowsThisWeek;
+        const now = new Date();
+        let sevenDaysAgo = new Date(now);
+        sevenDaysAgo.setDate(now.getDate() - 7);
+
+        const borrowDate = new Date(data.borrowdate);
+        const dueDate = new Date(data.duedate);
+
+        if (borrowDate.getFullYear() === now.getFullYear()) {
+          newTotalBorrowsThisYear++;
+          if (borrowDate.getMonth() === now.getMonth()) {
+            newTotalBorrowsThisMonth++;
+          }
+        }
+
+        if (borrowDate >= sevenDaysAgo && borrowDate <= now) {
+          newTotalBorrowsThisWeek++;
+        }
+
+
+        const currentNearest =
+          prev.nearestBorrows.length > 0
+            ? new Date(prev.nearestBorrows[0].duedate)
+            : null;
+        const newNearest = dueDate;
+        let newdNearestBorrows = prev.nearestBorrows;
+
+        if (currentNearest === null || newNearest < currentNearest) {
+          //if the new borrowed book has an earlier due date than the current nearest, it becomes the new nearest
+          newdNearestBorrows = [data];
+        } else if (newNearest.getTime() === currentNearest.getTime()) {
+          //if the new borrowed book has the same due date as the current nearest, it is added to the nearest borrows list
+          newdNearestBorrows = [...newdNearestBorrows, data];
+        }
+
+        return {
+          ...prev,
+          activeBorrows: [...prev.activeBorrows, data],
+          currentBorrowsCount: prev.currentBorrowsCount + 1,
+          totalBorrowsThisYear: newTotalBorrowsThisYear,
+          totalBorrowsThisMonth: newTotalBorrowsThisMonth,
+          totalBorrowsThisWeek: newTotalBorrowsThisWeek,
+
+          nearestBorrows: newdNearestBorrows,
+        };
+      });
     } catch (err) {
-      // setLoading(false);
       toast.error(err.message);
     } finally {
       toast.dismiss(id);

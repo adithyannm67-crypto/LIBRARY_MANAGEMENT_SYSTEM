@@ -1,12 +1,10 @@
-"use client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
-import "./page.css";
+import style from "./page.module.css";
 
 import login from "./loginController";
-import { useAuth } from "@/app/context/AuthContext";
 
 export default function Login() {
   const router = useRouter();
@@ -17,11 +15,7 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const err = await login(
-      email,
-      password,
-    
-    );
+    const err = await login(email, password);
     if (err.length > 0) {
       setErrors(err);
       return;
@@ -31,16 +25,16 @@ export default function Login() {
   };
 
   return (
-    <form className="form" onSubmit={handleLogin}>
+    <form className={style.form} onSubmit={handleLogin}>
       {/* Email */}
-      <div className="form-group">
-        <label className="label">Email</label>
-        <div className="input-wrapper">
-          <Mail className="input-icon" />
+      <div className={style.formGroup}>
+        <label className={style.label}>Email</label>
+        <div className={style.inputWrapper}>
+          <Mail className={style.inputIcon} />
           <input
             type="email"
             placeholder="your.email@example.com"
-            className="input"
+            className={style.input}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -48,20 +42,20 @@ export default function Login() {
       </div>
 
       {/* Password */}
-      <div className="form-group">
-        <label className="label">Password</label>
-        <div className="input-wrapper">
-          <Lock className="input-icon" />
+      <div className={style.formGroup}>
+        <label className={style.label}>Password</label>
+        <div className={style.inputWrapper}>
+          <Lock className={style.inputIcon} />
           <input
             type={showPassword ? "text" : "password"}
             placeholder="Enter your password"
-            className="input"
+            className={style.input}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           <button
             type="button"
-            className="eye-btn"
+            className={style.eyeBtn}
             onClick={() => setShowPassword((prev) => !prev)}
           >
             {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -71,7 +65,7 @@ export default function Login() {
 
       {/* Errors */}
       {errors && (
-        <ul className="errors">
+        <ul className={style.errors}>
           {errors.map((error, index) => (
             <li key={index}>{error}</li>
           ))}
@@ -79,33 +73,33 @@ export default function Login() {
       )}
 
       {/* Options */}
-      <div className="form-options">
-        <label className="checkbox-label">
-          <input type="checkbox" className="checkbox" />
+      <div className={style.formOptions}>
+        <label className={style.checkboxLabel}>
+          <input type="checkbox" className={style.checkbox} />
           <span>Remember me</span>
         </label>
 
-        <a href="#" className="forgot-link">
+        <a href="#" className={style.forgotLink}>
           Forgot password?
         </a>
       </div>
 
       {/* Submit */}
-      <button type="submit" className="submit-btn">
+      <button type="submit" className={style.submitBtn}>
         Sign In
       </button>
 
       {/* Divider */}
-      <div className="divider">
+      <div className={style.divider}>
         <span>Or continue with</span>
       </div>
 
       {/* Social */}
-      <div className="social-buttons">
-        <button type="button" className="social-btn">
+      <div className={style.socialButtons}>
+        <button type="button" className={style.socialBtn}>
           Google
         </button>
-        <button type="button" className="social-btn">
+        <button type="button" className={style.socialBtn}>
           Microsoft
         </button>
       </div>

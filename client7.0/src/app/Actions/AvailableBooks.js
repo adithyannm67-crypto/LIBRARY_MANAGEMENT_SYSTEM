@@ -6,10 +6,10 @@ export default async function fetchAvailableBooks() {
     });
 
     const body = await res.json();
-    if (!body) throw new Error("fetching Failed");
+    if (!res.ok || !body.success) throw new Error("fetching Failed");
     return body.data.books;
   } catch (e) {
-    console.error(e);
-    return [];
+  
+    return [e.message || "An error occurred while fetching available books"];
   }
 }

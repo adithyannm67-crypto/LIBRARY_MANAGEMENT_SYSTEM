@@ -2,6 +2,12 @@ import { isEmailValid, isPasswordValid } from "../validator";
 
 export default async function login(email, password) {
   let err = [];
+  email = email.trim().toLowerCase();
+  password = password.trim();
+  if(!email || !password) {
+    err.push("Email and password are required");
+    return err;
+  }
   if (!isEmailValid(email)) {
     err.push("Email is not valid");
   }
@@ -28,14 +34,14 @@ async function userVerfy(email, password) {
 
     console.log(res.ok, body);
 
-    if (!res.ok || !body || !body.success) {
+    if (!res.ok || !body.success) {
       return [body?.message || "Login failed"];
     }
     localStorage.setItem("token", body.data.token);
 
     return [];
   } catch (e) {
-    console.error(e.message);
-    return ["Server unreachable"];
+    
+    return [e.message || "An error occurred during login"];
   }
 }

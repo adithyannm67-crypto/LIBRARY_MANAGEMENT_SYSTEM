@@ -1,11 +1,12 @@
 
 export default async function returnBook(borrowid) {
-  console.log("returning", borrowid);
-  const token = localStorage.getItem("token");
-  if (!token) return;
+  
+  
 
-  // Rreturns all book in the db
+  
   try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("User not authenticated");
     const res = await fetch(
       `http://localhost:5000/api/returnbook/${borrowid}/`,
       {
@@ -18,7 +19,7 @@ export default async function returnBook(borrowid) {
     );
 
     const body = await res.json();
-    if(!body.success) throw new Error(body.message);
+    if(!res.ok || !body.success) throw new Error(body.message||"Book Return Failed");
     console.log("Returning    :   ", body);
     return {
         success: true,
@@ -28,7 +29,7 @@ export default async function returnBook(borrowid) {
   } catch (e) {
     return {
       success: false,
-      message: err.message || "Book Returned Failed",
+      message: e.message || "Book Returned Failed",
       data: null,
     }
   }

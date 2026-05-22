@@ -1,11 +1,11 @@
-
-"use client";
+import {useRouter} from "next/navigation";
 
 import { BookOpen } from "lucide-react";
 import "./navbar.css";
 
 
-export default function Navbar({ router }) {
+export default function Navbar() {
+  const router = useRouter();
   return (
     <nav className="navbar">
       <div className="navbar-container">

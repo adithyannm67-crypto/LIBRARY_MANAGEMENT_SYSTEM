@@ -16,7 +16,7 @@ export default function Page() {
 
   return (
     <div className="page">
-      <Navbar router={router} />
+      <Navbar  />
 
       <Hero />
 
@@ -24,7 +24,7 @@ export default function Page() {
 
       <Benefits />
 
-      <Cta router={router} />
+      <Cta />
 
       <Footer />
     </div>

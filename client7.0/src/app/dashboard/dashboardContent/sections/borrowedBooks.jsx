@@ -5,12 +5,10 @@ import { BookCard } from "../components/BookCard/page";
 import Popup from "../components/BookCard/popup";
 
 export default function BorrowedBooksSection({
-  borrowedBooks,
-  setBorrowedBooks,
-  setTotalBorrowsThisYear,
-  setCurrentBorrowsCount,
-  setNearestBorrows,
+  stats,updateStats
 }) {
+  const { activeBorrows } = stats;
+  
   const router = useRouter();
   const [selectedBook, setSelectedBook] = useState(null);
   return (
@@ -19,8 +17,8 @@ export default function BorrowedBooksSection({
         <h2 className={style.sectionTitle}>Your Books</h2>
 
         <div className={style.bookList}>
-          {borrowedBooks &&
-            borrowedBooks.map((book, index) => (
+          {activeBorrows &&
+            activeBorrows.map((book, index) => (
               <BookCard
                 onClick={() => setSelectedBook(book)}
                 key={index}
@@ -31,10 +29,7 @@ export default function BorrowedBooksSection({
 
         {selectedBook && (
           <Popup
-            setBorrowedBooks={setBorrowedBooks}
-            setCurrentBorrowsCount={setCurrentBorrowsCount}
-            setTotalBorrowsThisYear={setTotalBorrowsThisYear}
-            setNearestBorrows={setNearestBorrows}
+            updateStats={updateStats}
             book={selectedBook}
             isOpen={!!selectedBook}
             onClose={() => setSelectedBook(null)}

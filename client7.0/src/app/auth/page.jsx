@@ -44,11 +44,7 @@ export default function LoginSignup({ onBack }) {
           </div>
 
           {/* Forms */}
-          {isLogin ? (
-            <Login  />
-          ) : (
-            <Signup router={router} />
-          )}
+          {isLogin ? <Login /> : <Signup />}
         </div>
 
         {/* Footer */}
