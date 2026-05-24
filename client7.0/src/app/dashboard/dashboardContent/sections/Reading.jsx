@@ -1,5 +1,14 @@
 import style from "./page.module.css"
-export default function ReadingGoalSection() {
+import{Skeleton, SkeletonText} from "#root/components/skeletons";
+export default function ReadingGoalSection({ loading }) {
+  if (loading) {
+    return (
+      <div className={style.card}>
+        
+        <Skeleton width="310px" height="170px" />
+      </div>
+    );
+  }
   return (
     <div className={style.card}>
       <h3 className={style.cardTitle}>Reading Goal 2026</h3>

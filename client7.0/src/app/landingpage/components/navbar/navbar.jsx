@@ -1,8 +1,8 @@
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import { BookOpen } from "lucide-react";
 import "./navbar.css";
-
+import commonStyle from "#root/common.module.css";
 
 export default function Navbar() {
   const router = useRouter();
@@ -20,7 +20,10 @@ export default function Navbar() {
             <a href="#about">About</a>
             <a href="#contact">Contact</a>
 
-            <button onClick={() => router.push("/auth")} className="btn-primary">
+            <button
+              onClick={() => router.push("/auth")}
+              className={commonStyle.btnPrimary}
+            >
               Get Started
             </button>
           </div>

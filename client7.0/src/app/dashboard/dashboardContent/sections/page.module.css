@@ -1,9 +1,9 @@
-
 /* Header */
 .dashboardHeader {
   background: var(--card);
   border-bottom: 1px solid var(--border);
 }
+
 
 .headerInner {
   display: flex;
@@ -74,11 +74,10 @@
 /* Stats grid */
 .statsGrid {
   display: grid;
-   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 16px;
   margin-bottom: 32px;
 }
-
 
 /* Main content */
 .mainContent {
@@ -91,11 +90,12 @@
   margin-bottom: 16px;
 }
 
-.bookList ,.recommendList{
+.bookList,
+.recommendList {
   container-type: inline-size;
   display: flex;
   flex-direction: column;
-  max-height:400px;
+  max-height: 400px;
   overflow-y: auto;
   gap: 16px;
 }
@@ -122,6 +122,9 @@
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .cardTitle {

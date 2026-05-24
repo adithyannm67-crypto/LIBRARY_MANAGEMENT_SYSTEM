@@ -1,8 +1,9 @@
 import style from "./page.module.css";
+import commonStyle from "#root/common.module.css";
 import { BookOpen, TrendingUp, Calendar } from "lucide-react";
 import StatCard from "../components/StatCard/page";
 
-export default function StatsSection({ stats }) {
+export default function StatsSection({ loading, stats }) {
   console.log(stats);
   const {
     nearestBorrows,
@@ -26,6 +27,24 @@ export default function StatsSection({ stats }) {
   ).length;
 
   const books = nearestBorrows.map((book) => book.title);
+  if (loading) {
+    return (
+      <div className={style.statsGrid}>
+        <div
+          className={commonStyle.skeleton}
+          style={{ width: "300px", height: "150px" }}
+        ></div>
+        <div
+          className={commonStyle.skeleton}
+          style={{ width: "300px", height: "150px" }}
+        ></div>
+        <div
+          className={commonStyle.skeleton}
+          style={{ width: "300px", height: "150px" }}
+        ></div>
+      </div>
+    );
+  }
   return (
     <div className={style.statsGrid}>
       <StatCard

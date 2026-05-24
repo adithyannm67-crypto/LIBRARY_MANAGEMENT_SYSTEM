@@ -90,16 +90,3 @@
   text-align: center;
   margin-top: 24px;
 }
-
-.back-btn {
-  font-size: 14px;
-  background: none;
-  border: none;
-  color: var(--muted-foreground);
-  cursor: pointer;
-  transition: color 0.2s ease;
-}
-
-.back-btn:hover {
-  color: var(--foreground);
-}

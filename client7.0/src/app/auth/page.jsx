@@ -1,6 +1,7 @@
 "use client";
 
 import "./page.css";
+import commonStyle from "#root/common.module.css";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -54,7 +55,7 @@ export default function LoginSignup({ onBack }) {
               if (onBack) onBack();
               else router.push("/");
             }}
-            className="back-btn"
+            className={commonStyle.backBtn}
           >
             ← Back to home
           </button>

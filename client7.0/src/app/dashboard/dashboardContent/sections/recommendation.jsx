@@ -4,10 +4,9 @@ import fetchAvailableBooks from "#root/Actions/AvailableBooks";
 import AvailableBookCard from "../components/RecommendedBook/page";
 import Popup from "../components/RecommendedBook/popup";
 
-export default function RecommendationsSection({
-  updateStats,
-}) {
-  
+import { Skeleton, SkeletonText } from "#root/components/skeletons";
+
+export default function RecommendationsSection({ loading, updateStats }) {
   const [availableBooks, setAvailableBooks] = useState([]);
 
   const [selectedBook, setSelectedBook] = useState(null);
@@ -18,6 +17,18 @@ export default function RecommendationsSection({
     }
     fetchData();
   }, []);
+  if (loading) {
+    return (
+      <div className={style.card}>
+        <div className={style.recommendList}>
+          <SkeletonText width="150px" height="24px" />
+          <Skeleton width="270px" height="140px" />
+          <Skeleton width="270px" height="140px" />
+          <Skeleton width="270px" height="140px" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={style.card}>

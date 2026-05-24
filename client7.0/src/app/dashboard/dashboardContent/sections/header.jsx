@@ -1,9 +1,17 @@
 import style from "./page.module.css";
+import { Skeleton } from "#root/components/skeletons";
 import { BookOpen, Bell } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-export default function Header({ user }) {
+export default function Header({ loading, user }) {
   const router = useRouter();
+  if (loading) {
+    return (
+      <div className={`${style.dashboardHeader} ${style.headerInner}`}>
+        <Skeleton width="95%" height="140px" />
+      </div>
+    );
+  }
   return (
     <header className={style.dashboardHeader}>
       <div className={`${style.containerInner} ${style.headerInner}`}>

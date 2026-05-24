@@ -1,0 +1,56 @@
+.backBtn {
+  font-size: 14px;
+  background: none;
+  border: none;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.backBtn:hover {
+  color: var(--foreground);
+}
+
+/* Button */
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0.25rem 0.75rem;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.skeletonText {
+  background-color: #d1d5db;
+  border-radius: 0.5rem;
+}
+.skeleton {
+  background-color: var(--muted);
+  border-radius: 0.5rem;
+
+  animation: pulse 1.5s infinite;
+}
+.skeletonPhoto {
+  background-color: #a7aab0;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.btnPrimary:hover {
+  opacity: 0.9;
+}
