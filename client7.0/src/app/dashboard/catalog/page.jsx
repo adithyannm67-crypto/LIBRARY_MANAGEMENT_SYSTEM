@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 
 import styles from "./page.module.css";
-import { BookCard } from "../dashboardContent/components/BookCard/page";
+import { BookCard } from "../components/BookCard/page";
 import fetchBorrowedBooks from "#root/Actions/BorrowedBooks.js";
 export default function Catalog() {
   const [borrowedBooks, setBorrowedBooks] = useState([]);

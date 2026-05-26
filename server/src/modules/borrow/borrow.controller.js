@@ -1,9 +1,6 @@
 import pool from "#root/db/db.js";
 
-import {
-  borrowBook,
-  returnBook,
-} from "./borrow.service.js";
+import { borrowBook, returnBook } from "./borrow.service.js";
 
 export async function borrowBookController({ params, user }) {
   //SET A BORRO LIMIT SUCH THAT which is available across client and server ..no i put it as 10 it is set in service
@@ -12,7 +9,6 @@ export async function borrowBookController({ params, user }) {
   const { bookid } = params;
 
   const borrowRecord = await borrowBook(userid, bookid);
-
 
   return {
     success: true,
@@ -25,13 +21,12 @@ export async function borrowBookController({ params, user }) {
 export async function returnBookController({ params, user }) {
   const { borrowid } = params;
   const { userid } = user;
-  const success = await returnBook(borrowid, userid);
-  if (success) {
-    return {
-      success: true,
-      data: null,
-      message: "Book Returned Successfully",
-      error: null,
-    };
-  }
+  await returnBook(borrowid, userid);
+
+  return {
+    success: true,
+    data: { borrowid: borrowid },
+    message: "Book Returned Successfully",
+    error: null,
+  };
 }

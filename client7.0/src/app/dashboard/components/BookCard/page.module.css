@@ -1,0 +1,30 @@
+/* Overdue state */
+.overdue {
+  color: var(--failure);
+}
+
+.late {
+  color: var(--warning);
+}
+/* Returned state */
+
+.returnedWrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.returned {
+  color: var(--success);
+}
+
+.iconWrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 6px;
+}
+/* Icon */
+.statusIcon {
+  width: 16px;
+  height: 16px;
+}

@@ -11,14 +11,20 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 8px;
 }
 
 /* Icon container */
 .statIconBox {
-  background: rgba(59, 130, 246, 0.1);
+  position: relative;
+
   padding: 8px;
   border-radius: 8px;
+
+  flex: 0.075;
+  aspect-ratio: 1/1;
+
+  display: grid;
+  place-items: center;
 }
 
 /* Icon */
@@ -31,22 +37,27 @@
 /* Label */
 .statLabel {
   color: var(--muted-foreground);
+  flex: 0.925;
 }
 
 /* Body */
 .statBody {
   margin-top: 8px;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Value */
 .statValue {
   font-size: 30px;
   color: var(--foreground);
+  
 }
 
 /* Subtitle */
 .statSubtitle {
   font-size: 14px;
   color: var(--muted-foreground);
+  margin: 0;
   margin-top: 4px;
 }

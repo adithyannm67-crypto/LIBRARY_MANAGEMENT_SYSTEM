@@ -129,7 +129,7 @@ export async function returnTransaction(borrowid, userid, today, status) {
     }
     await client.query("COMMIT");
 
-    return true;
+    
   } catch (err) {
     await client.query("ROLLBACK");
     throw err;

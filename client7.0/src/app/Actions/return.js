@@ -24,7 +24,7 @@ export default async function returnBook(borrowid) {
     return {
         success: true,
         message: "Book Returned Successfully",
-        data: null,
+        data: body.data ,
     }
   } catch (e) {
     return {
