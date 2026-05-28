@@ -1,0 +1,84 @@
+import { createContext, useContext, useEffect, useState } from "react";
+import { useAuth } from "./AuthContext";
+
+export const AppDataContext = createContext();
+export function AppDataProvider({ children }) {
+  const { user } = useAuth();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  const [stats, setStats] = useState({
+    activeBorrows: [],
+    totalBorrowsThisYear: 0,
+    currentBorrowsCount: 0,
+    nearestBorrows: [],
+    totalBorrowsThisMonth: 0,
+    totalBorrowsThisWeek: 0,
+  });
+  const updateStats = (updater) => {
+    setStats((prevStats) =>
+      typeof updater === "function"
+        ? updater(prevStats)
+        : { ...prevStats, ...updater },
+    );
+  };
+
+  useEffect(() => {
+    async function loadDashBoardData() {
+      if (!user) return;
+
+      try {
+        setError(false);
+        setLoading(true);
+        const token = localStorage.getItem("token");
+        const res = await fetch(`http://localhost:5000/api/loadDashboard/`, {
+          headers: { Authorization: `Bearer ${token}` },
+          method: "GET",
+        });
+
+        const body = await res.json();
+
+        if (!body.success || !res.ok)
+          throw new Error(body?.message || "Failed to load dashboard data");
+
+        const {
+          totalBorrowsThisYear,
+          activeBorrows,
+          nearestBorrows,
+          totalBorrowsThisMonth,
+          totalBorrowsThisWeek,
+        } = body.data;
+
+        updateStats({
+          activeBorrows: activeBorrows,
+          totalBorrowsThisYear,
+          currentBorrowsCount: activeBorrows.length,
+          nearestBorrows,
+          totalBorrowsThisMonth,
+          totalBorrowsThisWeek,
+        });
+      } catch (e) {
+        console.log(e);
+        setError("Failed to load dashboard data");
+      } finally {
+        // setLoading(false);
+      }
+    }
+
+    loadDashBoardData();
+  }, [user]);
+
+  console.log(stats);
+
+  return (
+    <AppDataContext.Provider
+      value={{ loading, error,stats, updateStats }}
+    >
+      {children}
+    </AppDataContext.Provider>
+  );
+}
+
+export function useAppData() {
+  return useContext(AppDataContext);
+}

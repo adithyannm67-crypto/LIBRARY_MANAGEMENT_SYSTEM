@@ -1,0 +1,236 @@
+/*POP UP*/
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.modal {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  width: 320px;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.author {
+  font-size: 14px;
+  color: #4b5563;
+  margin-bottom: 16px;
+}
+
+.message {
+  margin-bottom: 24px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+.btn {
+  padding: 4px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  background: white;
+}
+
+.borrow,
+.returnBtn {
+  background: black;
+  color: white;
+  border: none;
+}
+
+.errorState {
+  width: clamp(300px, 100%, 500px);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 16px;
+  margin: 0;
+  border-radius: 8px;
+  box-shadow: grey 0px 1px 3px 0px;
+}
+.errorActions {
+  line-height: 24px;
+  text-align: center;
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* BookCards in DashBoard*/
+
+.bookCard1 {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.bookCard2 {
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+}
+
+.bookCard2:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.bookCover {
+  width: 80px;
+  height: 112px;
+
+  border-radius: 4px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.bookContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.bookTitle {
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bookAuthor {
+  color: var(--muted-foreground);
+  margin-bottom: 12px;
+}
+
+.bookStatus,
+.bookMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: var(--muted-foreground);
+}
+
+.overdue {
+  color: var(--failure);
+}
+
+.late {
+  color: var(--warning);
+}
+
+.returnedWrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.returned {
+  color: var(--success);
+}
+
+.iconWrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 6px;
+}
+
+.statusIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.recAuthor {
+  color: var(--muted-foreground);
+  margin-bottom: 12px;
+}
+
+.recMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: var(--muted-foreground);
+}
+
+.recGenre {
+  font-size: 12px;
+  color: var(--muted-foreground);
+}
+
+/* StatCards in DashBoard*/
+
+.statCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.statHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.statIconBox {
+  position: relative;
+
+  padding: 8px;
+  border-radius: 8px;
+
+  flex: 0.075;
+  aspect-ratio: 1/1;
+
+  display: grid;
+  place-items: center;
+}
+
+.statIcon {
+  width: 20px;
+  height: 20px;
+  color: var(--primary);
+}
+
+.statLabel {
+  color: var(--muted-foreground);
+  flex: 0.925;
+}
+
+.statBody {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.statValue {
+  font-size: 30px;
+  color: var(--foreground);
+}
+
+.statSubtitle {
+  font-size: 14px;
+  color: var(--muted-foreground);
+  margin: 0;
+  margin-top: 4px;
+}

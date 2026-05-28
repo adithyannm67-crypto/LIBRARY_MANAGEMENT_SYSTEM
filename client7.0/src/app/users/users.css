@@ -1,0 +1,43 @@
+:root {
+  --sidebar-Width: 250px;
+  --nav-Height: 70px;
+}
+
+.usersLayout {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--background);
+  display: flex;
+}
+.collapseBtn {
+  position: fixed;
+  top: 5%;
+  left: 5%;
+  z-index: 10000;
+  height: 40px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+
+  display: none;
+
+  background-color: var(--ring);
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .collapseBtn {
+    display: grid;
+    place-items: center;
+  }
+}
+
+.content {
+  flex: 1;
+
+  min-height: 100vh;
+  background-color: var(--background);
+
+  display: flex;
+  flex-direction: column;
+}

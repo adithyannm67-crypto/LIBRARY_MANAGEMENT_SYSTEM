@@ -19,7 +19,7 @@
     "react-loading-skeleton": "^3.5.0"
   },
   "imports": {
-    "#root/*": "./src/app/*"
+    "#root/*": "./src/*"
   },
   "devDependencies": {
     "eslint": "^9",
