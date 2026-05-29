@@ -1,5 +1,5 @@
 "use client";
-import style from "./something.module.css";
+import style from "./navbar.module.css";
 
 import { useRouter } from "next/navigation";
 
@@ -9,12 +9,16 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { BookOpen, Bell } from "lucide-react";
 import { useAuth } from "#root/context/AuthContext.jsx";
 import { useAppData } from "#root/context/AppDataContext.jsx";
+import { usePathChange } from "#root/context/PathChangeContext.jsx";
+
 
 export default function NavBar() {
+  const { headerTitle, headerSubtitle, pathname } = usePathChange();
   const { user } = useAuth();
   const { loading } = useAppData();
   const router = useRouter();
-
+  const isHome = pathname === "/users"
+  //i should include no of book borrowed history when pathname is borrowhistory
   return (
     <header className={style.navBar}>
       <div className={style.headerLeft}>
@@ -30,11 +34,11 @@ export default function NavBar() {
             {loading ? (
               <Skeleton style={{ width: "80%" }} />
             ) : (
-              "Library Dashboard"
+              `${headerTitle}`
             )}
           </h3>
           <p className={style.headerSubtitle} style={{ width: "80%" }}>
-            {loading ? <Skeleton /> : `Welcome back, ${user?.username}`}
+            {loading ? <Skeleton /> : `${headerSubtitle} ${isHome ? user?.username : ""}`}
           </p>
         </div>
       </div>

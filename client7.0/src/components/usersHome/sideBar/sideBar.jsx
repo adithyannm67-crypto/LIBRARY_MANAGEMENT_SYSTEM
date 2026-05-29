@@ -1,62 +1,67 @@
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { usePathChange } from "#root/context/PathChangeContext.jsx";
-import { useAppData } from "#root/context/AppDataContext.jsx";
 
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import {
+  House,
+  BookOpenCheck,
+  Bell,
+  Library,
+  ClipboardList,
+  User,
+  History,
+  CircleHelp,
+  LogOut,
+} from "lucide-react";
 
 const links = [
-  "",
-  "myborrows",
-  "notifications",
-  "books",
-  "borrowrequests",
-  "profile",
-  "borrowhistory",
-  "help",
+  { Icon: House, label: "Home", path: "/users" },
+  { Icon: BookOpenCheck, label: "My Borrows", path: "/users/myborrows" },
+  { Icon: Bell, label: "Notifications", path: "/users/notifications" },
+  { Icon: Library, label: "Books", path: "/users/books" },
+  {
+    Icon: ClipboardList,
+    label: "Borrow Requests",
+    path: "/users/borrowrequests",
+  },
+  { Icon: User, label: "Profile", path: "/users/profile" },
+  { Icon: History, label: "Borrow History", path: "/users/borrowhistory" },
+  { Icon: CircleHelp, label: "Help/Contact", path: "/users/help" }, {
+    Icon: LogOut,
+    label: "Logout",
+    path: "/auth",
+  },
 ];
-import styles from "./somthing.module.css";
+import styles from "./sidebar.module.css";
 export default function SideBar() {
-  const { loading } = useAppData();
-  const router = useRouter();
-
   return (
     <div id="sideBar" className={styles.sideBar}>
-      {links.map((path, index) => {
-        return <LinkComponent key={index} path={path} loading={loading} />;
+      {links.map((item, index) => {
+        return <LinkComponent key={index} item={item} />;
       })}
-      {loading ? (
-        <Skeleton containerClassName={styles.logoutBtn} width={70} />
-      ) : (
-        <button
-          onClick={() => {
-            localStorage.removeItem("token");
-            localStorage.clear();
-            router.replace("/auth");
-          }}
-          className={styles.logoutBtn}
-        >
-          Logout
-        </button>
-      )}
     </div>
   );
 }
 
-const LinkComponent = ({ path, index, loading }) => {
+const LinkComponent = ({ item }) => {
   const { pathname } = usePathChange();
-  return loading ? (
-    <Skeleton containerClassName={styles.link} width={70} />
-  ) : (
+  const { Icon, path, label } = item;
+  const active = pathname === path;
+  const isLogout = label === "Logout";
+  return (
     <Link
-      key={index}
-      href={"/users/" + path}
-      className={
-        styles.link + " " + (pathname === "/users/" + path ? styles.active : "")
-      }
+      href={path}
+      className={styles.link}
+      onClick={() => {
+        if (isLogout) {
+          localStorage.removeItem("token");
+          localStorage.clear();
+        }
+      }}
     >
-      {path === "" ? "Home" : path}
+      <div className={styles.iconWrapper + " " + (active ? styles.active : "")}>
+        <Icon />
+      </div>
+      {label}
     </Link>
   );
 };

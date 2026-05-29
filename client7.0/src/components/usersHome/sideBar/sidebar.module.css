@@ -1,11 +1,12 @@
 .sideBar {
-  z-index: 9999;
+  z-index: 1000;
   background-color: var(--card);
   border-bottom: 1px solid var(--border);
 
   overflow-y: hidden;
 
   position: sticky;
+  top: 0;
   height: 100vh;
   padding: 0.5rem 0;
   display: flex;
@@ -15,7 +16,7 @@
 @media (max-width: 768px) {
   .sideBar {
     height: auto;
-    z-index: 9999;
+    z-index: 1000;
     position: fixed;
     top: 70px;
     left: calc(-1 * var(--sidebar-Width));
@@ -34,24 +35,21 @@
   padding: 1rem 2rem;
   display: flex;
   align-items: center;
-  
+  gap: 0.5rem;
+
   cursor: pointer;
   transition: background-color 0.2s ease;
-  
 }
-.link:hover,
+.link:hover .iconWrapper,
 .active {
-  background-color: var(--muted);
+  background-color: var(--b);
+  color: var(--card);
 }
 
-.logoutBtn {
-  padding: 12px;
+.iconWrapper {
+  width: 32px;
+  height: 32px;
   border-radius: 8px;
-  border: none;
-  background: var(--foreground);
-  color: var(--background);
-  cursor: pointer;
-}
-.logoutBtn:hover {
-  opacity: 0.9;
+  display: grid;
+  place-items: center;
 }

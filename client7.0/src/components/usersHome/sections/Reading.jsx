@@ -3,7 +3,6 @@ import { Skeleton } from "#root/components/skeletons";
 import { useAppData } from "#root/context/AppDataContext.jsx";
 export default function ReadingGoalSection() {
   const { loading } = useAppData();
-
   return loading ? (
     <div className={style.card}>
       <Skeleton width="310px" height="170px" />

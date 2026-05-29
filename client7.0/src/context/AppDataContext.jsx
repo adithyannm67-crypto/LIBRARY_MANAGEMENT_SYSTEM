@@ -61,7 +61,7 @@ export function AppDataProvider({ children }) {
         console.log(e);
         setError("Failed to load dashboard data");
       } finally {
-        // setLoading(false);
+        setLoading(false);
       }
     }
 
@@ -72,7 +72,7 @@ export function AppDataProvider({ children }) {
 
   return (
     <AppDataContext.Provider
-      value={{ loading, error,stats, updateStats }}
+      value={{ loading, error, stats, updateStats }}
     >
       {children}
     </AppDataContext.Provider>

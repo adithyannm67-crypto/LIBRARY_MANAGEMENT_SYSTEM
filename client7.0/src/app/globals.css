@@ -40,6 +40,7 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
   --book-cover: #ccc32f;
+  --b:#000000;
 }
 
 body,

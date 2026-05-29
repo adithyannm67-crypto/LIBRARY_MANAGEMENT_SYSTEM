@@ -9,6 +9,7 @@
   background-color: var(--background);
   display: flex;
 }
+
 .collapseBtn {
   position: fixed;
   top: 5%;
@@ -21,7 +22,7 @@
   display: none;
 
   background-color: var(--ring);
-  border: 1px solid var(--border);
+  border: none;
   cursor: pointer;
 }
 
@@ -29,6 +30,11 @@
   .collapseBtn {
     display: grid;
     place-items: center;
+  }
+}
+@media (min-width: 768px) {
+  .collapseBtnSkeleton {
+    display: none;
   }
 }
 
