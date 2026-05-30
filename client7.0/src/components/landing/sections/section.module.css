@@ -35,7 +35,7 @@
 }
 
 .asDropDown {
-  z-index: 1000;
+  z-index: var(--z3);
   display: none;
   background: var(--background);
 

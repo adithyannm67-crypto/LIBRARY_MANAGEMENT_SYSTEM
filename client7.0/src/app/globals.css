@@ -40,7 +40,13 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
   --book-cover: #ccc32f;
-  --b:#000000;
+  --b: #000000;
+  --z1: 100;
+  --z2: 999;
+  --z3: 1000;
+  --z4: 2000;
+  --z5: 3000;
+  --z6: 4000;
 }
 
 body,
@@ -60,9 +66,9 @@ html,
   box-sizing: border-box;
 }
 
-.close{
+.close {
   display: none;
 }
-.openblock{
+.openblock {
   display: block;
 }

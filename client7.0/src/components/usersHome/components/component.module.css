@@ -2,15 +2,16 @@
 
 .overlay {
   position: fixed;
+  pointer-events: auto;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 50;
+  z-index: var(--z5);
 }
 
 .modal {
@@ -28,8 +29,8 @@
 }
 
 .author {
-  font-size: 14px;
-  color: #4b5563;
+  font-size: 0.95rem;
+  color: #6b7280;
   margin-bottom: 16px;
 }
 
@@ -82,8 +83,9 @@
 
 .bookCard1 {
   display: flex;
+  align-items: center;
   gap: 12px;
-  padding: 12px;
+  padding: 0px 24px;
   border-radius: 8px;
   border: 1px solid var(--border);
 }
@@ -97,8 +99,8 @@
 }
 
 .bookCover {
-  width: 80px;
-  height: 112px;
+  width: 50px;
+  height: 70px;
 
   border-radius: 4px;
   flex-shrink: 0;
@@ -118,7 +120,7 @@
 }
 
 .bookAuthor {
-  color: var(--muted-foreground);
+  color: #6b7280;
   margin-bottom: 12px;
 }
 
@@ -132,10 +134,12 @@
 }
 
 .overdue {
+  font-weight: 600;
   color: var(--failure);
 }
 
 .late {
+  font-weight: 600;
   color: var(--warning);
 }
 

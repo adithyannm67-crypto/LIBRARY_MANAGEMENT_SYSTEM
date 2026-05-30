@@ -14,7 +14,7 @@
   position: fixed;
   top: 5%;
   left: 5%;
-  z-index: 10000;
+  z-index: var(--z4);
   height: 40px;
   aspect-ratio: 1/1;
   border-radius: 50%;

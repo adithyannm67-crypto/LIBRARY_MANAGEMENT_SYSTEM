@@ -15,10 +15,22 @@ import { usePathChange } from "#root/context/PathChangeContext.jsx";
 export default function NavBar() {
   const { headerTitle, headerSubtitle, pathname } = usePathChange();
   const { user } = useAuth();
-  const { loading } = useAppData();
+
+  const { loading, stats } = useAppData();
   const router = useRouter();
-  const isHome = pathname === "/users"
-  //i should include no of book borrowed history when pathname is borrowhistory
+
+  let supportingString = "";
+  switch (pathname) {
+    case "/users":
+      supportingString = `Welcome back, ${user?.username}`
+      break;
+    case "/users/borrowhistory":
+      supportingString = `${stats?.totalBorrows} books borrowed`
+      break;
+    default:
+      supportingString = "";
+  }
+
   return (
     <header className={style.navBar}>
       <div className={style.headerLeft}>
@@ -34,11 +46,11 @@ export default function NavBar() {
             {loading ? (
               <Skeleton style={{ width: "80%" }} />
             ) : (
-              `${headerTitle}`
+              headerTitle
             )}
           </h3>
           <p className={style.headerSubtitle} style={{ width: "80%" }}>
-            {loading ? <Skeleton /> : `${headerSubtitle} ${isHome ? user?.username : ""}`}
+            {loading ? <Skeleton /> : supportingString}
           </p>
         </div>
       </div>

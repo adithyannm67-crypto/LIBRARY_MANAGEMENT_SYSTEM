@@ -12,7 +12,7 @@ import Popup from "../components/dashBoard.popup";
 import { useAppData } from "#root/context/AppDataContext.jsx";
 
 export default function BorrowedBooksSection() {
-  const { loading, stats, updateStats } = useAppData();
+  const { loading, stats } = useAppData();
 
   const { activeBorrows } = stats;
 
@@ -59,7 +59,10 @@ export default function BorrowedBooksSection() {
             mode="return"
             book={selectedBook}
             isOpen={!!selectedBook}
-            onClose={() => setSelectedBook(null)}
+            onClose={() => {
+              setSelectedBook(null);
+              document.body.style.overflow = "auto";
+            }}
           />
         )}
       </div>
@@ -68,7 +71,7 @@ export default function BorrowedBooksSection() {
         <Skeleton height={40} />
       ) : (
         <button
-          onClick={() => router.push("/dashboard/catalog")}
+          onClick={() => router.push("/users/borrowhistory")}
           className={style.browseBtn}
         >
           Browse Catalog

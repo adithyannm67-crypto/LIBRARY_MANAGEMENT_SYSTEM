@@ -1,32 +1,45 @@
 import styles from "./component.module.css";
-import returnBook from "../Actions/return.js";
-import borrowBook from "../Actions/borrow";
+
 import { toast } from "react-hot-toast";
 import { useState } from "react";
-import { useAppData } from "#root/context/AppDataContext.jsx";
+import { createPortal } from "react-dom";
 
-export default function Popup({ mode, book, isOpen, onClose }) {
+import returnBook from "../Actions/return.js";
+import borrowBook from "../Actions/borrow";
+import { formatDate } from "#root/common.jsx";
+import { useAppData } from "#root/context/AppDataContext.jsx";
+//setBorrowedBooks is for automaticallly update borrowed books in borrow history page
+
+
+export default function Popup({ mode, book, isOpen, onClose, setBorrowedBooks }) {
   const { updateStats } = useAppData();
   const [loading, setLoading] = useState(false);
 
+  const { author, title, duedate } = book;
+
+  const isOverdue = new Date(duedate) < new Date();
+  const noOfDays = Math.abs(Math.floor((new Date(duedate) - new Date()) / (1000 * 60 * 60 * 24)));
+
   const modes = {
     borrow: {
+      heading: "Borrow Book",
       toastMessage: "Borrowing Book...",
       api: (book) => borrowBook(book.bookid),
       updator: borrowUpdator,
-      message: "Do you want to borrow this book?",
+      message: "Are you sure you want to borrow this book?",
       text: "Borrow",
     },
     return: {
+      heading: "Return Book",
       toastMessage: "Returning Book...",
       api: (book) => returnBook(book.borrowid),
       updator: returnUpdator,
-      message: "Do you want to return this book?",
+      message: "Are you sure you want to return this book?",
       text: "Return",
     },
   };
 
-  const { toastMessage, api, updator, message, text } = modes[mode];
+  const { heading, toastMessage, api, updator, message, text } = modes[mode];
 
   async function operationHandler() {
     if (loading) return;
@@ -49,7 +62,8 @@ export default function Popup({ mode, book, isOpen, onClose }) {
         toast.error(message);
       }
 
-      updator(data, updateStats);
+      updator({ data, updateStats, setBorrowedBooks });
+
     } catch (err) {
       toast.error(err.message);
     } finally {
@@ -59,16 +73,26 @@ export default function Popup({ mode, book, isOpen, onClose }) {
     //An invoice generation code goes here
   }
 
-  if (!isOpen) return null;
+  if (!isOpen) {
+
+    return null;
+  }
+  else {
+    document.body.style.overflow = "hidden";
+  }
 
   return (
-    <div className={styles.overlay} onClick={onClose}>
+    createPortal(<div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-        <h2 className={styles.title}>{book.title}</h2>
+        <h2>{heading}</h2>
+        <h2 className={styles.title}>{title}</h2>
 
-        <p className={styles.author}>{book.author}</p>
+        <p className={styles.author}>{"By " + author}</p>
+        <hr style={{ borderColor: "#e5e7eb" }} />
 
         <p className={styles.message}>{message}</p>
+        <p className={styles.dueDate}>{"Due on " + formatDate(duedate)}</p>
+        {isOverdue && <p className={styles.overdue}>{noOfDays + " days overdue"}</p>}
 
         <div className={styles.actions}>
           <button className={styles.btn} onClick={onClose}>
@@ -85,10 +109,10 @@ export default function Popup({ mode, book, isOpen, onClose }) {
         </div>
       </div>
     </div>
-  );
+      , document.body));
 }
 
-const returnUpdator = (data, updateStats) => {
+const returnUpdator = ({ data, updateStats, setBorrowedBooks }) => {
   const borrowid = Number(data.borrowid);
 
   updateStats((prev) => ({
@@ -97,11 +121,17 @@ const returnUpdator = (data, updateStats) => {
     activeBorrows: prev.activeBorrows.filter((b) => b.borrowid !== borrowid),
     nearestBorrows: prev.nearestBorrows.filter((b) => b.borrowid !== borrowid),
   }));
-};
+  if (setBorrowedBooks) {
+    setBorrowedBooks(prev =>
 
-const borrowUpdator = (data, updateStats) => {
+      prev.map(b => b.borrowid === borrowid ? { ...b, status: "returned", returndate: data.returndate } : b),
+    )
+  };
+}
+
+
+const borrowUpdator = ({ data, updateStats }) => {
   updateStats((prev) => {
-    console.log("hai");
     let newTotalBorrowsThisYear = prev.totalBorrowsThisYear;
     let newTotalBorrowsThisMonth = prev.totalBorrowsThisMonth;
     let newTotalBorrowsThisWeek = prev.totalBorrowsThisWeek;

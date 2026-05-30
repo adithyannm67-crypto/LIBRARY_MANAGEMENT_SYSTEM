@@ -10,14 +10,20 @@ export const PathChangeContext = createContext();
 const paths = [
   { pathname: "/users", headerTitle: "Library DashBoard", headerSubtitle: "Welcome back," },
   {
-    pathname: "/users/borrowhistory", headerTitle: "My Borrows", headerSubtitle: "My Borrowed Books"
+    pathname: "/users/borrowhistory", headerTitle: "Borrow History", headerSubtitle: "books borrowed"
+  }, {
+    pathname: "/auth", headerTitle: "", headerSubtitle: ""
+  }
+  , {
+    pathname: "/", headerTitle: "", headerSubtitle: ""
   }
 ]
 
 export function PathChangeProvider({ children }) {
   const path = usePathname();
   const { pathname, headerTitle, headerSubtitle } = paths.find(o => o.pathname === path);
-  const isUsersLink = pathname.startsWith("/users");
+
+  const isUsersLink = pathname.startsWith("/users")
 
   return (
     <PathChangeContext.Provider value={{ pathname, headerTitle, headerSubtitle, isUsersLink }}>

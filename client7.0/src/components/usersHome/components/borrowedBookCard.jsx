@@ -4,11 +4,13 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 import { Clock, AlertCircle, CheckCircle, Dot } from "lucide-react";
+import {formatDate} from "#root/common.jsx";
 
 export function BookCard({ book, onClick }) {
   const { duedate, returndate, title, author, borrowdate } = book;
 
   const isOverdue = new Date(duedate) < new Date() && !returndate;
+  console.log(book)
   const returnedLate = returndate && new Date(returndate) > new Date(duedate);
   const StatusIcon = returndate
     ? returnedLate
@@ -22,11 +24,6 @@ export function BookCard({ book, onClick }) {
       className={styles.bookCard1 + " " + styles.bookCard2}
       onClick={onClick}
     >
-      <div
-        className={styles.bookCover}
-        style={{ background: "var(--book-cover)" }}
-      />
-
       <div className={styles.bookContent}>
         <h3 className={styles.bookTitle}>{title}</h3>
 
@@ -36,27 +33,23 @@ export function BookCard({ book, onClick }) {
           <div className={styles.iconWrapper}>
             <StatusIcon />
           </div>
-          <span>Borrowed on {borrowdate}</span>
+          <span style={{ color: "#1D4ED8" }}>Borrowed on {formatDate(borrowdate)}</span>
 
           {!returndate && (
             <>
               <Dot />
-              <span className={`${isOverdue ? styles.overdue : ""}`}>
-                {isOverdue ? "Overdue since " : "Due on "} {duedate}
-              </span>
+              <span>Due on {formatDate(duedate)}</span>
             </>
           )}
+          {isOverdue && <span className={styles.overdue}>Overdue</span>}
 
           {returndate && (
             <>
               <Dot />
-              <span className={styles.returned}>Returned on {returndate}</span>
+              <span className={styles.returned}>Returned on {formatDate(returndate)}</span>
 
               {returnedLate && (
-                <>
-                  <Dot />
-                  <span className={styles.late}>Returned late</span>
-                </>
+                <span className={styles.late}>Returned late</span>
               )}
             </>
           )}

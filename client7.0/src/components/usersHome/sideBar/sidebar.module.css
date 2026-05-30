@@ -1,5 +1,5 @@
 .sideBar {
-  z-index: 1000;
+  z-index: var(--z3);
   background-color: var(--card);
   border-bottom: 1px solid var(--border);
 
@@ -16,7 +16,6 @@
 @media (max-width: 768px) {
   .sideBar {
     height: auto;
-    z-index: 1000;
     position: fixed;
     top: 70px;
     left: calc(-1 * var(--sidebar-Width));
@@ -32,7 +31,7 @@
 .link {
   text-decoration: none;
   color: var(--foreground);
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;

@@ -9,6 +9,7 @@ export function AppDataProvider({ children }) {
 
   const [stats, setStats] = useState({
     activeBorrows: [],
+    totalBorrows: 0,
     totalBorrowsThisYear: 0,
     currentBorrowsCount: 0,
     nearestBorrows: [],
@@ -42,6 +43,7 @@ export function AppDataProvider({ children }) {
           throw new Error(body?.message || "Failed to load dashboard data");
 
         const {
+          totalBorrows,
           totalBorrowsThisYear,
           activeBorrows,
           nearestBorrows,
@@ -50,6 +52,7 @@ export function AppDataProvider({ children }) {
         } = body.data;
 
         updateStats({
+          totalBorrows,
           activeBorrows: activeBorrows,
           totalBorrowsThisYear,
           currentBorrowsCount: activeBorrows.length,

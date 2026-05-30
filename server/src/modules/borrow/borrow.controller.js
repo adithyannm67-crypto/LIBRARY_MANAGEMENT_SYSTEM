@@ -21,11 +21,11 @@ export async function borrowBookController({ params, user }) {
 export async function returnBookController({ params, user }) {
   const { borrowid } = params;
   const { userid } = user;
-  await returnBook(borrowid, userid);
+  const returndate = await returnBook(borrowid, userid);
 
   return {
     success: true,
-    data: { borrowid: borrowid },
+    data: { borrowid: borrowid, returndate: returndate },
     message: "Book Returned Successfully",
     error: null,
   };

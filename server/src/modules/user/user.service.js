@@ -4,6 +4,7 @@ export async function getDashBoardData(userid) {
   const borrowrecord = await getBorrowRecordByUserId(userid);
   let totalBorrowsThisYear = 0;
   let totalBorrowsThisMonth = 0;
+  let totalBorrows=0;
   let totalBorrowsThisWeek = 0;
   let activeBorrows = [];
 
@@ -16,6 +17,8 @@ export async function getDashBoardData(userid) {
   for (let record of borrowrecord) {
     const borrowDate = new Date(record.borrowdate);
     const dueDate = new Date(record.duedate);
+
+    totalBorrows++;
 
     if (borrowDate.getFullYear() === now.getFullYear()) {
       totalBorrowsThisYear++;
@@ -53,6 +56,7 @@ export async function getDashBoardData(userid) {
   }
 
   return {
+    totalBorrows,
     totalBorrowsThisYear,
     activeBorrows,
     nearestBorrows,
