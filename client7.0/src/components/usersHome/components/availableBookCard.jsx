@@ -5,15 +5,15 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 export function BookCard({ book, onClick }) {
   const { title, author, genre } = book;
+  const bookcardStyle = `${styles.bookCard1} ${styles.active}`;
+  const bookCoverStyles = {
+    background: "var(--book-cover)",
+    height: "70px",
+    width: "50px",
+  };
   return (
-    <div
-      className={styles.bookCard1 + " " + styles.bookCard2}
-      onClick={onClick}
-    >
-      <div
-        className={styles.bookCover}
-        style={{ background: "var(--book-cover)" }}
-      />
+    <div className={bookcardStyle} onClick={onClick}>
+      <div className={styles.bookCover} style={bookCoverStyles} />
 
       <div className={styles.bookContent}>
         <h4 className={styles.bookTitle}>{title}</h4>
@@ -33,9 +33,8 @@ export function BookCardSkeleton({ cards }) {
     .fill(0)
     .map((_, index) => (
       <div className={styles.bookCard1} key={index}>
-        <div className={styles.bookCover}>
-          <Skeleton width="100%" height="100%" />
-        </div>
+        <Skeleton width={50} height={70} />
+
         <div className={styles.bookContent}>
           <h4 className={styles.bookTitle}>
             <Skeleton />

@@ -4,9 +4,9 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 import { Clock, AlertCircle, CheckCircle, Dot } from "lucide-react";
-import {formatDate} from "#root/common.jsx";
+import { formatDate } from "#root/common.jsx";
 
-export function BookCard({ book, onClick }) {
+export function BookCard({ book, onClick, disabled }) {
   const { duedate, returndate, title, author, borrowdate } = book;
 
   const isOverdue = new Date(duedate) < new Date() && !returndate;
@@ -19,10 +19,12 @@ export function BookCard({ book, onClick }) {
     : isOverdue
       ? AlertCircle
       : Clock;
+
+  const bookcardStyle = `${styles.bookCard1} ${!disabled ? styles.active : ""} `
   return (
     <div
-      className={styles.bookCard1 + " " + styles.bookCard2}
-      onClick={onClick}
+      className={bookcardStyle}
+      onClick={disabled ? null : onClick}
     >
       <div className={styles.bookContent}>
         <h3 className={styles.bookTitle}>{title}</h3>

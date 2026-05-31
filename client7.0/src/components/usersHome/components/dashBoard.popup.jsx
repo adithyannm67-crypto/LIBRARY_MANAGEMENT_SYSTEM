@@ -10,15 +10,28 @@ import { formatDate } from "#root/common.jsx";
 import { useAppData } from "#root/context/AppDataContext.jsx";
 //setBorrowedBooks is for automaticallly update borrowed books in borrow history page
 
-
-export default function Popup({ mode, book, isOpen, onClose, setBorrowedBooks }) {
+export default function Popup({
+  mode,
+  book,
+  isOpen,
+  onClose,
+  setBorrowedBooks,
+}) {
   const { updateStats } = useAppData();
   const [loading, setLoading] = useState(false);
 
-  const { author, title, duedate } = book;
+  const { author, title } = book;
+
+  let duedate = book.duedate;
+  if (!duedate) {
+    duedate = new Date();
+    duedate.setDate(duedate.getDate() + 7);
+  }
 
   const isOverdue = new Date(duedate) < new Date();
-  const noOfDays = Math.abs(Math.floor((new Date(duedate) - new Date()) / (1000 * 60 * 60 * 24)));
+  const noOfDays = Math.abs(
+    Math.floor((new Date(duedate) - new Date()) / (1000 * 60 * 60 * 24)),
+  );
 
   const modes = {
     borrow: {
@@ -63,7 +76,6 @@ export default function Popup({ mode, book, isOpen, onClose, setBorrowedBooks })
       }
 
       updator({ data, updateStats, setBorrowedBooks });
-
     } catch (err) {
       toast.error(err.message);
     } finally {
@@ -74,15 +86,13 @@ export default function Popup({ mode, book, isOpen, onClose, setBorrowedBooks })
   }
 
   if (!isOpen) {
-
     return null;
-  }
-  else {
+  } else {
     document.body.style.overflow = "hidden";
   }
 
-  return (
-    createPortal(<div className={styles.overlay} onClick={onClose}>
+  return createPortal(
+    <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <h2>{heading}</h2>
         <h2 className={styles.title}>{title}</h2>
@@ -92,7 +102,9 @@ export default function Popup({ mode, book, isOpen, onClose, setBorrowedBooks })
 
         <p className={styles.message}>{message}</p>
         <p className={styles.dueDate}>{"Due on " + formatDate(duedate)}</p>
-        {isOverdue && <p className={styles.overdue}>{noOfDays + " days overdue"}</p>}
+        {isOverdue && (
+          <p className={styles.overdue}>{noOfDays + " days overdue"}</p>
+        )}
 
         <div className={styles.actions}>
           <button className={styles.btn} onClick={onClose}>
@@ -108,8 +120,9 @@ export default function Popup({ mode, book, isOpen, onClose, setBorrowedBooks })
           </button>
         </div>
       </div>
-    </div>
-      , document.body));
+    </div>,
+    document.body,
+  );
 }
 
 const returnUpdator = ({ data, updateStats, setBorrowedBooks }) => {
@@ -122,13 +135,15 @@ const returnUpdator = ({ data, updateStats, setBorrowedBooks }) => {
     nearestBorrows: prev.nearestBorrows.filter((b) => b.borrowid !== borrowid),
   }));
   if (setBorrowedBooks) {
-    setBorrowedBooks(prev =>
-
-      prev.map(b => b.borrowid === borrowid ? { ...b, status: "returned", returndate: data.returndate } : b),
-    )
-  };
-}
-
+    setBorrowedBooks((prev) =>
+      prev.map((b) =>
+        b.borrowid === borrowid
+          ? { ...b, status: "returned", returndate: data.returndate }
+          : b,
+      ),
+    );
+  }
+};
 
 const borrowUpdator = ({ data, updateStats }) => {
   updateStats((prev) => {

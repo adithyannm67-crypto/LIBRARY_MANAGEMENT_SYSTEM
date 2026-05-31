@@ -7,34 +7,45 @@ import { useState, useEffect } from "react";
 import "react-loading-skeleton/dist/skeleton.css";
 
 import fetchBorrowedBooks from "#root/components/usersHome/Actions/BorrowedBooks";
-import { BookCard, BookCardSkeleton } from "#root/components/usersHome/components/borrowedBookCard.jsx";
+import {
+  BookCard,
+  BookCardSkeleton,
+} from "#root/components/usersHome/components/borrowedBookCard.jsx";
 import Popup from "#root/components/usersHome/components/dashBoard.popup.jsx";
 import { useAppData } from "#root/context/AppDataContext.jsx";
 export default function Catalog() {
-  const { loading } = useAppData()
+  const { loading } = useAppData();
   const [borrowedBooks, setBorrowedBooks] = useState([]);
   const [loadinglocal, setLoadingLocal] = useState(true);
   const [selectedBook, setSelectedBook] = useState(null);
 
   useEffect(() => {
-
     async function fetchData() {
-      setLoadingLocal(false);
+      setLoadingLocal(true);
       const data = await fetchBorrowedBooks();
       setBorrowedBooks(data);
       setLoadingLocal(false);
-      console.log(data)
+      console.log(data);
     }
-    if (!loading)
-      fetchData();
-
+    if (!loading) fetchData();
   }, [loading]);
   return (
     <>
       <div className={styles.bookList}>
-        {(loading || loadinglocal) ? <BookCardSkeleton cards={3} /> : borrowedBooks.map((book) => (
-          <BookCard onClick={() => setSelectedBook(book)} key={book.borrowid} book={book} />
-        ))}{selectedBook && (
+        {loading || loadinglocal ? (
+          <BookCardSkeleton cards={3} />
+        ) : (
+          borrowedBooks.map((book) => (
+            <BookCard
+              disabled={book.status !== "borrowed"}
+              onClick={
+                () => setSelectedBook(book)}
+              key={book.borrowid}
+              book={book}
+            />
+          ))
+        )}
+        {selectedBook && (
           <Popup
             mode="return"
             book={selectedBook}
@@ -42,8 +53,9 @@ export default function Catalog() {
             onClose={() => {
               setSelectedBook(null);
               document.body.style.overflow = "auto";
-            }} 
-            setBorrowedBooks={setBorrowedBooks}/>
+            }}
+            setBorrowedBooks={setBorrowedBooks}
+          />
         )}
       </div>
     </>

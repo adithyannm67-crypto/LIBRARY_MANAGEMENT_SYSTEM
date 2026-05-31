@@ -1,35 +1,22 @@
 "use client";
 import style from "./navbar.module.css";
 
-import { useRouter } from "next/navigation";
+import { useRouter} from "next/navigation";
 
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 import { BookOpen, Bell } from "lucide-react";
-import { useAuth } from "#root/context/AuthContext.jsx";
 import { useAppData } from "#root/context/AppDataContext.jsx";
-import { usePathChange } from "#root/context/PathChangeContext.jsx";
+import { getDashBoardHeadings } from "#root/common.jsx";
 
 
 export default function NavBar() {
-  const { headerTitle, headerSubtitle, pathname } = usePathChange();
-  const { user } = useAuth();
 
-  const { loading, stats } = useAppData();
+  const { headerSubTitle, headerTitle } = getDashBoardHeadings();
+  const { loading } = useAppData();
   const router = useRouter();
 
-  let supportingString = "";
-  switch (pathname) {
-    case "/users":
-      supportingString = `Welcome back, ${user?.username}`
-      break;
-    case "/users/borrowhistory":
-      supportingString = `${stats?.totalBorrows} books borrowed`
-      break;
-    default:
-      supportingString = "";
-  }
 
   return (
     <header className={style.navBar}>
@@ -50,7 +37,7 @@ export default function NavBar() {
             )}
           </h3>
           <p className={style.headerSubtitle} style={{ width: "80%" }}>
-            {loading ? <Skeleton /> : supportingString}
+            {loading ? <Skeleton /> : headerSubTitle}
           </p>
         </div>
       </div>

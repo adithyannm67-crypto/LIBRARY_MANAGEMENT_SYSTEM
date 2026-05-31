@@ -16,32 +16,36 @@ import { useAppData } from "#root/context/AppDataContext.jsx";
 export default function RecommendationsSection() {
   const { loading } = useAppData();
   const [availableBooks, setAvailableBooks] = useState([]);
+  const [loadinglocal, setLoadingLocal] = useState(true);
 
   const [selectedBook, setSelectedBook] = useState(null);
   useEffect(() => {
     async function fetchData() {
+      setLoadingLocal(true);
       const data = await fetchAvailableBooks();
       setAvailableBooks(data);
+      setLoadingLocal(false);
     }
-    fetchData();
-  }, []);
+    if (!loading)
+      fetchData();
+  }, [loading]);
 
   return (
     <div className={style.card}>
       <h3 className={style.cardTitle}>
-        {loading ? <Skeleton /> : "Recommended for You"}
+        {loading || loadinglocal ? <Skeleton /> : "Recommended for You"}
       </h3>
 
       <div
         className={style.recommendList}
         style={
-          loading
+          loading || loadinglocal
             ? { height: "auto" }
             : { maxHeight: "400px", overflowY: "auto" }
         }
       >
-        {loading ? (
-          <BookCardSkeleton cards={3} />
+        {loading || loadinglocal ? (
+          <BookCardSkeleton cards={6} />
         ) : (
           availableBooks &&
           availableBooks.map((book, index) => (
@@ -59,7 +63,9 @@ export default function RecommendationsSection() {
           mode="borrow"
           book={selectedBook}
           isOpen={!!selectedBook}
-          onClose={() => setSelectedBook(null)}
+          onClose={() => {setSelectedBook(null);
+            document.body.style.overflow = "auto";
+          }}
         />
       )}
     </div>

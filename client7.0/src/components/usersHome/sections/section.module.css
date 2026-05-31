@@ -1,7 +1,6 @@
 /* Header */
 .dashboardHeader {
   padding: 12px;
-  /* padding-bottom: 0; */
   background: var(--card);
   border-bottom: 1px solid var(--border);
   width: 100%;

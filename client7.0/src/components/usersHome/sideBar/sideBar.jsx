@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { usePathChange } from "#root/context/PathChangeContext.jsx";
+import { usePathname } from "next/navigation";
 
 import {
   House,
@@ -43,7 +43,7 @@ export default function SideBar() {
 }
 
 const LinkComponent = ({ item }) => {
-  const { pathname } = usePathChange();
+  const pathname=usePathname();
   const { Icon, path, label } = item;
   const active = pathname === path;
   const isLogout = label === "Logout";

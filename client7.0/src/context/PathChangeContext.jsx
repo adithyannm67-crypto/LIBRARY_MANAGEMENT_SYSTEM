@@ -7,26 +7,11 @@ import { usePathname } from "next/navigation";
 
 export const PathChangeContext = createContext();
 
-const paths = [
-  { pathname: "/users", headerTitle: "Library DashBoard", headerSubtitle: "Welcome back," },
-  {
-    pathname: "/users/borrowhistory", headerTitle: "Borrow History", headerSubtitle: "books borrowed"
-  }, {
-    pathname: "/auth", headerTitle: "", headerSubtitle: ""
-  }
-  , {
-    pathname: "/", headerTitle: "", headerSubtitle: ""
-  }
-]
-
 export function PathChangeProvider({ children }) {
-  const path = usePathname();
-  const { pathname, headerTitle, headerSubtitle } = paths.find(o => o.pathname === path);
-
-  const isUsersLink = pathname.startsWith("/users")
+  const pathname = usePathname();
 
   return (
-    <PathChangeContext.Provider value={{ pathname, headerTitle, headerSubtitle, isUsersLink }}>
+    <PathChangeContext.Provider value={{ pathname }}>
       {children}
     </PathChangeContext.Provider>
   );
