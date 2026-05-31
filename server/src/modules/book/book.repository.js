@@ -1,7 +1,13 @@
 import pool from "#root/db/db.js";
 import AppError from "#root/classes/AppError.js";
-export async function getBookDetails() {
-  const dbResult = await pool.query(`SELECT * FROM books`);
+export async function getBookDetails({ limit }) {
+  let query = "SELECT * FROM books";
+  const params = [];
+  if (limit !== null) {
+    query += " LIMIT $1";
+    params.push(limit);
+  }
+  const dbResult = await pool.query(query, params);
   if (dbResult.rows.length === 0) {
     throw new AppError("No books found", 404);
   }

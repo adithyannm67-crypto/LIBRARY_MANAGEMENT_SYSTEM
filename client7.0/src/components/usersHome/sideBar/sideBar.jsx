@@ -6,7 +6,6 @@ import {
   BookOpenCheck,
   Bell,
   Library,
-  ClipboardList,
   User,
   History,
   CircleHelp,
@@ -18,14 +17,10 @@ const links = [
   { Icon: BookOpenCheck, label: "My Borrows", path: "/users/myborrows" },
   { Icon: Bell, label: "Notifications", path: "/users/notifications" },
   { Icon: Library, label: "Books", path: "/users/books" },
-  {
-    Icon: ClipboardList,
-    label: "Borrow Requests",
-    path: "/users/borrowrequests",
-  },
   { Icon: User, label: "Profile", path: "/users/profile" },
   { Icon: History, label: "Borrow History", path: "/users/borrowhistory" },
-  { Icon: CircleHelp, label: "Help/Contact", path: "/users/help" }, {
+  { Icon: CircleHelp, label: "Help/Contact", path: "/users/help" },
+  {
     Icon: LogOut,
     label: "Logout",
     path: "/auth",
@@ -43,7 +38,7 @@ export default function SideBar() {
 }
 
 const LinkComponent = ({ item }) => {
-  const pathname=usePathname();
+  const pathname = usePathname();
   const { Icon, path, label } = item;
   const active = pathname === path;
   const isLogout = label === "Logout";

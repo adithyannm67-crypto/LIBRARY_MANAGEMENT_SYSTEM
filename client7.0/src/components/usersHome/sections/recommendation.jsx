@@ -1,5 +1,8 @@
 import style from "./section.module.css";
+
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -14,6 +17,7 @@ import Popup from "../components/dashBoard.popup";
 import { useAppData } from "#root/context/AppDataContext.jsx";
 
 export default function RecommendationsSection() {
+  const router = useRouter();
   const { loading } = useAppData();
   const [availableBooks, setAvailableBooks] = useState([]);
   const [loadinglocal, setLoadingLocal] = useState(true);
@@ -22,7 +26,7 @@ export default function RecommendationsSection() {
   useEffect(() => {
     async function fetchData() {
       setLoadingLocal(true);
-      const data = await fetchAvailableBooks();
+      const data = await fetchAvailableBooks({ limit: 5 });
       setAvailableBooks(data);
       setLoadingLocal(false);
     }
@@ -47,23 +51,30 @@ export default function RecommendationsSection() {
         {loading || loadinglocal ? (
           <BookCardSkeleton cards={6} />
         ) : (
-          availableBooks &&
-          availableBooks.map((book, index) => (
-            <BookCard
-              onClick={() => setSelectedBook(book)}
-              key={index}
-              book={book}
-            />
-          ))
+          <>{availableBooks &&
+            availableBooks.map((book, index) => (
+              <BookCard
+                onClick={() => setSelectedBook(book)}
+                key={index}
+                book={book}
+              />
+            ))}
+            <Link className={style.viewAll} href="/users/books">View all</Link>
+          </>
         )}
       </div>
+
+
+
+
 
       {selectedBook && (
         <Popup
           mode="borrow"
           book={selectedBook}
           isOpen={!!selectedBook}
-          onClose={() => {setSelectedBook(null);
+          onClose={() => {
+            setSelectedBook(null);
             document.body.style.overflow = "auto";
           }}
         />

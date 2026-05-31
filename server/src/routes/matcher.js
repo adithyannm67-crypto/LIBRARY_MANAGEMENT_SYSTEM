@@ -3,10 +3,10 @@ import {
   returnBookController,
 } from "#root/modules/borrow/borrow.controller.js";
 import {
-  getAllBooks,
-  getFullBorrows,
+  getAllBooksController,
+  getFullBorrowsController,
 } from "#root/modules/book/book.controller.js";
-import {  getDashBoarddataController } from "#root/modules/user/user.controller.js";
+import { getDashBoarddataController } from "#root/modules/user/user.controller.js";
 import { loginController } from "#root/modules/auth/auth.controller.js";
 
 const routes = [
@@ -19,12 +19,13 @@ const routes = [
   {
     method: "GET",
     path: "api/allbooks/",
-    handler: getAllBooks,
+    handler: getAllBooksController,
     isProtected: false,
-  },{
+  },
+  {
     method: "GET",
     path: "api/borrowCatalogue/",
-    handler: getFullBorrows,
+    handler: getFullBorrowsController,
     isProtected: true,
   },
   {
@@ -50,6 +51,7 @@ export function matchRoute(req) {
   const host = req.headers.host || "localhost";
   const parsedUrl = new URL(req.url, `http://${host}`);
 
+  req.query = Object.fromEntries(parsedUrl.searchParams);
   const method = req.method;
   const pathName = parsedUrl.pathname;
   const urlParts = pathName.split("/").filter(Boolean);

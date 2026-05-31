@@ -12,21 +12,32 @@
 }
 
 /* Button */
-.btnPrimary {
+
+.btnPrimary,
+.btnSecondary {
   display: inline-flex;
   align-items: center;
   gap: 4px;
   padding: 0.25rem 0.75rem;
-  background-color: var(--primary);
-  color: var(--primary-foreground);
+
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
-  transition: opacity 0.2s;
+  transition: transform 0.2s;
 }
 
-.btnPrimary:hover {
-  opacity: 0.9;
+.btnPrimary {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.btnPrimary:hover.btnSecondary:hover {
+  transform: scale(1.05);
+}
+.btnSecondary {
+  border: 1px solid var(--border);
+  background-color: var(--primary-foreground);
+  color: var(--primary);
 }
 
 /* BookCards in DashBoard*/
@@ -59,7 +70,6 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-
 /* Content */
 .bookContent {
   flex: 1;
@@ -74,20 +84,18 @@
   text-overflow: ellipsis;
 }
 
-
 /* Author */
 .bookAuthor {
-  
   color: var(--muted-foreground);
   margin-bottom: 12px;
 }
 
 /* Status */
-.bookStatus,.bookMeta {
+.bookStatus,
+.bookMeta {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-bottom: 8px;
   color: var(--muted-foreground);
 }
-

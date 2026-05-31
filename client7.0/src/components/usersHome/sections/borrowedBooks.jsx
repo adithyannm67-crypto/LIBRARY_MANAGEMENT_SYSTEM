@@ -1,6 +1,7 @@
 import style from "./section.module.css";
 
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useState } from "react";
 
 import Skeleton from "react-loading-skeleton";
@@ -15,6 +16,7 @@ export default function BorrowedBooksSection() {
   const { loading, stats } = useAppData();
 
   const { activeBorrows } = stats;
+  const isBookPreset = activeBorrows.length > 0;
 
   const router = useRouter();
   const [selectedBook, setSelectedBook] = useState(null);
@@ -22,14 +24,11 @@ export default function BorrowedBooksSection() {
   return (
     <div className={style.mainContent}>
       <div className={style.card}>
-        <h2 className={style.cardTitle} style={{ flex: ".5" }}>
-          {loading ? (
-            <Skeleton />
-          ) : activeBorrows.length > 0 ? (
-            "Your Books"
-          ) : (
-            "All Books Have Been Returned"
-          )}
+        <h2
+          className={style.cardTitle}
+          style={{ flex: ".5", display: `${!isBookPreset ? "none" : ""}` }}
+        >
+          {loading ? <Skeleton /> : isBookPreset && "Your Books"}
         </h2>
 
         <div
@@ -42,8 +41,7 @@ export default function BorrowedBooksSection() {
         >
           {loading ? (
             <BookCardSkeleton cards={3} />
-          ) : (
-            activeBorrows &&
+          ) : activeBorrows.length > 0 ? (
             activeBorrows.map((book, index) => (
               <BookCard
                 onClick={() => setSelectedBook(book)}
@@ -51,6 +49,13 @@ export default function BorrowedBooksSection() {
                 book={book}
               />
             ))
+          ) : (
+            <>
+              <p>No active borrows </p>
+              <Link href="/users/books">
+                Click here to discover new books....
+              </Link>
+            </>
           )}
         </div>
 

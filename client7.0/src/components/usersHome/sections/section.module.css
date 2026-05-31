@@ -70,7 +70,8 @@
   opacity: 0.9;
 }
 
-.notificationBtn {margin-right: 8px;
+.notificationBtn {
+  margin-right: 8px;
   position: relative;
   padding: 12px;
   border-radius: 8px;
@@ -131,6 +132,9 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+.viewAll {
+  text-align: center;
 }
 .overdue {
   color: var(--failure);

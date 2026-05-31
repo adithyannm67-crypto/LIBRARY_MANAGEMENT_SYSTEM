@@ -190,7 +190,7 @@ const borrowUpdator = ({ data, updateStats }) => {
       totalBorrowsThisYear: newTotalBorrowsThisYear,
       totalBorrowsThisMonth: newTotalBorrowsThisMonth,
       totalBorrowsThisWeek: newTotalBorrowsThisWeek,
-
+      totalBorrows: prev.totalBorrows + 1,
       nearestBorrows: newdNearestBorrows,
     };
   });

@@ -28,6 +28,15 @@ export function getDashBoardHeadings() {
             headerSubTitle = `Discover your next read`;
             headerTitle = "Books";
             break;
+        case "/users/myborrows":
+            headerSubTitle = `Check your active borrows`;
+            headerTitle = "My Borrows";
+            break;
+        case "/users/profile":
+            headerSubTitle = "Manage your profile";
+            headerTitle = "Profile";
+            break;
+        case "/users/notifications":
         default:
             headerSubTitle = "";
             headerTitle = "";

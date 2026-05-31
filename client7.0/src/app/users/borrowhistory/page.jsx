@@ -25,7 +25,6 @@ export default function Catalog() {
       const data = await fetchBorrowedBooks();
       setBorrowedBooks(data);
       setLoadingLocal(false);
-      console.log(data);
     }
     if (!loading) fetchData();
   }, [loading]);
