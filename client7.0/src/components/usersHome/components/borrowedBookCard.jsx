@@ -1,5 +1,7 @@
 import styles from "./component.module.css";
 
+import { useRouter, usePathname } from "next/navigation";
+
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -7,10 +9,13 @@ import { Clock, AlertCircle, CheckCircle, Dot } from "lucide-react";
 import { formatDate } from "#root/common.jsx";
 
 export function BookCard({ book, onClick, disabled }) {
-  const { duedate, returndate, title, author, borrowdate } = book;
+  const router = useRouter();
+  const pathname = usePathname();
 
+  const parts = pathname.split("/").filter(Boolean);
+  const { bookid, duedate, returndate, title, authors, borrowdate } = book;
+  const isReturned = returndate !== null;
   const isOverdue = new Date(duedate) < new Date() && !returndate;
-  console.log(book)
   const returnedLate = returndate && new Date(returndate) > new Date(duedate);
   const StatusIcon = returndate
     ? returnedLate
@@ -20,22 +25,30 @@ export function BookCard({ book, onClick, disabled }) {
       ? AlertCircle
       : Clock;
 
-  const bookcardStyle = `${styles.bookCard1} ${!disabled ? styles.active : ""} `
+  const bookcardStyle = `${styles.bookCard1} ${!disabled ? styles.active : ""} `;
+  let authorsString = "Unknown Author";
+  if (authors && Object.keys(authors).length > 0) {
+    authorsString = "";
+    Object.entries(authors).forEach(([_, value], index) => {
+      if (index > 0) authorsString += ", ";
+      authorsString += value;
+    });
+  }
+
   return (
-    <div
-      className={bookcardStyle}
-      onClick={disabled ? null : onClick}
-    >
+    <div className={bookcardStyle}>
       <div className={styles.bookContent}>
         <h3 className={styles.bookTitle}>{title}</h3>
 
-        <p className={styles.bookAuthor}>{author}</p>
+        <p className={styles.bookAuthor}>{authorsString}</p>
 
         <div className={styles.bookStatus}>
           <div className={styles.iconWrapper}>
             <StatusIcon />
           </div>
-          <span style={{ color: "#1D4ED8" }}>Borrowed on {formatDate(borrowdate)}</span>
+          <span style={{ color: "#1D4ED8" }}>
+            Borrowed on {formatDate(borrowdate)}
+          </span>
 
           {!returndate && (
             <>
@@ -48,7 +61,9 @@ export function BookCard({ book, onClick, disabled }) {
           {returndate && (
             <>
               <Dot />
-              <span className={styles.returned}>Returned on {formatDate(returndate)}</span>
+              <span className={styles.returned}>
+                Returned on {formatDate(returndate)}
+              </span>
 
               {returnedLate && (
                 <span className={styles.late}>Returned late</span>
@@ -56,6 +71,27 @@ export function BookCard({ book, onClick, disabled }) {
             </>
           )}
         </div>
+      </div>
+
+      <div
+        style={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-evenly",
+        }}
+      >
+        {!isReturned && <button onClick={onClick}>Return</button>}
+        <button
+          onClick={() => {
+            const option = isReturned ? "Borrow Again" : "Return";
+            router.push(
+              `bookdetails/${bookid}/?option=${option}&from=${parts[1]}`,
+            );
+          }}
+        >
+          Details
+        </button>
       </div>
     </div>
   );

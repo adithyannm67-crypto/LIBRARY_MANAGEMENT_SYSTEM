@@ -5,11 +5,18 @@ import {
 import {
   getAllBooksController,
   getFullBorrowsController,
+  getBookByIdController,
 } from "#root/modules/book/book.controller.js";
 import { getDashBoarddataController } from "#root/modules/user/user.controller.js";
 import { loginController } from "#root/modules/auth/auth.controller.js";
 
 const routes = [
+  {
+    method: "GET",
+    path: "api/book/:bookid/",
+    handler: getBookByIdController,
+    isProtected: true,
+  },
   {
     method: "GET",
     path: "api/loadDashboard/",

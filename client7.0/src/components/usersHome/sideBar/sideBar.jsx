@@ -27,9 +27,12 @@ const links = [
   },
 ];
 import styles from "./sidebar.module.css";
-export default function SideBar() {
+export default function SideBar({ isOpen }) {
   return (
-    <div id="sideBar" className={styles.sideBar}>
+    <div
+      id="sideBar"
+      className={styles.sideBar + " " + (isOpen ? styles.open : "")}
+    >
       {links.map((item, index) => {
         return <LinkComponent key={index} item={item} />;
       })}

@@ -2,27 +2,55 @@ import styles from "./component.module.css";
 
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { useRouter } from "next/navigation";
+
+import { getCoverUrl } from "#root/common.jsx";
 
 export function BookCard({ book, onClick }) {
-  const { title, author, genre } = book;
+  const { title, authors, genre, coverid } = book;
+  const router = useRouter();
   const bookcardStyle = `${styles.bookCard1} ${styles.active}`;
   const bookCoverStyles = {
     background: "var(--book-cover)",
     height: "70px",
     width: "50px",
   };
+  let authorsString = "Unknown Author";
+  if (authors && Object.keys(authors).length > 0) {
+    authorsString = "";
+    Object.entries(authors).forEach(([_, value], index) => {
+      if (index > 0) authorsString += ", ";
+      authorsString += value;
+    });
+  }
   return (
-    <div className={bookcardStyle} onClick={onClick}>
-      <div className={styles.bookCover} style={bookCoverStyles} />
+    <div
+      className={bookcardStyle}
+      onClick={() => {
+        router.push(`users/bookdetails/${book.bookid}/?option=Borrow`);
+      }}
+    >
+      {coverid ? (
+        <img
+          src={getCoverUrl(coverid)}
+          alt="Book Cover"
+          loading="lazy"
+          height="70"
+          width="50"
+          style={{ objectFit: "cover", borderRadius: "4px" }}
+        />
+      ) : (
+        <div className={styles.bookCover} style={bookCoverStyles} />
+      )}
 
       <div className={styles.bookContent}>
         <h4 className={styles.bookTitle}>{title}</h4>
 
-        <p className={styles.bookAuthor}>{author}</p>
+        <p className={styles.bookAuthor} style={{ margin: "0px" }}>
+          By {authorsString}
+        </p>
 
-        <div className={styles.bookMeta}>
-          <span className={styles.recGenre}>• {genre}</span>
-        </div>
+        <p className={styles.recGenre}>• {genre}</p>
       </div>
     </div>
   );

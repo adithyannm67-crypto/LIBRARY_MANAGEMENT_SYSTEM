@@ -4,48 +4,102 @@ import btnStyles from "#root/common.module.css";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-export function BookCard({ book, onClick }) {
+import { useAppData } from "#root/context/AppDataContext.jsx";
+import { getCoverUrl } from "#root/common.jsx";
+
+export function BookCard({ borrowed, book, onClick }) {
   const router = useRouter();
-  const { title, author, genre, availablecopies } = book;
+  const [shake, setShake] = useState(false);
+  const { title, authors, genre, availablecopies, coverid } = book;
   const bookcardStyle = `${styles.bookCard3} ${styles.active}`;
   const bookCoverStyles = {
     background: "var(--book-cover)",
     height: "120px",
     width: "80px",
   };
+
+  let authorsString = "Unknown Author";
+  if (authors && Object.keys(authors).length > 0) {
+    authorsString = "";
+    Object.entries(authors).forEach(([_, value], index) => {
+      if (index > 0) authorsString += ", ";
+      authorsString += value;
+    });
+  }
   return (
     <div
       className={bookcardStyle}
+      style={(availablecopies === 0 || borrowed) ? { }:{}}
       onClick={() => {
-        router.push(`books/${book.bookid}`);
+        router.push(`bookdetails/${book.bookid}/?option=Borrow`);
       }}
     >
-      <div className={styles.bookCover} style={bookCoverStyles} />
+      <div className={styles.bookCover} style={bookCoverStyles}>
+        {coverid && (
+          <img
+            src={getCoverUrl(coverid)}
+            alt="Book Cover"
+            loading="lazy"
+            height="120"
+            width="80"
+            style={{ objectFit: "cover", borderRadius: "4px" }}
+          />
+        )}
+      </div>
 
       <div className={styles.bookContent}>
-        <h4>{title}</h4>
+        <h3 align="center" style={{ margin: "0px", transform: "scaleY(1.2)" ,minHeight:"3.4rem"}}>
+          {title}
+        </h3>
 
-        <p className={styles.bookAuthor}>{author}</p>
+        <p className={styles.bookAuthor}> By {authorsString}</p>
 
         <div className={styles.bookMeta}>
-          <p className={styles.recGenre}>• {genre}</p>
-          <br />
-          <p>
-            {availablecopies > 0
-              ? `${availablecopies} Available`
-              : "Out of Stock"}
+          <p style={{ background: "#f3f4f6" }}>
+            <span className={styles.recGenre}>{genre}</span>
           </p>
+          <p>
+            {availablecopies > 0 ? (
+              <span
+                style={{ background: "var(--success)", textAlign: "center" }}
+              >
+                Available
+              </span>
+            ) : (
+              <span
+                style={{ background: "var(--failure)", textAlign: "center" }}
+              >
+                {" "}
+                Out of Stock
+              </span>
+            )}
+          </p>
+          {borrowed && (
+            <p>
+              <span style={{ background: "#acafb3" }}>Already Borrowed</span>
+            </p>
+          )}
         </div>
         <div className={styles.bookActions}>
           <button
-            className={btnStyles.btnPrimary}
+            className={
+              btnStyles.btnPrimary + " " + (shake ? btnStyles.shake : "")
+            }
             onClick={(e) => {
               e.stopPropagation();
+              if (availablecopies === 0 || borrowed) {
+                setShake(true);
+                setTimeout(() => {
+                  setShake(false);
+                }, 1000);
+                return;
+              }
               onClick();
             }}
           >
-            Borrow
+            {availablecopies === 0 || borrowed ?"Unavailable": "Borrow"  }
           </button>
         </div>
       </div>

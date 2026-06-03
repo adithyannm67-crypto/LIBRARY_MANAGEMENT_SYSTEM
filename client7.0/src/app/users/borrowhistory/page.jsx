@@ -35,6 +35,7 @@ export default function Catalog() {
           <BookCardSkeleton cards={3} />
         ) : (
           borrowedBooks.map((book) => (
+            console.log(book),
             <BookCard
               disabled={book.status !== "borrowed"}
               onClick={
@@ -46,6 +47,7 @@ export default function Catalog() {
         )}
         {selectedBook && (
           <Popup
+            text="return"
             mode="return"
             book={selectedBook}
             isOpen={!!selectedBook}

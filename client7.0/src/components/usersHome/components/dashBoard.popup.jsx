@@ -2,6 +2,7 @@ import styles from "./component.module.css";
 
 import { toast } from "react-hot-toast";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
 
 import returnBook from "../Actions/return.js";
@@ -11,16 +12,28 @@ import { useAppData } from "#root/context/AppDataContext.jsx";
 //setBorrowedBooks is for automaticallly update borrowed books in borrow history page
 
 export default function Popup({
+  fetchData,
+  from,
   mode,
   book,
   isOpen,
   onClose,
   setBorrowedBooks,
 }) {
+  const router = useRouter();
   const { updateStats } = useAppData();
   const [loading, setLoading] = useState(false);
 
-  const { author, title } = book;
+  const { authors, title } = book;
+
+  let authorsString = "Unknown Author";
+  if (authors && Object.keys(authors).length > 0) {
+    authorsString = "";
+    Object.entries(authors).forEach(([_, value], index) => {
+      if (index > 0) authorsString += ", ";
+      authorsString += value;
+    });
+  }
 
   let duedate = book.duedate;
   if (!duedate) {
@@ -81,6 +94,8 @@ export default function Popup({
     } finally {
       toast.dismiss(id);
       setLoading(false);
+      if (from === "myborrows") router.replace(`/users/${from}`);
+      else if (fetchData) await fetchData();
     }
     //An invoice generation code goes here
   }
@@ -97,7 +112,7 @@ export default function Popup({
         <h2>{heading}</h2>
         <h2 className={styles.title}>{title}</h2>
 
-        <p className={styles.author}>{"By " + author}</p>
+        <p className={styles.author}>{"By " + authorsString}</p>
         <hr style={{ borderColor: "#e5e7eb" }} />
 
         <p className={styles.message}>{message}</p>
@@ -113,7 +128,9 @@ export default function Popup({
 
           <button
             className={`${styles.btn} ${styles.returnBtn}`}
-            onClick={operationHandler}
+            onClick={() => {
+              operationHandler();
+            }}
             disabled={loading}
           >
             {text}

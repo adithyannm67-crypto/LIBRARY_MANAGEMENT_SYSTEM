@@ -85,7 +85,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 0px 24px;
+  padding: 8px 24px;
   border-radius: 8px;
   border: 1px solid var(--border);
 }
@@ -94,13 +94,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+  background: var(--card);
   gap: 12px;
   width: 100%;
   height: 100%;
 
   padding: 12px 12px;
   border-radius: 8px;
-  border: 1px solid var(--border);
+  border: 3px solid var(--border);
 }
 .bookCard3 h4 {
   width: 100%;
@@ -112,11 +113,12 @@
 }
 .active {
   cursor: pointer;
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow, transform 0.2s ease;
 }
 
 .active:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
 }
 
 .bookCover {
@@ -127,28 +129,47 @@
 
 .bookContent {
   flex: 1;
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  min-width: 0;
 }
 
 .bookTitle {
-  margin-bottom: 2px;
+  margin:0;
+  margin: 8px 0;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 .bookAuthor {
-  color: #6b7280;
-  margin-bottom: 12px;
+  color: #0d0d0e;
+  
 }
 
 .bookStatus,
 .bookMeta {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 8px;
   color: var(--muted-foreground);
+}
+.bookMeta p{
+  margin:0;
+}
+.bookMeta{
+  height:4rem;
+}
+
+.bookMeta span{
+  white-space:nowrap;
+  margin: 0;
+  padding:4px 4px;
+  border-radius: 99999px;
+  display:grid;
+  place-items: center;
+  color:black;
 }
 .bookActions{
   display: flex;

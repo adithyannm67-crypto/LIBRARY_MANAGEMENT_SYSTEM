@@ -15,10 +15,8 @@ import { useAppData } from "#root/context/AppDataContext.jsx";
 
 export default function Page() {
   const { stats } = useAppData();
-  console.log(stats);
   const { activeBorrows } = stats;
 
-  console.log(Boolean(activeBorrows));
   const [selectedBook, setSelectedBook] = useState(null);
   return (
     <div className={styles.bookList}>
@@ -38,6 +36,7 @@ export default function Page() {
       )}
       {selectedBook && (
         <Popup
+          text="return"
           mode="return"
           book={selectedBook}
           isOpen={!!selectedBook}
@@ -45,7 +44,6 @@ export default function Page() {
             setSelectedBook(null);
             document.body.style.overflow = "auto";
           }}
-          
         />
       )}
     </div>

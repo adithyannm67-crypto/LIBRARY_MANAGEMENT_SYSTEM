@@ -61,7 +61,7 @@ export function AppDataProvider({ children }) {
           totalBorrowsThisWeek,
         });
       } catch (e) {
-        console.log(e);
+        console.error(e);
         setError("Failed to load dashboard data");
       } finally {
         setLoading(false);
@@ -70,13 +70,11 @@ export function AppDataProvider({ children }) {
 
     loadDashBoardData();
   }, [user]);
-
-  console.log(stats);
+  if (stats?.totalBorrowsThisYear > 0)
+    console.log("stats from app data context", stats);
 
   return (
-    <AppDataContext.Provider
-      value={{ loading, error, stats, updateStats }}
-    >
+    <AppDataContext.Provider value={{ loading, error, stats, updateStats }}>
       {children}
     </AppDataContext.Provider>
   );

@@ -7,7 +7,7 @@ import AuthError from "#root/classes/AuthError.js";
 export async function getBorrowRecordByUserId(userid) {
   
   const borrowrecordResult = await pool.query(
-    `SELECT br.*,b.title,b.author
+    `SELECT br.*,b.title,b.authors
     FROM borrowrecord br 
     JOIN books b ON br.bookid=b.bookid WHERE br.userid=$1`,
     [userid],

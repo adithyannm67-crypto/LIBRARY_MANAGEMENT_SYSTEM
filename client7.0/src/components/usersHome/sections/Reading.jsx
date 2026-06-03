@@ -1,5 +1,6 @@
 import style from "./section.module.css";
-import { Skeleton } from "#root/components/skeletons";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import { useAppData } from "#root/context/AppDataContext.jsx";
 export default function ReadingGoalSection() {
   const { loading } = useAppData();

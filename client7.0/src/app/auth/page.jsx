@@ -1,44 +1,44 @@
 "use client";
 
-import "./page.css";
+import styles from "./page.module.css";
 import commonStyle from "#root/common.module.css";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { BookOpen } from "lucide-react";
-import Login from "./component/login/page";
-import Signup from "./component/signup/page";
+import Login from "#root/components/auth/login/page.jsx";
+import Signup from "#root/components/auth/signup/page";
 
 export default function LoginSignup({ onBack }) {
   const [isLogin, setIsLogin] = useState(true);
   const router = useRouter();
 
   return (
-    <div className="container">
-      <div className="wrapper">
+    <div className={styles.container}>
+      <div className={styles.wrapper}>
         {/* Logo */}
-        <div className="logo">
-          <div className="logo-row">
-            <BookOpen className="logo-icon" />
-            <span className="logo-text">Dora Library</span>
+        <div className={styles.logo}>
+          <div className={styles.logoRow}>
+            <BookOpen className={styles.logoIcon} />
+            <span className={styles.logoText}>Dora Library</span>
           </div>
-          <p className="logo-subtext">Library Management System</p>
+          <p className={styles.logoSubtext}>Library Management System</p>
         </div>
 
         {/* Card */}
-        <div className="card">
+        <div className={styles.card}>
           {/* Tabs */}
-          <div className="tabs">
+          <div className={styles.tabs}>
             <button
               onClick={() => setIsLogin(true)}
-              className={`tab-btn ${isLogin ? "active" : ""}`}
+              className={styles.tabBtn + " " + (isLogin ? styles.active : "")}
             >
               Login
             </button>
 
             <button
               onClick={() => setIsLogin(false)}
-              className={`tab-btn ${!isLogin ? "active" : ""}`}
+              className={styles.tabBtn + " " + (!isLogin ? styles.active : "")}
             >
               Sign Up
             </button>
@@ -49,7 +49,7 @@ export default function LoginSignup({ onBack }) {
         </div>
 
         {/* Footer */}
-        <div className="footer">
+        <div className={styles.footer}>
           <button
             onClick={() => {
               if (onBack) onBack();

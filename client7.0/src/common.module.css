@@ -27,6 +27,7 @@
 }
 
 .btnPrimary {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   background-color: var(--primary);
   color: var(--primary-foreground);
 }
@@ -38,6 +39,27 @@
   border: 1px solid var(--border);
   background-color: var(--primary-foreground);
   color: var(--primary);
+}
+
+.shake {
+  animation: vibrate 0.15s ease-in-out 2;
+}
+@keyframes vibrate {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 /* BookCards in DashBoard*/

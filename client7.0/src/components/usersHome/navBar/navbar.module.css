@@ -70,9 +70,20 @@
   background: var(--foreground);
   color: var(--background);
   cursor: pointer;
+
+
+
+  display:block;
 }
 .logoutBtn:hover {
   opacity: 0.9;
+}
+
+@media(max-width:370px){
+  .logoutBtn{
+    display:none;
+  }
+
 }
 
 .notificationBtn {

@@ -22,7 +22,7 @@
     transition: left 0.3s ease;
   }
 
-  .sideBar:global(.open) {
+  .open {
     top: 70px;
     left: 0;
   }

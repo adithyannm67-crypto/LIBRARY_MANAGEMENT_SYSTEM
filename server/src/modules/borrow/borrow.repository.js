@@ -38,7 +38,7 @@ export async function createBorrowTransaction(userid, bookid, today, status) {
       `UPDATE books 
        SET availablecopies = availablecopies - 1 
        WHERE bookid = $1 AND availablecopies > 0 
-       RETURNING title, author`,
+       RETURNING title, authors`,
       [bookid],
     );
 
@@ -99,7 +99,7 @@ export async function returnTransaction(borrowid, userid, today, status) {
     const borrowrecordResult = await client.query(
       `UPDATE borrowrecord 
         SET returndate = $1, status = $2
-        WHERE borrowid=$3 AND userid=$4 
+        WHERE borrowid=$3 AND userid=$4 AND (status = 'borrowed' OR returndate IS NULL)
         RETURNING bookid `,
       [today, status, borrowid, userid],
     );

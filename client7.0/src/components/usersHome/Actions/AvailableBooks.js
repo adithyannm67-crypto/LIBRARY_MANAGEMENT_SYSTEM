@@ -1,4 +1,4 @@
-export default async function fetchAvailableBooks({ limit }={}) {
+export async function fetchAvailableBooks({ limit } = {}) {
   // Rreturns all book in the db
 
   const url = limit ? `?limit=${limit}` : "";
@@ -12,5 +12,21 @@ export default async function fetchAvailableBooks({ limit }={}) {
     return body.data.books;
   } catch (e) {
     return [e.message || "An error occurred while fetching available books"];
+  }
+}
+
+export async function fetchBookById(bookid) {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) throw new Error("User not authenticated");
+    const res = await fetch(`http://localhost:5000/api/book/${bookid}`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const body = await res.json();
+    if (!res.ok || !body.success) throw new Error("fetching Failed");
+    return body.data.book;
+  } catch (e) {
+    return [e.message || "An error occurred while fetching book"];
   }
 }
