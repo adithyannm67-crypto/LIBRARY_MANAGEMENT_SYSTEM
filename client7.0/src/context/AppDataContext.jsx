@@ -1,3 +1,6 @@
+"use client";
+
+
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
 
@@ -53,7 +56,10 @@ export function AppDataProvider({ children }) {
 
         updateStats({
           totalBorrows,
-          activeBorrows: activeBorrows,
+          activeBorrows: activeBorrows?.map((book) => ({
+            ...book,
+            // authors: getAuthorString(book.authors),
+          })),
           totalBorrowsThisYear,
           currentBorrowsCount: activeBorrows.length,
           nearestBorrows,

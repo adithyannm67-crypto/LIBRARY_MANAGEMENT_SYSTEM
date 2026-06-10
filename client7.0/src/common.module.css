@@ -32,7 +32,8 @@
   color: var(--primary-foreground);
 }
 
-.btnPrimary:hover.btnSecondary:hover {
+.btnPrimary:hover,
+.btnSecondary:hover {
   transform: scale(1.05);
 }
 .btnSecondary {

@@ -13,7 +13,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { fetchBookById } from "#root/components/usersHome/Actions/AvailableBooks.js";
 import Popup from "#root/components/usersHome/components/dashBoard.popup.jsx";
 import { useAppData } from "#root/context/AppDataContext.jsx";
-import { getCoverUrl, formatDate } from "#root/common.jsx";
+import { getCoverUrl, formatDate, getAuthorString } from "#root/common.jsx";
 
 export default function Page() {
   const { bookid } = useParams();
@@ -30,8 +30,12 @@ export default function Page() {
   const [shake, setShake] = useState(false);
   async function fetchData() {
     setLoadingLocal(true);
-    const data = await fetchBookById(bookid);
-    setBookDetails(data);
+    const book = await fetchBookById(bookid);
+    const formattedData = {
+      ...book,
+      authors: getAuthorString(book.authors),
+    };
+    setBookDetails(formattedData);
     setLoadingLocal(false);
   }
   useEffect(() => {
@@ -48,14 +52,7 @@ export default function Page() {
     editionid,
     description,
   } = bookDetails;
-  let authorsString = "Unknown Author";
-  if (authors && Object.keys(authors).length > 0) {
-    authorsString = "";
-    Object.entries(authors).forEach(([_, value], index) => {
-      if (index > 0) authorsString += ", ";
-      authorsString += value;
-    });
-  }
+  
   let btnText = option;
 
   btnText =
@@ -92,7 +89,7 @@ export default function Page() {
             ) : (
               <>
                 <span className={styles.label}>Author</span>:{" "}
-                <span>{authorsString}</span>
+                <span>{authors}</span>
               </>
             )}
           </p>
@@ -137,7 +134,7 @@ export default function Page() {
                 <Skeleton />
               </>
             ) : (
-              <details style={{width:"100%"}}>
+              <details style={{ width: "100%" }}>
                 <summary styles={{ cursor: "pointer" }}>Description</summary>
                 <p style={{ overflowWrap: "break-word" }}>{description}</p>
               </details>

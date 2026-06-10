@@ -7,7 +7,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -102,23 +102,23 @@
   padding: 12px 12px;
   border-radius: 8px;
   border: 3px solid var(--border);
+  cursor: pointer;
+  transition:
+    box-shadow,
+    transform 0.2s ease;
 }
+.bookCard3:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+}
+
 .bookCard3 h4 {
   width: 100%;
   text-align: center;
-  height:2.5rem;
+  height: 2.5rem;
 
   overflow-wrap: break-word;
   word-wrap: break-word;
-}
-.active {
-  cursor: pointer;
-  transition: box-shadow, transform 0.2s ease;
-}
-
-.active:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transform: scale(1.02);
 }
 
 .bookCover {
@@ -135,7 +135,7 @@
 }
 
 .bookTitle {
-  margin:0;
+  margin: 0;
   margin: 8px 0;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -143,38 +143,66 @@
 
 .bookAuthor {
   color: #0d0d0e;
-  
 }
 
 .bookStatus,
 .bookMeta {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+
   gap: 8px;
   margin-bottom: 8px;
+}
+.bookMeta {
+  flex-wrap: wrap;
   color: var(--muted-foreground);
 }
-.bookMeta p{
-  margin:0;
-}
-.bookMeta{
-  height:4rem;
+.detailsSection {
+  width: 100%;
+  position: relative;
 }
 
-.bookMeta span{
-  white-space:nowrap;
-  margin: 0;
-  padding:4px 4px;
-  border-radius: 99999px;
-  display:grid;
-  place-items: center;
-  color:black;
+.detailsSection summary {
+  cursor: pointer;
 }
-.bookActions{
+
+.detailsSection p {
+  overflow-wrap: break-word;
+  position: absolute;
+  background: var(--card);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bookStatus {
+  flex-direction: row;
+  position: relative;
+}
+.bookMeta p {
+  margin: 0;
+}
+.bookMeta {
+  height: 4rem;
+}
+
+.bookMeta span {
+  white-space: nowrap;
+  margin: 0;
+  padding: 4px 4px;
+  border-radius: 99999px;
+  display: grid;
+  place-items: center;
+  color: black;
+}
+.bookActions {
   display: flex;
   align-items: center;
-  width:100%;
+  width: 100%;
   justify-content: center;
   gap: 8px;
   margin-bottom: 8px;
@@ -271,4 +299,202 @@
   color: var(--muted-foreground);
   margin: 0;
   margin-top: 4px;
+}
+
+.btn1 {
+  width: fit-content;
+  display: inline-block;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 6px;
+  color: var(--card);
+  background-color: var(--foreground);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn1:hover {
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  transform: scale(1.1);
+}
+
+.searchBarContainer {
+  width: 100%;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.searchWrapper {
+  flex: 1;
+  position: relative;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: var(--muted-foreground);
+}
+
+.searchInput {
+  width: 100%;
+
+  padding: 12px 16px 12px 48px;
+  background-color: var(--input-background);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  outline: none;
+}
+
+.searchInput:focus {
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.filterWrapper {
+  border: none;
+  background-color: var(--accent);
+  padding: 10px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.filterIcon {
+  width: 20px;
+  height: 20px;
+  color: var(--primary);
+}
+
+.filterContainer {
+  z-index: var(--z5);
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: var(--card);
+
+  padding: 16px;
+
+  min-width: 400px;
+}
+@media (max-width: 768px) {
+  .filterContainer {
+    width: 100%;
+  }
+}
+
+.filterCheckbox > label {
+  padding: 8px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filterSection {
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.filterOption {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filterOption summary{
+  cursor: pointer;
+}
+
+.filterOption ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.filterHeader,
+.filterButtons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.filterHeader button {
+  border: none;
+  background: none;
+}
+
+.filterSelected {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, max-content));
+  place-items: center;
+  gap: 12px;
+}
+
+.filter {
+  color: var(--foreground);
+  background-color: #c4c1c1;
+  padding: 2px 8px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+
+  text-align: center;
+}
+
+.filterXWrapper {
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filterX {
+  height: 15px;
+  width: 15px;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.filterXWrapper:hover {
+  background-color: var(--muted-foreground);
+}
+
+.filterHeader {
+  margin-bottom: 16px;
+}
+
+.filterFooter {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--card);
+
+  border-radius: 0 0 8px 8px;
 }

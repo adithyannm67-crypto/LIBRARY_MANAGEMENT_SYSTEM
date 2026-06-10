@@ -7,7 +7,7 @@ import { createPortal } from "react-dom";
 
 import returnBook from "../Actions/return.js";
 import borrowBook from "../Actions/borrow";
-import { formatDate } from "#root/common.jsx";
+import { formatDate, getAuthorString } from "#root/common.jsx";
 import { useAppData } from "#root/context/AppDataContext.jsx";
 //setBorrowedBooks is for automaticallly update borrowed books in borrow history page
 
@@ -25,26 +25,16 @@ export default function Popup({
   const [loading, setLoading] = useState(false);
 
   const { authors, title } = book;
+  const authorString = getAuthorString(authors);
 
-  let authorsString = "Unknown Author";
-  if (authors && Object.keys(authors).length > 0) {
-    authorsString = "";
-    Object.entries(authors).forEach(([_, value], index) => {
-      if (index > 0) authorsString += ", ";
-      authorsString += value;
-    });
-  }
 
   let duedate = book.duedate;
   if (!duedate) {
     duedate = new Date();
-    duedate.setDate(duedate.getDate() + 7);
+    duedate.setDate(duedate.getDate() + 9);
   }
 
-  const isOverdue = new Date(duedate) < new Date();
-  const noOfDays = Math.abs(
-    Math.floor((new Date(duedate) - new Date()) / (1000 * 60 * 60 * 24)),
-  );
+  
 
   const modes = {
     borrow: {
@@ -107,19 +97,20 @@ export default function Popup({
   }
 
   return createPortal(
-    <div className={styles.overlay} onClick={onClose}>
+    <div
+      className={styles.overlay}
+      onClick={onClose}
+      style={{ background: "rgba(0, 0, 0, 0.4)" }}
+    >
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <h2>{heading}</h2>
         <h2 className={styles.title}>{title}</h2>
 
-        <p className={styles.author}>{"By " + authorsString}</p>
+        <p className={styles.author}>{"By " + authorString}</p>
         <hr style={{ borderColor: "#e5e7eb" }} />
 
         <p className={styles.message}>{message}</p>
         <p className={styles.dueDate}>{"Due on " + formatDate(duedate)}</p>
-        {isOverdue && (
-          <p className={styles.overdue}>{noOfDays + " days overdue"}</p>
-        )}
 
         <div className={styles.actions}>
           <button className={styles.btn} onClick={onClose}>
@@ -155,7 +146,7 @@ const returnUpdator = ({ data, updateStats, setBorrowedBooks }) => {
     setBorrowedBooks((prev) =>
       prev.map((b) =>
         b.borrowid === borrowid
-          ? { ...b, status: "returned", returndate: data.returndate }
+          ? { ...b, status: "returned", returndate: data.returned_at }
           : b,
       ),
     );

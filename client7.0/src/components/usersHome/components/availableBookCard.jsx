@@ -4,9 +4,9 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useRouter } from "next/navigation";
 
-import { getCoverUrl } from "#root/common.jsx";
+import { getCoverUrl, getAuthorString } from "#root/common.jsx";
 
-export function BookCard({ book, onClick }) {
+export function BookCard({ book }) {
   const { title, authors, genre, coverid } = book;
   const router = useRouter();
   const bookcardStyle = `${styles.bookCard1} ${styles.active}`;
@@ -15,14 +15,7 @@ export function BookCard({ book, onClick }) {
     height: "70px",
     width: "50px",
   };
-  let authorsString = "Unknown Author";
-  if (authors && Object.keys(authors).length > 0) {
-    authorsString = "";
-    Object.entries(authors).forEach(([_, value], index) => {
-      if (index > 0) authorsString += ", ";
-      authorsString += value;
-    });
-  }
+  const authorString = getAuthorString(authors);
   return (
     <div
       className={bookcardStyle}
@@ -47,7 +40,7 @@ export function BookCard({ book, onClick }) {
         <h4 className={styles.bookTitle}>{title}</h4>
 
         <p className={styles.bookAuthor} style={{ margin: "0px" }}>
-          By {authorsString}
+          By {authorString}
         </p>
 
         <p className={styles.recGenre}>• {genre}</p>

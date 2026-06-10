@@ -20,7 +20,7 @@ export function BorrowProvider({ children }) {
     async function fetchBorrowedData() {
       
       let data = await fetchBorrowedBooks();
-      data = data.filter((book) => !book.returndate);
+      data = data.filter((book) => !book.returned_at);
       localStorage.setItem("borrowedBooks", JSON.stringify(data));
       setBorrowedBooks(data);
     }

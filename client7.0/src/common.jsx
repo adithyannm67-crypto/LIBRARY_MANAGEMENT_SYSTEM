@@ -2,11 +2,31 @@ import { usePathname } from "next/navigation";
 import { useAppData } from "#root/context/AppDataContext.jsx";
 import { useAuth } from "#root/context/AuthContext.jsx";
 
+export function getAuthorString(authors) {
+  console.log(authors);
+  let authorString = "Unknown Author";
+  if (authors && Object.keys(authors).length > 0) {
+    authorString = "";
+    Object.entries(authors).forEach(([_, value], index) => {
+      if (index > 0) authorString += " and ";
+      authorString += value;
+    });
+  }
+  return authorString;
+}
+
 export function formatDate(date) {
-  return new Date(date).toLocaleDateString("en-GB", {
+  return new Date(date).toLocaleDateString("en-IN", {
     year: "numeric",
     month: "short",
     day: "numeric",
+  });
+}
+
+export function formatDateandTime(date) {
+  return new Date(date).toLocaleString("en-IN", {
+    dateStyle: "medium",
+    timeStyle: "short",
   });
 }
 

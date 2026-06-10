@@ -42,13 +42,19 @@ export default function BorrowedBooksSection() {
           {loading ? (
             <BookCardSkeleton cards={3} />
           ) : activeBorrows.length > 0 ? (
-            activeBorrows.map((book, index) => (
-              <BookCard
-                onClick={() => setSelectedBook(book)}
-                key={index}
-                book={book}
-              />
-            ))
+            <>
+              {activeBorrows.map((book, index) => (
+                console.log(book),
+                <BookCard
+                  onClick={() => setSelectedBook(book)}
+                  key={index}
+                  book={book}
+                />
+              ))}
+              <Link className={style.viewAll} href="/users/myborrows">
+                View in Detail
+              </Link>
+            </>
           ) : (
             <>
               <p>No active borrows </p>

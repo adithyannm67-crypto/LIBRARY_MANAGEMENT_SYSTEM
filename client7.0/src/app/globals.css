@@ -74,3 +74,37 @@ html,
 .openblock {
   display: block;
 }
+
+.active {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+.returned {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.returned-late {
+  background-color: #ffedd5;
+  color: #c2410c;
+}
+
+.overdue {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.due-soon {
+  background-color: #fef9c3;
+  color: #ca8a04;
+}
+.badge {
+  
+  align-self:flex-start;
+  white-space: nowrap;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}

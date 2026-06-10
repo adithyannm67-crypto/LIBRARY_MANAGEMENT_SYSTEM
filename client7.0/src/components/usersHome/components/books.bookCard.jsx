@@ -6,8 +6,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { useAppData } from "#root/context/AppDataContext.jsx";
-import { getCoverUrl } from "#root/common.jsx";
+import { getCoverUrl, getAuthorString } from "#root/common.jsx";
 
 export function BookCard({ borrowed, book, onClick }) {
   const router = useRouter();
@@ -19,19 +18,11 @@ export function BookCard({ borrowed, book, onClick }) {
     height: "120px",
     width: "80px",
   };
-
-  let authorsString = "Unknown Author";
-  if (authors && Object.keys(authors).length > 0) {
-    authorsString = "";
-    Object.entries(authors).forEach(([_, value], index) => {
-      if (index > 0) authorsString += ", ";
-      authorsString += value;
-    });
-  }
+  const authorString = getAuthorString(authors);
   return (
     <div
       className={bookcardStyle}
-      style={(availablecopies === 0 || borrowed) ? { }:{}}
+      style={availablecopies === 0 || borrowed ? {} : {}}
       onClick={() => {
         router.push(`bookdetails/${book.bookid}/?option=Borrow`);
       }}
@@ -50,11 +41,18 @@ export function BookCard({ borrowed, book, onClick }) {
       </div>
 
       <div className={styles.bookContent}>
-        <h3 align="center" style={{ margin: "0px", transform: "scaleY(1.2)" ,minHeight:"3.4rem"}}>
+        <h3
+          align="center"
+          style={{
+            margin: "0px",
+            transform: "scaleY(1.2)",
+            minHeight: "3.4rem",
+          }}
+        >
           {title}
         </h3>
 
-        <p className={styles.bookAuthor}> By {authorsString}</p>
+        <p className={styles.bookAuthor}> By {authorString}</p>
 
         <div className={styles.bookMeta}>
           <p style={{ background: "#f3f4f6" }}>
@@ -99,7 +97,7 @@ export function BookCard({ borrowed, book, onClick }) {
               onClick();
             }}
           >
-            {availablecopies === 0 || borrowed ?"Unavailable": "Borrow"  }
+            {availablecopies === 0 || borrowed ? "Unavailable" : "Borrow"}
           </button>
         </div>
       </div>

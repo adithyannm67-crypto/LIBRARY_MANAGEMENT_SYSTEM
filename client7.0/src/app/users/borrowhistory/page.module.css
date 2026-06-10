@@ -8,3 +8,9 @@
   overflow-y: auto;
   gap: 12px;
 }
+.container {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  
+}

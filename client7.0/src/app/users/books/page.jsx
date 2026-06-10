@@ -1,11 +1,7 @@
 "use client";
 import styles from "./page.module.css";
 
-import { useState, useEffect } from "react";
-
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-import { Search } from "lucide-react";
+import { useState, useEffect, useMemo } from "react";
 
 import { fetchAvailableBooks } from "#root/components/usersHome/Actions/AvailableBooks";
 import {
@@ -13,66 +9,85 @@ import {
   BookCardSkeleton,
 } from "#root/components/usersHome/components/books.bookCard.jsx";
 import Popup from "#root/components/usersHome/components/dashBoard.popup.jsx";
+import SearchContainer from "#root/components/usersHome/components/searchContainer.jsx";
 
 import { useAppData } from "#root/context/AppDataContext.jsx";
+import { getAuthorString } from "#root/common.jsx";
 
 export default function Page() {
   const { loading, stats } = useAppData();
   const [availableBooks, setAvailableBooks] = useState([]);
-
-  const bb = stats?.activeBorrows.map((b) => b.bookid);
-
-  console.log(bb);
-
   const [loadinglocal, setLoadingLocal] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-
   const [selectedBook, setSelectedBook] = useState(null);
+  const [filter, setFilter] = useState([]);
+
   useEffect(() => {
     async function fetchData() {
       setLoadingLocal(true);
       const data = await fetchAvailableBooks();
-      setAvailableBooks(data);
+      const formattedData = data.map((book) => ({
+        ...book,
+      }));
+      setAvailableBooks(formattedData);
       setLoadingLocal(false);
     }
     if (!loading) fetchData();
   }, [loading]);
-
   const filteredBooks = availableBooks.filter((book) => {
-    const { title, authors, genre } = book;
-    let authorsString = "Unknown Author";
-    if (authors && Object.keys(authors).length > 0) {
-      authorsString = "";
-      Object.entries(authors).forEach(([_, value], index) => {
-        if (index > 0) authorsString += ", ";
-        authorsString += value;
-      });
-    }
-    return (
-      title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      authorsString.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      genre.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const authorString = getAuthorString(book.authors);
+    const matchesSearch =
+      book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      authorString.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      book.genre.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesFilter =
+      filter.length === 0 ||
+      filter.some(
+        (f) =>
+          authorString.toLowerCase().includes(f.toLowerCase()) ||
+          book.genre.toLowerCase().includes(f.toLowerCase()),
+      );
+
+    return matchesSearch && matchesFilter;
   });
 
+  const filterOptions = useMemo(
+    () => [
+      {
+        name: "Genres",
+        options: [
+          ...new Set(availableBooks.map((book) => book.genre).filter(Boolean)),
+        ],
+      },
+      {
+        name: "Authors",
+        options: [
+          ...new Set(
+            availableBooks
+              .map((book) => Object.values(book.authors))
+              .flat()
+              .filter(Boolean),
+          ),
+        ],
+      },
+
+      /* Add more options*/
+    ],
+    [availableBooks],
+  );
   return (
     <div className={styles.container}>
-      <div className={styles.searchBarContainer}>
-        {loading || loadinglocal ? (
-          <Skeleton height={50} />
-        ) : (
-          <div className={styles.searchWrapper}>
-            <Search className={styles.searchIcon} />
-            <input
-              type="text"
-              placeholder="Search for books, authors, or genres..."
-              className={styles.searchInput}
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-        )}
-      </div>
+      <SearchContainer
+        loading={loading}
+        loadinglocal={loadinglocal}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        filter={filter}
+        setFilter={setFilter}
+        filterOptions={filterOptions}
+        searchBarPlaceholder="Search by title, author, or genre..."
+      />
+
       <div
         className={styles.booklist}
         style={
@@ -86,7 +101,9 @@ export default function Page() {
         ) : (
           filteredBooks.map((book) => (
             <BookCard
-              borrowed={bb?.includes(book.bookid)}
+              borrowed={stats?.activeBorrows?.some(
+                (b) => b.bookid === book.bookid,
+              )}
               onClick={() => setSelectedBook(book)}
               key={book.bookid}
               book={book}
