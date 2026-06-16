@@ -69,7 +69,7 @@ export default function Page() {
   } = bookDetails;
 
   let btnText = option;
-
+console.log(jjjjj)
   btnText =
     btnText.includes("Borrow") && (availablecopies === 0 || borrowed)
       ? "Unavailable"
