@@ -7,7 +7,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 import { fetchAvailableBooks } from "../Actions/AvailableBooks";
-import {getAuthorString} from "#root/common.jsx"
+import { getAuthorString } from "#root/common.jsx";
 import {
   BookCard,
   BookCardSkeleton,
@@ -25,13 +25,18 @@ export default function RecommendationsSection() {
   useEffect(() => {
     async function fetchData() {
       setLoadingLocal(true);
-      const data = await fetchAvailableBooks({ limit: 5 });
-      const formattedData = data.map((book) => ({
-        ...book,
-        // authors: getAuthorString(book.authors),
-      }));
-      setAvailableBooks(formattedData);
-      setLoadingLocal(false);
+      try {
+        const data = await fetchAvailableBooks({ limit: 5 });
+        const formattedData = data.map((book) => ({
+          ...book,
+          authorString: getAuthorString(book.authors),
+        }));
+        setAvailableBooks(formattedData);
+      } catch (err) {
+        console.error(err.message);
+      } finally {
+        setLoadingLocal(false);
+      }
     }
     if (!loading) fetchData();
   }, [loading]);

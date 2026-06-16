@@ -1,7 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "#root/context/AuthContext";
-import { PathChangeProvider } from "#root/context/PathChangeContext.jsx";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -24,10 +23,8 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
         <AuthProvider>
-          <PathChangeProvider>
-            {children}
-            <Toaster position="center" />
-          </PathChangeProvider>
+          {children}
+          <Toaster position="center" />
         </AuthProvider>
       </body>
     </html>

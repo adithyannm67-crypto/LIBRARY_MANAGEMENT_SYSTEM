@@ -4,6 +4,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuth } from "./AuthContext";
 
+import { getAuthorString } from "#root/common.jsx";
+
 export const AppDataContext = createContext();
 export function AppDataProvider({ children }) {
   const { user } = useAuth();
@@ -58,7 +60,7 @@ export function AppDataProvider({ children }) {
           totalBorrows,
           activeBorrows: activeBorrows?.map((book) => ({
             ...book,
-            // authors: getAuthorString(book.authors),
+            authorString: getAuthorString(book.authors),
           })),
           totalBorrowsThisYear,
           currentBorrowsCount: activeBorrows.length,

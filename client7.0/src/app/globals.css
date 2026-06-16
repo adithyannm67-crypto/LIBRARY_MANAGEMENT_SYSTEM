@@ -57,6 +57,7 @@ html,
   width: 100%;
   margin: 0;
   padding: 0;
+  overflow-y:hidden;
 }
 
 /* Global reset */
@@ -67,6 +68,9 @@ html,
 }
 * {
   -webkit-tap-highlight-color: transparent;
+}
+summary{
+  cursor: pointer;
 }
 .close {
   display: none;
@@ -108,3 +112,4 @@ html,
   font-size: 0.75rem;
   font-weight: 600;
 }
+

@@ -28,7 +28,13 @@ export async function getNumberOfCopiesAvailable(bookid) {
   return bookResult.rows[0].availablecopies;
 }
 
-export async function createBorrowTransaction(userid, bookid, today, status) {
+export async function createBorrowTransaction(
+  userid,
+  bookid,
+  borrowdate,
+  duedate,
+  status,
+) {
   const client = await pool.connect();
 
   try {
@@ -60,10 +66,10 @@ export async function createBorrowTransaction(userid, bookid, today, status) {
 
     // 3. Insert borrow record
     const borrowrecordResult = await client.query(
-      `INSERT INTO borrowrecord (userid, bookid, borrowdate, status)
-       VALUES ($1, $2, $3, $4)
+      `INSERT INTO borrowrecord (userid, bookid, borrowdate,duedate, status)
+       VALUES ($1, $2, $3, $4, $5)
        RETURNING *`,
-      [userid, bookid, today, status],
+      [userid, bookid, borrowdate, duedate, status],
     );
 
     if (borrowrecordResult.rowCount === 0) {
@@ -75,22 +81,18 @@ export async function createBorrowTransaction(userid, bookid, today, status) {
     const formattedRow = {
       ...borrowRow,
       ...bookResult.rows[0],
-      returndate: borrowRow.returndate
-        ? new Date(borrowRow.returndate).toISOString().split("T")[0]
-        : null,
-      borrowdate: new Date(borrowRow.borrowdate)?.toISOString().split("T")[0],
-      duedate: new Date(borrowRow.duedate)?.toISOString().split("T")[0],
     };
 
     return formattedRow;
   } catch (err) {
     await client.query("ROLLBACK");
+    console.error(err);
     throw err;
   } finally {
     client.release();
   }
 }
-export async function returnTransaction(borrowid, userid, today, status) {
+export async function returnTransaction(borrowid, userid, returndate, status) {
   const client = await pool.connect();
 
   try {
@@ -101,7 +103,7 @@ export async function returnTransaction(borrowid, userid, today, status) {
         SET returndate = $1, status = $2
         WHERE borrowid=$3 AND userid=$4 AND (status = 'borrowed' OR returndate IS NULL)
         RETURNING bookid `,
-      [today, status, borrowid, userid],
+      [returndate, status, borrowid, userid],
     );
 
     if (borrowrecordResult.rowCount === 0) {
@@ -129,7 +131,7 @@ export async function returnTransaction(borrowid, userid, today, status) {
     }
     await client.query("COMMIT");
 
-    return today;
+    return returndate;
   } catch (err) {
     await client.query("ROLLBACK");
     throw err;

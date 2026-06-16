@@ -5,99 +5,83 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Image from "next/image";
 
-import { getCoverUrl, getAuthorString } from "#root/common.jsx";
+import { getCoverUrl } from "#root/common.jsx";
+
+const bookCoverStyles = {
+  background: "var(--book-cover)",
+  height: "120px",
+  width: "80px",
+};
+
 
 export function BookCard({ borrowed, book, onClick }) {
   const router = useRouter();
   const [shake, setShake] = useState(false);
-  const { title, authors, genre, availablecopies, coverid } = book;
-  const bookcardStyle = `${styles.bookCard3} ${styles.active}`;
-  const bookCoverStyles = {
-    background: "var(--book-cover)",
-    height: "120px",
-    width: "80px",
+  const { title, authorString, genre, availablecopies, coverid } = book;
+
+  const isAvailable = availablecopies > 0;
+  const canBorrow = isAvailable && !borrowed;
+
+  const handleClick = (e) => {
+    e.stopPropagation();
+    if (!canBorrow) {
+      setShake(true);
+      setTimeout(() => {
+        setShake(false);
+      }, 1000);
+      return;
+    }
+    onClick();
   };
-  const authorString = getAuthorString(authors);
+
   return (
     <div
-      className={bookcardStyle}
-      style={availablecopies === 0 || borrowed ? {} : {}}
+      className={styles.bookCard3}
       onClick={() => {
-        router.push(`bookdetails/${book.bookid}/?option=Borrow`);
+        router.push(`bookdetails/${book.bookid}?option=Borrow`);
       }}
     >
       <div className={styles.bookCover} style={bookCoverStyles}>
         {coverid && (
-          <img
+          <Image
             src={getCoverUrl(coverid)}
-            alt="Book Cover"
-            loading="lazy"
-            height="120"
-            width="80"
-            style={{ objectFit: "cover", borderRadius: "4px" }}
+            alt={`${title} cover`}
+            height={120}
+            width={80}
+            className={styles.coverImage}
           />
         )}
       </div>
 
       <div className={styles.bookContent}>
-        <h3
-          align="center"
-          style={{
-            margin: "0px",
-            transform: "scaleY(1.2)",
-            minHeight: "3.4rem",
-          }}
-        >
-          {title}
-        </h3>
+        <h3 className={styles.bookTitle2}>{title}</h3>
 
         <p className={styles.bookAuthor}> By {authorString}</p>
 
         <div className={styles.bookMeta}>
-          <p style={{ background: "#f3f4f6" }}>
-            <span className={styles.recGenre}>{genre}</span>
-          </p>
-          <p>
-            {availablecopies > 0 ? (
-              <span
-                style={{ background: "var(--success)", textAlign: "center" }}
-              >
-                Available
-              </span>
+          <p className={styles.recGenre}>{genre}</p>
+
+          <p className={styles.bookStatus}>
+            {isAvailable ? (
+              <span className={styles.available}>Available</span>
             ) : (
-              <span
-                style={{ background: "var(--failure)", textAlign: "center" }}
-              >
-                {" "}
-                Out of Stock
-              </span>
+              <span className={styles.outOfStock}> Out of Stock</span>
             )}
           </p>
           {borrowed && (
             <p>
-              <span style={{ background: "#acafb3" }}>Already Borrowed</span>
+              <span className={styles.borrowed}>Already Borrowed</span>
             </p>
           )}
         </div>
         <div className={styles.bookActions}>
           <button
-            className={
-              btnStyles.btnPrimary + " " + (shake ? btnStyles.shake : "")
-            }
-            onClick={(e) => {
-              e.stopPropagation();
-              if (availablecopies === 0 || borrowed) {
-                setShake(true);
-                setTimeout(() => {
-                  setShake(false);
-                }, 1000);
-                return;
-              }
-              onClick();
-            }}
+            className={btnStyles.btnPrimary + " " + (shake && btnStyles.shake)}
+            onClick={handleClick}
           >
-            {availablecopies === 0 || borrowed ? "Unavailable" : "Borrow"}
+            {canBorrow ? "Borrow" : "Unavailable"}
           </button>
         </div>
       </div>

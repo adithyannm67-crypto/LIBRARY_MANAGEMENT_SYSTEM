@@ -1,22 +1,31 @@
 import { usePathname } from "next/navigation";
 import { useAppData } from "#root/context/AppDataContext.jsx";
 import { useAuth } from "#root/context/AuthContext.jsx";
-
 export function getAuthorString(authors) {
-  console.log(authors);
-  let authorString = "Unknown Author";
-  if (authors && Object.keys(authors).length > 0) {
-    authorString = "";
-    Object.entries(authors).forEach(([_, value], index) => {
-      if (index > 0) authorString += " and ";
-      authorString += value;
-    });
-  }
-  return authorString;
+  const values = Object.values(authors ?? {}).filter(Boolean);
+
+  return values.length ? values.join(" and ") : "Unknown Author";
 }
 
 export function formatDate(date) {
-  return new Date(date).toLocaleDateString("en-IN", {
+  if (!date) return "";
+
+  //YYYY
+  if (/^\d{4}$/.test(date)) return date;
+
+  //YYYY-MM
+  if (/^\d{4}-\d{2}$/.test(date)) {
+    const [year, month] = date.split("-");
+    return new Date(year, month - 1).toLocaleDateString("en-IN", {
+      year: "numeric",
+      month: "short",
+    });
+  }
+
+  //YYYY-MM-DD
+  const d = new Date(date);
+  if (isNaN(d)) return date;
+  return d.toLocaleDateString("en-IN", {
     year: "numeric",
     month: "short",
     day: "numeric",
@@ -34,41 +43,51 @@ export function getDashBoardHeadings() {
   const pathname = usePathname();
   const { user } = useAuth();
   const { stats } = useAppData();
-  let headerSubTitle = "";
-  let headerTitle = "";
   switch (pathname) {
     case "/users":
-      headerSubTitle = `Welcome back, ${user?.username}`;
-      headerTitle = "Library DashBoard";
-      break;
-    case "/users/borrowhistory":
-      headerSubTitle = `${stats?.totalBorrows} books borrowed`;
-      headerTitle = "Borrow History";
-      break;
-    case "/users/books":
-      headerSubTitle = `Discover your next read`;
-      headerTitle = "Books";
-      break;
-    case "/users/myborrows":
-      headerSubTitle = `Check your active borrows`;
-      headerTitle = "My Borrows";
-      break;
-    case "/users/profile":
-      headerSubTitle = "Manage your profile";
-      headerTitle = "Profile";
-      break;
-    default:
-      const parts = pathname.split("/").filter(Boolean);
+      return {
+        headerSubTitl: `Welcome back, ${user?.username}`,
+        headerTitle: "Library DashBoard",
+      };
 
-      if (parts[0] === "users" && parts[1] === "books" && !isNaN(parts[2])) {
-        headerSubTitle = "View Book informations";
-        headerTitle = "Book Details";
+    case "/users/borrowhistory":
+      return {
+        headerSubTitle: `${stats?.totalBorrows} books borrowed`,
+        headerTitle: "Borrow History",
+      };
+    case "/users/books":
+      return {
+        headerSubTitle: `Discover your next read`,
+        headerTitle: "Books",
+      };
+
+    case "/users/myborrows":
+      return {
+        headerSubTitle: `Check your active borrows`,
+        headerTitle: "My Borrows",
+      };
+
+    case "/users/profile":
+      return {
+        headerSubTitle: "Manage your profile",
+        headerTitle: "Profile",
+      };
+
+    default:
+      const pathSegments = pathname.split("/").filter(Boolean);
+
+      if (pathSegments.includes("bookdetails")) {
+        return {
+          headerSubTitle: "View Book informations",
+          headerTitle: "Book Details",
+        };
       } else {
-        headerSubTitle = "";
-        headerTitle = "";
+        return {
+          headerSubTitle: "",
+          headerTitle: "",
+        };
       }
   }
-  return { headerSubTitle, headerTitle };
 }
 
 export function getCoverUrl(coverid) {

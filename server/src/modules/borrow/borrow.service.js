@@ -1,4 +1,3 @@
-
 import AppError from "#root/classes/AppError.js";
 
 import {
@@ -19,18 +18,21 @@ export async function borrowBook(userid, bookid) {
 
   const availableCopies = await getNumberOfCopiesAvailable(bookid);
 
-   if (availableCopies <= 0) {
-      throw new AppError("No copies available", 400);
-    }
+  if (availableCopies <= 0) {
+    throw new AppError("No copies available", 400);
+  }
 
-  const today = new Date().toISOString().split("T")[0];
+  const borrowdate = new Date();
+  const duedate = new Date(borrowdate);
+  duedate.setDate(borrowdate.getDate() + 9);
   const status = "borrowed";
 
-  return await createBorrowTransaction(userid, bookid, today, status);
+  return await createBorrowTransaction(userid, bookid, borrowdate, duedate, status);
 }
 
 export async function returnBook(borrowid, userid) {
-  const today = new Date().toISOString().split("T")[0];
+  const returndate = new Date();
+
   const status = "returned";
-  return await returnTransaction(borrowid, userid, today, status);
+  return await returnTransaction(borrowid, userid, returndate, status);
 }

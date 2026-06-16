@@ -1,6 +1,8 @@
 import style from "./component.module.css";
+
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+
 import { useAppData } from "#root/context/AppDataContext.jsx";
 
 export default function StatCard({ icon: Icon, label, value, subtitle }) {
@@ -10,7 +12,7 @@ export default function StatCard({ icon: Icon, label, value, subtitle }) {
       <div className={style.statHeader}>
         <div
           className={style.statIconBox}
-          style={{ backgroundColor: loading ? undefined : "var(--accent)" }}
+          style={{ backgroundColor: !loading && "var(--accent)" }}
         >
           {loading ? (
             <Skeleton style={{ position: "absolute", inset: 0 }} />

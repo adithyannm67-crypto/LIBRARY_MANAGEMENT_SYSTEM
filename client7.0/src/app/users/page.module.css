@@ -2,6 +2,7 @@
   padding: 0;
   width: auto;
   padding: 32px;
+  height: calc(100vh - var(--nav-Height));
   overflow-y: auto;
 }
 

@@ -12,6 +12,8 @@
   align-items: center;
   justify-content: center;
   z-index: var(--z5);
+
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .modal {
@@ -56,27 +58,6 @@
   background: black;
   color: white;
   border: none;
-}
-
-.errorState {
-  width: clamp(300px, 100%, 500px);
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  padding: 16px;
-  margin: 0;
-  border-radius: 8px;
-  box-shadow: grey 0px 1px 3px 0px;
-}
-.errorActions {
-  line-height: 24px;
-  text-align: center;
-  width: 50%;
-  display: flex;
-  justify-content: space-between;
 }
 
 /* BookCards in DashBoard*/
@@ -127,6 +108,11 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
+.coverImage {
+  object-fit: cover;
+  border-radius: 4px;
+}
+
 .bookContent {
   flex: 1;
   display: flex;
@@ -141,6 +127,13 @@
   text-overflow: ellipsis;
 }
 
+.bookTitle2 {
+  text-align: center;
+  margin: 0;
+  transform: scaleY(1.2);
+  min-height: 3.4rem;
+}
+
 .bookAuthor {
   color: #0d0d0e;
 }
@@ -153,12 +146,52 @@
   gap: 8px;
   margin-bottom: 8px;
 }
+
 .bookMeta {
   flex-wrap: wrap;
   color: var(--muted-foreground);
 }
+
+.bookStatus {
+  justify-content: space-between;
+  position: relative;
+}
+
+.bookMeta p {
+  margin: 0;
+}
+
+.bookMeta {
+  height: 4rem;
+}
+
+.bookMeta span {
+  white-space: nowrap;
+  margin: 0;
+  padding: 4px 4px;
+  border-radius: 99999px;
+  display: grid;
+  place-items: center;
+  color: black;
+}
+
+.available {
+  background: var(--success);
+  text-align: center;
+}
+
+.outOfStock {
+  background: var(--failure);
+  text-align: center;
+}
+
+.borrowed {
+  background: #acafb3;
+  text-align: center;
+}
+
 .detailsSection {
-  width: 100%;
+  flex: 0.8;
   position: relative;
 }
 
@@ -179,52 +212,19 @@
   gap: 8px;
 }
 
-.bookStatus {
-  flex-direction: row;
-  position: relative;
-}
-.bookMeta p {
-  margin: 0;
-}
-.bookMeta {
-  height: 4rem;
-}
-
-.bookMeta span {
-  white-space: nowrap;
-  margin: 0;
-  padding: 4px 4px;
-  border-radius: 99999px;
-  display: grid;
-  place-items: center;
-  color: black;
-}
 .bookActions {
   display: flex;
   align-items: center;
   width: 100%;
   justify-content: center;
-  gap: 8px;
   margin-bottom: 8px;
-  color: var(--muted-foreground);
 }
-.overdue {
-  font-weight: 600;
-  color: var(--failure);
-}
-
-.late {
-  font-weight: 600;
-  color: var(--warning);
-}
-
-.returnedWrapper {
+.bookActions1 {
+  align-self: stretch;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 4px;
-}
-.returned {
-  color: var(--success);
+  justify-content: space-evenly;
 }
 
 .iconWrapper {
@@ -417,11 +417,11 @@
   gap: 8px;
 }
 
-.filterOption summary{
+.filterOption summary {
   cursor: pointer;
 }
 
-.filterOption ul {
+.filterCheckboxContainer {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -462,7 +462,17 @@
   text-align: center;
 }
 
+.filterOption {
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+}
+
 .filterXWrapper {
+  border:none;
+  background: none;
+  outline: none;
   display: flex;
   align-items: center;
   padding: 4px;
@@ -472,8 +482,13 @@
 }
 
 .filterX {
+  border: none;
+  background: none;
+  outline: none;
+
   height: 15px;
   width: 15px;
+  background: transparent;
 
   cursor: pointer;
   transition: all 0.2s ease;
@@ -497,4 +512,19 @@
   background: var(--card);
 
   border-radius: 0 0 8px 8px;
+}
+.sortContainer {
+  padding: 4px;
+  background: var(--card);
+}
+
+.sortContainer option {
+  border: 1px solid var(--primary);
+  padding: 8px;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }

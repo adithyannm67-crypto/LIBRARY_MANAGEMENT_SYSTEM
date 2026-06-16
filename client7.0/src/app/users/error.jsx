@@ -1,12 +1,13 @@
 "use client";
 
+import "./users.css"
 import commonStyle from "#root/common.module.css";
 import Link from "next/link";
 import { TriangleAlert, RotateCcw } from "lucide-react";
 
 export default function Error({ error , reset}) {
   return (
-    <div className={commonStyle.errorState}>
+    <div className="errorContainer">
       <TriangleAlert size={32} />
       <h2>Something went wrong</h2>
       <p>
@@ -15,7 +16,7 @@ export default function Error({ error , reset}) {
         Please try again or return to login.
       </p>
 
-      <div className={commonStyle.errorActions}>
+      <div className="errorActions">
         <button
           className={commonStyle.btnPrimary}
           onClick={() => reset()}

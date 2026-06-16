@@ -7,8 +7,10 @@ import { createPortal } from "react-dom";
 
 import returnBook from "../Actions/return.js";
 import borrowBook from "../Actions/borrow";
-import { formatDate, getAuthorString } from "#root/common.jsx";
+import { formatDate } from "#root/common.jsx";
+
 import { useAppData } from "#root/context/AppDataContext.jsx";
+
 //setBorrowedBooks is for automaticallly update borrowed books in borrow history page
 
 export default function Popup({
@@ -24,17 +26,13 @@ export default function Popup({
   const { updateStats } = useAppData();
   const [loading, setLoading] = useState(false);
 
-  const { authors, title } = book;
-  const authorString = getAuthorString(authors);
-
+  const { authorString, title } = book;
 
   let duedate = book.duedate;
   if (!duedate) {
     duedate = new Date();
     duedate.setDate(duedate.getDate() + 9);
   }
-
-  
 
   const modes = {
     borrow: {
@@ -97,11 +95,7 @@ export default function Popup({
   }
 
   return createPortal(
-    <div
-      className={styles.overlay}
-      onClick={onClose}
-      style={{ background: "rgba(0, 0, 0, 0.4)" }}
-    >
+    <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <h2>{heading}</h2>
         <h2 className={styles.title}>{title}</h2>

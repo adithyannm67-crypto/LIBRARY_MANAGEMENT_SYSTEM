@@ -9,12 +9,10 @@ import StatsSection from "#root/components/usersHome/sections/stats";
 import { useAppData } from "#root/context/AppDataContext.jsx";
 
 export default function Dashboard() {
-  const { loading, error, stats, updateStats } = useAppData();
+  const { error } = useAppData();
   if (error) throw error;
   return (
     <div className={style.container}>
-      {/* Main Content */}
-
       <StatsSection />
 
       <div className={style.mainGrid}>

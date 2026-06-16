@@ -14,13 +14,15 @@ import Popup from "#root/components/usersHome/components/dashBoard.popup.jsx";
 import { useAppData } from "#root/context/AppDataContext.jsx";
 
 export default function Page() {
-  const { stats } = useAppData();
+  const { stats, loading } = useAppData();
   const { activeBorrows } = stats;
 
   const [selectedBook, setSelectedBook] = useState(null);
   return (
     <div className={styles.bookList}>
-      {activeBorrows.length > 0 ? (
+      {loading ? (
+        <BookCardSkeleton cards={3} />
+      ) : activeBorrows.length > 0 ? (
         activeBorrows.map((book) => (
           <BookCard
             book={book}

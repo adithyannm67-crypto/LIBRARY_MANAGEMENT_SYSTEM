@@ -1,16 +1,34 @@
-
-.bookList {
-  padding:12px;
-  margin-top: 12px;
+.bookListContainer {
+  background: var(--card);
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
   display: flex;
   flex-direction: column;
-  height:100vh;
-  overflow-y: auto;
+  gap: 12px;
+  margin-bottom: 5rem;
+}
+.bookListContainer details{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+
+
+.bookList {
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
   gap: 12px;
 }
 .container {
+  
   padding: 1rem;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-y: hidden;
+  
   
 }

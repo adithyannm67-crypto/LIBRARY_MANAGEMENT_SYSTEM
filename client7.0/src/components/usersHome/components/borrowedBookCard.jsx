@@ -5,69 +5,44 @@ import { useRouter, usePathname } from "next/navigation";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-import {
-  formatDate,
-  formatDateandTime,
-  getAuthorString,
-} from "#root/common.jsx";
+import { formatDate, formatDateandTime } from "#root/common.jsx";
+import { getBadge } from "../utils/components.utils";
 
-export function BookCard({ book, onClick, disabled }) {
+export function BookCard({ book, onClick }) {
   const router = useRouter();
-  const pathname = usePathname();
 
-  const parts = pathname.split("/").filter(Boolean);
-  const { bookid, title, authors, borrowdate, duedate, returndate } = book;
-const authorString = getAuthorString(authors);
+  const { bookid, title, authorString, borrowdate, duedate, returndate } = book;
+
+  const { badge, cls } = getBadge(duedate, returndate);
+
+  const pathname = usePathname();
+  const pathSegments = pathname.split("/").filter(Boolean);
+  const isUserHome = pathSegments.length === 1;
+
   const isReturned = returndate !== null;
 
-  const today = new Date();
-  let badge = "";
-  let cls = "";
-  const daysLeft = (duedate - today) / (1000 * 60 * 60 * 24);
-  if (returndate) {
-    if (returndate > duedate) {
-      badge = "Returned Late";
-      cls = "returned-late";
-    } else {
-      badge = "Returned";
-      cls = "returned";
-    }
-  } else if (duedate < today) {
-    badge = "Overdue";
-    cls = "overdue";
-  } else if (daysLeft <= 3) {
-    badge = "Due Soon";
-    cls = "due-soon";
-  } else {
-    badge = "Active";
-    cls = "active";
-  }
-  const bookcardStyle = `${styles.bookCard1} ${!disabled ? styles.active : ""} `;
-
+  const handleClick = () => {
+    const option = isReturned ? "Borrow Again" : "Return";
+    router.push(`bookdetails/${bookid}?option=${option}&from=${pathSegments[1]}`);
+  };
 
   return (
-    <div className={bookcardStyle}>
+    <div className={styles.bookCard1}>
       <div className={styles.bookContent}>
         <h3 className={styles.bookTitle}>{title}</h3>
         <p className={styles.bookAuthor}>{authorString}</p>
         <div className={styles.bookStatus}>
           <span className={`badge ${cls}`}>{badge}</span>
-          {parts.length > 1 && (
+          {!isUserHome && (
             <details className={styles.detailsSection}>
               <summary>Borrowing Info</summary>
               <p>
                 <span>Borrowed: {formatDateandTime(borrowdate)}</span>
 
-                {!returndate && (
-                  <>
-                    <span>Due: {formatDate(duedate)}</span>
-                  </>
-                )}
+                {!isReturned && <span>Due: {formatDate(duedate)}</span>}
 
-                {returndate && (
-                  <>
-                    <span>Returned: {formatDateandTime(returndate)}</span>
-                  </>
+                {isReturned && (
+                  <span>Returned: {formatDateandTime(returndate)}</span>
                 )}
               </p>
             </details>
@@ -75,31 +50,14 @@ const authorString = getAuthorString(authors);
         </div>
       </div>
 
-      <div
-        style={{
-          height: "100%",
-          display: "inline-flex",
-          alignItems: "center",
-
-          flexDirection: "column",
-          justifyContent: "space-evenly",
-        }}
-      >
+      <div className={styles.bookActions1}>
         {!isReturned && (
           <button className={styles.btn1} onClick={onClick}>
             Return
           </button>
         )}
-        {parts.length > 1 && (
-          <button
-            className={styles.btn1}
-            onClick={() => {
-              const option = isReturned ? "Borrow Again" : "Return";
-              router.push(
-                `bookdetails/${bookid}/?option=${option}&from=${parts[1]}`,
-              );
-            }}
-          >
+        {!isUserHome && (
+          <button className={styles.btn1} onClick={handleClick}>
             View Book Details
           </button>
         )}
@@ -135,45 +93,4 @@ export function BookCardSkeleton({ cards }) {
         </div>
       </div>
     ));
-}
-// const StatusIcon = returndate
-//   ? returnedLate
-//     ? AlertCircle
-//     : CheckCircle
-//   : isOverdue
-//     ? AlertCircle
-//     : Clock;
-{
-  /* </p> */
-}
-{
-  /* <div className={styles.bookStatus}>
-          <div className={styles.iconWrapper}>
-            <StatusIcon />
-          </div>
-          <span style={{ color: "#1D4ED8" }}>
-            Borrowed:  {formatDateandTime(borrowed_at)}
-          </span>
-
-          {!returndate && (
-            <>
-              <Dot />
-              <span>Due: {formatDateandTime(due_at)}</span>
-            </>
-          )}
-          {isOverdue && <span className={styles.overdue}>Overdue</span>}
-
-          {returndate && (
-            <>
-              <Dot />
-              <span className={styles.returned}>
-                Returned: {formatDateandTime(return_at)}
-              </span>
-
-              {returnedLate && (
-                <span className={styles.late}>Returned late</span>
-              )}
-            </>
-          )}
-        </div> */
 }

@@ -8,6 +8,7 @@ import { ArrowRight as RightArrow } from "lucide-react";
 
 export default function UsersLayout({ children }) {
   const [isOpen, setIsOpen] = useState(false);
+  
   return (
     <AppDataProvider>
       <div className="usersLayout">
@@ -26,7 +27,7 @@ export default function UsersLayout({ children }) {
 
         <div className="content">
           <NavBar />
-          <main>{children}</main>
+          <main className="main">{children}</main>
         </div>
       </div>
     </AppDataProvider>
