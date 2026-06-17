@@ -7,7 +7,7 @@ export async function fetchAvailableBooks({ limit } = {}) {
   });
 
   const body = await res.json();
-  
+
   if (!res.ok || !body.success) {
     throw new Error("fetching Failed");
   }
@@ -15,17 +15,13 @@ export async function fetchAvailableBooks({ limit } = {}) {
 }
 
 export async function fetchBookById(bookid) {
-  try {
-    const token = localStorage.getItem("token");
-    if (!token) throw new Error("User not authenticated");
-    const res = await fetch(`http://localhost:5000/api/book/${bookid}`, {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    const body = await res.json();
-    if (!res.ok || !body.success) throw new Error("fetching Failed");
-    return body.data.book;
-  } catch (e) {
-    return [e.message || "An error occurred while fetching book"];
-  }
+  const token = localStorage.getItem("token");
+  if (!token) throw new Error("User not authenticated");
+  const res = await fetch(`http://localhost:5000/api/book/${bookid}`, {
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const body = await res.json();
+  if (!res.ok || !body.success) throw new Error("fetching Failed");
+  return body.data.book;
 }

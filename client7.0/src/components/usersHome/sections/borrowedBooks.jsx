@@ -12,6 +12,15 @@ import Popup from "../components/dashBoard.popup";
 
 import { useAppData } from "#root/context/AppDataContext.jsx";
 
+const loadedStyles = {
+  maxHeight: "400px",
+  overflowY: "auto",
+};
+
+const loadingStyles = {
+  height: "auto",
+};
+
 export default function BorrowedBooksSection() {
   const { loading, stats } = useAppData();
 
@@ -21,30 +30,22 @@ export default function BorrowedBooksSection() {
   const router = useRouter();
   const [selectedBook, setSelectedBook] = useState(null);
 
+  const cardStyles = {
+    display: `${!isBookPreset ? "none" : ""}`,
+    flex: ".5",
+  };
+
   return (
     <div className={style.mainContent}>
       <div className={style.card}>
-        <h2
-          className={style.cardTitle}
-          style={{ flex: ".5", display: `${!isBookPreset ? "none" : ""}` }}
-        >
-          {loading ? <Skeleton /> : isBookPreset && "Your Books"}
+        <h2 className={style.cardTitle} style={cardStyles}>
+          {isBookPreset && "Your Books"}
         </h2>
 
-        <div
-          className={style.bookList}
-          style={
-            loading
-              ? { height: "auto" }
-              : { maxHeight: "400px", overflowY: "auto" }
-          }
-        >
-          {loading ? (
-            <BookCardSkeleton cards={3} />
-          ) : activeBorrows.length > 0 ? (
+        <div className={style.bookList} style={loadedStyles}>
+          {activeBorrows.length > 0 ? (
             <>
               {activeBorrows.map((book, index) => (
-                console.log(book),
                 <BookCard
                   onClick={() => setSelectedBook(book)}
                   key={index}
@@ -78,16 +79,12 @@ export default function BorrowedBooksSection() {
         )}
       </div>
 
-      {loading ? (
-        <Skeleton height={40} />
-      ) : (
-        <button
-          onClick={() => router.push("/users/borrowhistory")}
-          className={style.browseBtn}
-        >
-          Browse Catalog
-        </button>
-      )}
+      <button
+        onClick={() => router.push("/users/borrowhistory")}
+        className={style.browseBtn}
+      >
+        Browse Catalog
+      </button>
     </div>
   );
 }

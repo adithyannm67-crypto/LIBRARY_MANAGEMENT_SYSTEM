@@ -1,30 +1,22 @@
-"use client";
 import "./users.css";
-import { useState } from "react";
+
 import NavBar from "#root/components/usersHome/navBar/navBar.jsx";
 import SideBar from "#root/components/usersHome/sideBar/sideBar.jsx";
+
+import fetchDashBoardData from "#root/lib/server/boookActions.js/fetchDashBoardData.js";
+
 import { AppDataProvider } from "#root/context/AppDataContext.jsx";
-import { ArrowRight as RightArrow } from "lucide-react";
 
-export default function UsersLayout({ children }) {
-  const [isOpen, setIsOpen] = useState(false);
-  
+import CollapseBtn from "#root/app/users/collapseBtn.jsx";
+
+export default async function UsersLayout({ children }) {
+  const dashBoardData = await fetchDashBoardData();
   return (
-    <AppDataProvider>
+    <AppDataProvider dashBoardData={dashBoardData}>
       <div className="usersLayout">
-        <SideBar isOpen={isOpen} />
+        <SideBar />
 
-        <button
-          id="collapseBtn"
-          className="collapseBtn"
-          onClick={(e) => {
-            setIsOpen(!isOpen);
-            e.stopPropagation();
-          }}
-        >
-          <RightArrow className="btn" />
-        </button>
-
+        <CollapseBtn />
         <div className="content">
           <NavBar />
           <main className="main">{children}</main>

@@ -1,5 +1,7 @@
+"use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useAppData } from "#root/context/AppDataContext.jsx";
 
 import {
   House,
@@ -27,7 +29,8 @@ const links = [
   },
 ];
 import styles from "./sidebar.module.css";
-export default function SideBar({ isOpen }) {
+export default function SideBar() {
+  const { isOpen } = useAppData();
   return (
     <div
       id="sideBar"

@@ -1,18 +1,22 @@
-import { useEffect, useMemo, useState } from "react";
-import {fetchAvailableBooks} from "#root/components/usersHome/Actions/AvailableBooks";
-import { getAuthorString } from "#root/common";
+"use client";
+
+import { createContext, useContext, useState, useMemo } from "react";
+
 import {
   getFilteredBooks,
+  getFilterOptions,
   sortBooks,
 } from "#root/components/usersHome/utils/books.utils";
-import { useAppData } from "#root/context/AppDataContext";
 
-export default function usePage() {
-  const { loading, stats } = useAppData();
-  const [availableBooks, setAvailableBooks] = useState([]);
-  const [loadinglocal, setLoadingLocal] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
+import { useAppData } from "#root/context/AppDataContext.jsx";
+
+const PageContext = createContext();
+export default function PageProvider({ children, availableBooks }) {
+  const { stats } = useAppData();
+
   const [selectedBook, setSelectedBook] = useState(null);
+
+  const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState([]);
   const [sortBy, setSortBy] = useState("default");
 
@@ -21,54 +25,31 @@ export default function usePage() {
     [stats?.activeBorrows],
   );
 
-  useEffect(() => {
-    if (loading) return;
-    let mounted = true;
-    async function fetchData() {
-      setLoadingLocal(true);
-      try {
-        const data = await fetchAvailableBooks();
-        const formattedData = data.map((book) => ({
-          ...book,
-          authorString: getAuthorString(book.authors),
-        }));
-        if (mounted) setAvailableBooks(formattedData);
-      } catch (err) {
-        console.error(err.message);
-      } finally {
-        if (mounted) setLoadingLocal(false);
-      }
-    }
-    fetchData();
-    return () => {
-      mounted = false;
-    };
-  }, [loading]);
-
-  //Filtering books based on search and filters
-  const filteredBooks = useMemo(
-    () => getFilteredBooks(availableBooks, filter, searchTerm, borrowedBookIds),
-    [availableBooks, searchTerm, filter, borrowedBookIds],
+  const filterOptions = useMemo(
+    () => getFilterOptions(availableBooks),
+    [availableBooks],
   );
 
-  //sorting books
-  const sortedBooks = useMemo(
-    () => sortBooks(filteredBooks, sortBy),
-    [filteredBooks, sortBy],
+  return (
+    <PageContext.Provider
+      value={{
+        borrowedBookIds,
+        selectedBook,
+        setSelectedBook,
+        filterOptions,
+        searchTerm,
+        setSearchTerm,
+        filter,
+        setFilter,
+        sortBy,
+        setSortBy,
+      }}
+    >
+      {children}
+    </PageContext.Provider>
   );
-  const isLoading = loading || loadinglocal;
+}
 
-  return {
-    borrowedBookIds,
-    isLoading,
-    sortedBooks,
-    selectedBook,
-    setSelectedBook,
-    searchTerm,
-    setSearchTerm,
-    filter,
-    setFilter,
-    sortBy,
-    setSortBy,
-  };
+export function usePage() {
+  return useContext(PageContext);
 }

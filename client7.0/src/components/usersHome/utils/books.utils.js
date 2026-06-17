@@ -1,11 +1,16 @@
-export function getFilteredBooks(
+export function getFilteredBooks({
   availableBooks,
-  filter,
-  searchTerm,
+  filter=[],
+  searchTerm="",
   borrowedBookIds,
-) {
-  const search = searchTerm.toLowerCase();
-  return availableBooks.filter((book) => {
+}) {
+   const filters = Array.isArray(filter)
+    ? filter
+    : filter
+      ? [filter]
+      : [];
+  const search = searchTerm?searchTerm.toLowerCase():"";
+  return availableBooks?.filter((book) => {
     const authorString = book.authorString.toLowerCase();
     const title = book.title.toLowerCase();
     const genre = book.genre.toLowerCase();
@@ -15,15 +20,15 @@ export function getFilteredBooks(
       authorString.includes(search) ||
       genre.includes(search);
     const matchesFilter =
-      filter.length === 0 ||
-      filter.some((f) => {
+      filters?.length === 0 ||
+      filters?.some((f) => {
         const value = f.toLowerCase();
         return (
           authorString.includes(value) ||
           genre.includes(value) ||
           (value === "available" && book.availablecopies > 0) ||
-          (value === "out of stock" && book.availablecopies <= 0) ||
-          (value === "borrowed" && borrowedBookIds.has(book.bookid))
+          (value === "out of stock" && book.availablecopies <= 0)
+          // ||(value === "borrowed" && borrowedBookIds.has(book.bookid))
         );
       });
 
@@ -32,6 +37,14 @@ export function getFilteredBooks(
 }
 
 export function sortBooks(group, sortBy) {
+  console.log(
+    "sortBooks",
+    group,
+    sortBy,
+    typeof window === "undefined" ? "SERVER" : "CLIENT"
+  );
+
+
   const sorted = [...group];
   switch (sortBy) {
     case "title-asc":
@@ -75,7 +88,6 @@ export function getFilterOptions(books) {
     // Add more filter options as needed
   ];
 }
-
 
 export const SORT_OPTIONS = [
   { label: "Default", value: "default" },

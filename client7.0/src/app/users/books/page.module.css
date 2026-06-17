@@ -19,3 +19,12 @@
   max-height: 550px;
   overflow-y: auto;
 }
+
+
+.bookActions {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 8px;
+}

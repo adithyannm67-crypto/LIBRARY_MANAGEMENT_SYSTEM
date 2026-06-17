@@ -4,7 +4,7 @@ export default async function login(email, password) {
   let err = [];
   email = email.trim().toLowerCase();
   password = password.trim();
-  if(!email || !password) {
+  if (!email || !password) {
     err.push("Email and password are required");
     return err;
   }
@@ -38,10 +38,10 @@ async function userVerfy(email, password) {
       return [body?.message || "Login failed"];
     }
     localStorage.setItem("token", body.data.token);
+    document.cookie = `token=${body.data.token};path=/;max-age=${60 * 60 * 24 * 30}`;
 
     return [];
   } catch (e) {
-    
     return [e.message || "An error occurred during login"];
   }
 }

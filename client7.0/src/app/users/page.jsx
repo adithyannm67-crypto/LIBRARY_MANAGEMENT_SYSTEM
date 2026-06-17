@@ -6,11 +6,8 @@ import BorrowedBooksSection from "#root/components/usersHome/sections/borrowedBo
 import ReadingGoalSection from "#root/components/usersHome/sections/Reading";
 import RecommendationsSection from "#root/components/usersHome/sections/recommendation";
 import StatsSection from "#root/components/usersHome/sections/stats";
-import { useAppData } from "#root/context/AppDataContext.jsx";
 
 export default function Dashboard() {
-  const { error } = useAppData();
-  if (error) throw error;
   return (
     <div className={style.container}>
       <StatsSection />

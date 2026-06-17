@@ -1,3 +1,5 @@
+"use client";
+
 import { usePathname } from "next/navigation";
 import { useAppData } from "#root/context/AppDataContext.jsx";
 import { useAuth } from "#root/context/AuthContext.jsx";
@@ -46,7 +48,7 @@ export function getDashBoardHeadings() {
   switch (pathname) {
     case "/users":
       return {
-        headerSubTitl: `Welcome back, ${user?.username}`,
+        headerSubTitle: `Welcome back, ${user?.username}`,
         headerTitle: "Library DashBoard",
       };
 
