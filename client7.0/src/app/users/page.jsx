@@ -1,4 +1,4 @@
-"use client";
+
 
 import style from "./page.module.css";
 

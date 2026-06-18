@@ -1,50 +1,41 @@
-"use client";
-
 import styles from "./page.module.css";
 
-import {  useMemo } from "react";
+import { BookCard } from "#root/components/usersHome/components/borrowedBookCard.jsx";
+import { PopupContainer, SearchComponent } from "./clientComponents";
 
-import { usePage } from "./usePage";
-
+import { fetchBorrowedBooks } from "#root/lib/server/boookActions.js/bookActions.js";
 import {
-  getFilterOptions,
-  SORT_OPTIONS,
-} from "#root/components/usersHome/utils/borrowhistory.utils.js";
+  getBooksByGroup,
+  getFilteredBooks,
+} from "#root/components/usersHome/utils/borrowhistory.utils";
+import { getAuthorString } from "#root/utils.js";
 
-import SearchContainer from "#root/components/usersHome/components/searchContainer.jsx";
-import Popup from "#root/components/usersHome/components/dashBoard.popup.jsx";
-import {
-  BookCard,
-  BookCardSkeleton,
-} from "#root/components/usersHome/components/borrowedBookCard.jsx";
+import PageProvider from "./usePage";
 
-export default function Page() {
-  const pageState = usePage();
+export default async function Page({ searchParams }) {
+  const { filter, q, sort } = await searchParams;
 
-  const filterOptions = useMemo(
-    () => getFilterOptions(pageState.borrowedBooks),
-    [pageState.borrowedBooks],
-  );
+  const data = await fetchBorrowedBooks();
+  const borrowedBooks = data.map((book) => ({
+    ...book,
+    authorString: getAuthorString(book.authors),
+  }));
+
+  const filteredBooks = getFilteredBooks({
+    borrowedBooks,
+    filter,
+    searchTerm: q || "",
+  });
+console.count("books")
+  //Grouping books based on borrow time
+  const groupedBooks = getBooksByGroup(filteredBooks, sort);
 
   return (
-    <div className={styles.container}>
-      <SearchContainer
-        isLoading={pageState.isLoading}
-        setSearchTerm={pageState.setSearchTerm}
-        searchTerm={pageState.searchTerm}
-        setFilter={pageState.setFilter}
-        filter={pageState.filter}
-        sortBy={pageState.sortBy}
-        setSortBy={pageState.setSortBy}
-        searchBarPlaceholder="Search by title or author..."
-        filterOptions={filterOptions}
-        sortOptions={SORT_OPTIONS}
-      />
-      <div className={styles.bookListContainer}>
-        {pageState.isLoading ? (
-          <BookCardSkeleton cards={3} />
-        ) : (
-          Object.entries(pageState.groupedBooks).map(
+    <PageProvider books={borrowedBooks}>
+      <div className={styles.container}>
+        <SearchComponent />
+        <div className={styles.bookListContainer}>
+          {Object.entries(groupedBooks).map(
             ([key, books]) =>
               books.length > 0 && (
                 <details key={key} open>
@@ -52,29 +43,18 @@ export default function Page() {
                   <div className={styles.bookList}>
                     {books.map((book) => (
                       <BookCard
-                        disabled={book.status !== "borrowed"}
-                        onClick={() => pageState.setSelectedBook(book)}
                         key={book.borrowid}
                         book={book}
+                        isUserHome={false}
                       />
                     ))}
                   </div>
                 </details>
               ),
-          )
-        )}
-
-        {pageState.selectedBook && (
-          <Popup
-            text="return"
-            mode="return"
-            book={pageState.selectedBook}
-            isOpen={!!pageState.selectedBook}
-            onClose={pageState.closePopup}
-            setBorrowedBooks={pageState.setBorrowedBooks}
-          />
-        )}
+          )}
+        </div>
+        <PopupContainer />
       </div>
-    </div>
+    </PageProvider>
   );
 }

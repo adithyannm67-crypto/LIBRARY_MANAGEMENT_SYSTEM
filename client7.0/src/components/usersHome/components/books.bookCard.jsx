@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { getCoverUrl } from "#root/utils.js";
-import { BookAction } from "@/app/users/books/clientComponents";
+import { BookActionForBorrow as BookAction } from "./clientComponents";
 import { BorrowedBadge } from "./clientComponents";
 
 const bookCoverStyles = {

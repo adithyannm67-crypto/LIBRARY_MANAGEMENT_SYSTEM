@@ -1,53 +1,37 @@
-"use client";
-
 import styles from "./page.module.css";
 
-import { useState } from "react";
 import Link from "next/link";
 
-import {
-  BookCard,
-  BookCardSkeleton,
-} from "#root/components/usersHome/components/borrowedBookCard.jsx";
-import Popup from "#root/components/usersHome/components/dashBoard.popup.jsx";
+import { PopUpContainer, BookCardWrapper } from "./clientComponent";
 
-import { useAppData } from "#root/context/AppDataContext.jsx";
+import { fetchActiveBorrows } from "#root/lib/server/boookActions.js/bookActions.js";
+import { getAuthorString } from "#root/utils.js";
 
-export default function Page() {
-  const { stats, loading } = useAppData();
-  const { activeBorrows } = stats;
+import PageProvider from "./usePage";
 
-  const [selectedBook, setSelectedBook] = useState(null);
+export default async function Page() {
+  const activeBorrows = await fetchActiveBorrows();
+  const formatted = activeBorrows.map((book) => ({
+    ...book,
+    authorString: getAuthorString(book.authors),
+  }));
   return (
-    <div className={styles.bookList}>
-      {loading ? (
-        <BookCardSkeleton cards={3} />
-      ) : activeBorrows.length > 0 ? (
-        activeBorrows.map((book) => (
-          <BookCard
-            book={book}
-            key={book.borrowid}
-            onClick={() => setSelectedBook(book)}
-          />
-        ))
-      ) : (
-        <>
-          <p>No active borrows </p>
-          <Link href="/users/books">Click here to discover new books....</Link>
-        </>
-      )}
-      {selectedBook && (
-        <Popup
-          text="return"
-          mode="return"
-          book={selectedBook}
-          isOpen={!!selectedBook}
-          onClose={() => {
-            setSelectedBook(null);
-            document.body.style.overflow = "auto";
-          }}
-        />
-      )}
-    </div>
+    <PageProvider books={formatted}>
+      <div className={styles.bookList}>
+        {formatted.length > 0 ? (
+          formatted.map((book) => (
+            <BookCardWrapper key={book.bookid} book={book} />
+          ))
+        ) : (
+          <>
+            <p>No active borrows </p>
+            <Link href="/users/books">
+              Click here to discover new books....
+            </Link>
+          </>
+        )}
+      </div>
+      <PopUpContainer />
+    </PageProvider>
   );
 }

@@ -1,95 +1,33 @@
+
 import style from "./section.module.css";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-
 import { fetchAvailableBooks } from "../Actions/AvailableBooks";
-import { getAuthorString } from "#root/common.jsx";
-import {
-  BookCard,
-  BookCardSkeleton,
-} from "../components/availableBookCard.jsx";
-import Popup from "../components/dashBoard.popup";
+import { getAuthorString } from "#root/utils.js";
+import { BookCard } from "../components/availableBookCard.jsx";
 
-import { useAppData } from "#root/context/AppDataContext.jsx";
-
-export default function RecommendationsSection() {
-  const { loading } = useAppData();
-  const [availableBooks, setAvailableBooks] = useState([]);
-  const [loadinglocal, setLoadingLocal] = useState(true);
-
-  const [selectedBook, setSelectedBook] = useState(null);
-  useEffect(() => {
-    async function fetchData() {
-      setLoadingLocal(true);
-      try {
-        const data = await fetchAvailableBooks({ limit: 5 });
-        const formattedData = data.map((book) => ({
-          ...book,
-          authorString: getAuthorString(book.authors),
-        }));
-        setAvailableBooks(formattedData);
-      } catch (err) {
-        console.error(err.message);
-      } finally {
-        setLoadingLocal(false);
-      }
-    }
-    if (!loading) fetchData();
-  }, [loading]);
+export default async function RecommendationsSection() {
+  const data = await fetchAvailableBooks({ limit: 5 });
+  const formattedData = data.map((book) => ({
+    ...book,
+    authorString: getAuthorString(book.authors),
+  }));
 
   return (
-    <div className={style.card}>
-      <h3 className={style.cardTitle}>
-        {loading || loadinglocal ? <Skeleton /> : "Recommended for You"}
-      </h3>
+    <>
+      <div className={style.card}>
+        <h3 className={style.cardTitle}>Recommended for You</h3>
 
-      <div
-        className={style.recommendList}
-        style={
-          loading || loadinglocal
-            ? { height: "auto" }
-            : { maxHeight: "400px", overflowY: "auto" }
-        }
-      >
-        {loading || loadinglocal ? (
-          <BookCardSkeleton cards={6} />
-        ) : (
-          <>
-            {availableBooks &&
-              availableBooks.map(
-                (book, index) => (
-                  console.log(book),
-                  (
-                    <BookCard
-                      onClick={() => setSelectedBook(book)}
-                      key={index}
-                      book={book}
-                    />
-                  )
-                ),
-              )}
-            <Link className={style.viewAll} href="/users/books">
-              View all
-            </Link>
-          </>
-        )}
+        <div className={style.recommendList}>
+          {formattedData.map((book, index) => (
+            <BookCard key={index} book={book} />
+          ))}
+          <Link className={style.viewAll} href="/users/books">
+            View all
+          </Link>
+        </div>
       </div>
-
-      {selectedBook && (
-        <Popup
-          mode="borrow"
-          book={selectedBook}
-          isOpen={!!selectedBook}
-          onClose={() => {
-            setSelectedBook(null);
-            document.body.style.overflow = "auto";
-          }}
-        />
-      )}
-    </div>
+    </>
   );
 }

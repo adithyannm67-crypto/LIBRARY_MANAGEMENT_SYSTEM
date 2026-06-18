@@ -1,12 +1,17 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+
+import { useAuth } from "#root/context/AuthContext.jsx";
+
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import style from "./page.module.css";
 
 import login from "./loginController";
 
-export default function Login() {
+export default  function Login() {
+  const { setUser } = useAuth();
+
   const router = useRouter();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -15,11 +20,16 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const err = await login(email, password);
-    if (err.length > 0) {
+    const res = await login(email, password);
+
+    if (Array.isArray(res)) {
+      const err = res;
       setErrors(err);
       return;
     }
+    setErrors(null);
+   
+    setUser(res);
     // Simulate login success and navigate to dashboard
     router.push("/users");
   };

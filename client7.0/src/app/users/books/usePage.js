@@ -2,11 +2,7 @@
 
 import { createContext, useContext, useState, useMemo } from "react";
 
-import {
-  getFilteredBooks,
-  getFilterOptions,
-  sortBooks,
-} from "#root/components/usersHome/utils/books.utils";
+import { getFilterOptions } from "#root/components/usersHome/utils/books.utils";
 
 import { useAppData } from "#root/context/AppDataContext.jsx";
 

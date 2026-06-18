@@ -8,7 +8,7 @@ import { getDashBoardHeadings } from "#root/common.jsx";
 
 export default function NavBar() {
   const { headerSubTitle, headerTitle } = getDashBoardHeadings();
-console.log(headerTitle, headerSubTitle);
+
   return (
     <header className={style.navBar}>
       <div className={style.headerLeft}>

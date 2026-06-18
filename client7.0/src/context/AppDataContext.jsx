@@ -1,29 +1,20 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, useMemo } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useMemo,
+  useCallback,
+  useRef,
+  useEffect,
+} from "react";
 
 import { getAuthorString } from "#root/common.jsx";
 
 export const AppDataContext = createContext();
 export function AppDataProvider({ children, dashBoardData = {} }) {
   const [isOpen, setIsOpen] = useState(false);
-
-  const [stats, setStats] = useState({
-    activeBorrows: [],
-    totalBorrows: 0,
-    totalBorrowsThisYear: 0,
-    currentBorrowsCount: 0,
-    nearestBorrows: [],
-    totalBorrowsThisMonth: 0,
-    totalBorrowsThisWeek: 0,
-  });
-  const updateStats = (updater) => {
-    setStats((prevStats) =>
-      typeof updater === "function"
-        ? updater(prevStats)
-        : { ...prevStats, ...updater },
-    );
-  };
 
   const {
     totalBorrows,
@@ -33,27 +24,40 @@ export function AppDataProvider({ children, dashBoardData = {} }) {
     totalBorrowsThisMonth,
     totalBorrowsThisWeek,
   } = dashBoardData;
-  useEffect(() => {
-    updateStats({
-      totalBorrows,
-      activeBorrows: activeBorrows?.map((book) => ({
-        ...book,
-        authorString: getAuthorString(book.authors),
-      })),
-      totalBorrowsThisYear,
-      currentBorrowsCount: activeBorrows?.length,
-      nearestBorrows,
-      totalBorrowsThisMonth,
-      totalBorrowsThisWeek,
-    });
-  }, [
+
+  const [stats, setStats] = useState({
     totalBorrows,
-    activeBorrows,
+    activeBorrows: activeBorrows?.map((book) => ({
+      ...book,
+      authorString: getAuthorString(book.authors),
+    })),
     totalBorrowsThisYear,
+    currentBorrowsCount: activeBorrows?.length,
     nearestBorrows,
     totalBorrowsThisMonth,
     totalBorrowsThisWeek,
-  ]);
+  });
+  const updateStats = useCallback((updater) => {
+    setStats((prevStats) =>
+      typeof updater === "function"
+        ? updater(prevStats)
+        : { ...prevStats, ...updater },
+    );
+  }, []);
+  console.count("AppDataProvider");
+  // console.trace("setAvailableBooks called");
+  const prev = useRef();
+
+  useEffect(() => {
+    console.log("stats changed", prev.current, stats);
+    prev.current = stats;
+  }, [stats]);
+
+  useEffect(() => {
+    console.log("isOpen changed", isOpen);
+  }, [isOpen]);
+
+  console.count("AppDataProvider");
 
   if (stats?.totalBorrowsThisYear > 0)
     console.log("stats from app data context", stats);
@@ -65,20 +69,21 @@ export function AppDataProvider({ children, dashBoardData = {} }) {
 
   const loading = false;
 
-  return (
-    <AppDataContext.Provider
-      value={{
-        loading,
+  const value = useMemo(
+    () => ({
+      loading,
 
-        stats,
-        updateStats,
-        isOpen,
-        setIsOpen,
-        borrowedBookIds,
-      }}
-    >
-      {children}
-    </AppDataContext.Provider>
+      stats,
+      updateStats,
+      isOpen,
+      setIsOpen,
+      borrowedBookIds,
+    }),
+    [loading, stats, isOpen, borrowedBookIds],
+  );
+
+  return (
+    <AppDataContext.Provider value={value}>{children}</AppDataContext.Provider>
   );
 }
 

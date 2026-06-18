@@ -37,13 +37,7 @@ export function getFilteredBooks({
 }
 
 export function sortBooks(group, sortBy) {
-  console.log(
-    "sortBooks",
-    group,
-    sortBy,
-    typeof window === "undefined" ? "SERVER" : "CLIENT"
-  );
-
+  
 
   const sorted = [...group];
   switch (sortBy) {

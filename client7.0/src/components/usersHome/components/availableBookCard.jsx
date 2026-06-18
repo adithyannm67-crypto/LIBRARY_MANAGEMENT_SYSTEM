@@ -1,11 +1,10 @@
 import styles from "./component.module.css";
 
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+
 import Image from "next/image";
 
-import { getCoverUrl } from "#root/common.jsx";
+import { getCoverUrl } from "#root/utils.js";
 
 const bookCoverStyles = {
   background: "var(--book-cover)",
@@ -15,20 +14,18 @@ const bookCoverStyles = {
 
 export function BookCard({ book }) {
   const { title, genre, coverid } = book;
-  const router = useRouter();
 
   return (
-    <div
+    <Link
+      href={`/users/bookdetails/${book.bookid}?option=Borrow`}
       className={styles.bookCard1}
-      onClick={() => {
-        router.push(`users/bookdetails/${book.bookid}?option=Borrow`);
-      }}
     >
       <div className={styles.bookCover} style={bookCoverStyles}>
         {coverid && (
           <Image
             src={getCoverUrl(coverid)}
             alt={`${title} cover`}
+            loading="lazy"
             height={70}
             width={50}
             className={styles.coverImage}
@@ -43,32 +40,6 @@ export function BookCard({ book }) {
 
         <p className={styles.recGenre}>• {genre}</p>
       </div>
-    </div>
+    </Link>
   );
-}
-
-export function BookCardSkeleton({ cards }) {
-  return Array(cards)
-    .fill(0)
-    .map((_, index) => (
-      <div className={styles.bookCard1} key={index}>
-        <Skeleton width={50} height={70} />
-
-        <div className={styles.bookContent}>
-          <h4 className={styles.bookTitle}>
-            <Skeleton />
-          </h4>
-
-          <p className={styles.bookAuthor}>
-            <Skeleton />
-          </p>
-
-          <div className={styles.bookMeta}>
-            <span className={styles.recGenre}>
-              <Skeleton />
-            </span>
-          </div>
-        </div>
-      </div>
-    ));
 }

@@ -1,33 +1,20 @@
+"use client";
+
 import style from "./section.module.css";
 
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
 
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-
-import { BookCard, BookCardSkeleton } from "../components/borrowedBookCard";
+import { BookCard } from "../components/borrowedBookCard";
 import Popup from "../components/dashBoard.popup";
 
 import { useAppData } from "#root/context/AppDataContext.jsx";
 
-const loadedStyles = {
-  maxHeight: "400px",
-  overflowY: "auto",
-};
-
-const loadingStyles = {
-  height: "auto",
-};
-
 export default function BorrowedBooksSection() {
-  const { loading, stats } = useAppData();
+  const { stats } = useAppData();
 
-  const { activeBorrows } = stats;
-  const isBookPreset = activeBorrows.length > 0;
+  const isBookPreset = stats.activeBorrows.length > 0;
 
-  const router = useRouter();
   const [selectedBook, setSelectedBook] = useState(null);
 
   const cardStyles = {
@@ -42,14 +29,14 @@ export default function BorrowedBooksSection() {
           {isBookPreset && "Your Books"}
         </h2>
 
-        <div className={style.bookList} style={loadedStyles}>
-          {activeBorrows.length > 0 ? (
+        <div className={style.bookList}>
+          {stats.activeBorrows.length > 0 ? (
             <>
-              {activeBorrows.map((book, index) => (
+              {stats.activeBorrows.map((book, _) => (
                 <BookCard
-                  onClick={() => setSelectedBook(book)}
-                  key={index}
                   book={book}
+                  key={book.borrowid}
+                  clickHandler={() => setSelectedBook(book)}
                 />
               ))}
               <Link className={style.viewAll} href="/users/myborrows">
@@ -79,12 +66,9 @@ export default function BorrowedBooksSection() {
         )}
       </div>
 
-      <button
-        onClick={() => router.push("/users/borrowhistory")}
-        className={style.browseBtn}
-      >
+      <Link href="/users/borrowhistory" className={style.browseBtn}>
         Browse Catalog
-      </button>
+      </Link>
     </div>
   );
 }

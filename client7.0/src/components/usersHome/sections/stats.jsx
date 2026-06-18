@@ -1,3 +1,5 @@
+"use client";
+
 import style from "./section.module.css";
 
 import "react-loading-skeleton/dist/skeleton.css";

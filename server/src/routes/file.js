@@ -20,6 +20,7 @@ export default async function handlerFunction(req) {
     }
     return await route.handler({ params, user, req });
   } catch (err) {
+    console.error("Error   :  ", err);
     const mappedError = dbErrorMapper(err);
     const isUnhandledDbError = err.code && !err.statusCode;
 

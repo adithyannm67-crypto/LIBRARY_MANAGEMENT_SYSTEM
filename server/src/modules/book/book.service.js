@@ -2,6 +2,7 @@ import {
   getBookDetails,
   getFullBorrowRecord,
   getBookById,
+  getActiveBorrowRecordById,
 } from "./book.repository.js";
 
 export function getAllBooksService(limit) {
@@ -14,4 +15,8 @@ export function getFullBorrowsService(userid) {
 
 export function getBookByIdService(bookid, userid) {
   return getBookById(bookid, userid);
+}
+
+export function getActiveBorrowRecordByIdService(userid) {
+  return getActiveBorrowRecordById(userid);
 }

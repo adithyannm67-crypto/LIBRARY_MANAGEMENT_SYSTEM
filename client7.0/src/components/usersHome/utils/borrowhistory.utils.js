@@ -1,14 +1,19 @@
-export function getFilteredBooks({ borrowedBooks, filter, searchTerm }) {
+export function getFilteredBooks({
+  borrowedBooks,
+  filter = [],
+  searchTerm = "",
+}) {
+  const filters = Array.isArray(filter) ? filter : filter ? [filter] : [];
   return borrowedBooks.filter((book) => {
     const authorString = book.authorString.toLowerCase();
     const title = book.title.toLowerCase();
-    const search = searchTerm.toLowerCase();
+    const search = searchTerm?.toLowerCase();
 
     const matchesSearch =
       title.includes(search) || authorString.includes(search);
     const matchesFilter =
-      filter.length === 0 ||
-      filter.some((f) => authorString.includes(f.toLowerCase()));
+      filters?.length === 0 ||
+      filters?.some((f) => authorString.includes(f.toLowerCase()));
 
     return matchesSearch && matchesFilter;
   });
@@ -61,7 +66,7 @@ export function getFilterOptions(books) {
       name: "Authors",
       options: [
         ...new Set(
-          books.flatMap((book) => Object.values(book.authors)).filter(Boolean),
+          books?.flatMap((book) => Object.values(book.authors)).filter(Boolean),
         ),
       ],
     },

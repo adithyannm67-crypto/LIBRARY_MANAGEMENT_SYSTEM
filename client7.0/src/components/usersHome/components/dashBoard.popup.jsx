@@ -1,7 +1,7 @@
 import styles from "./component.module.css";
 
 import { toast } from "react-hot-toast";
-import { useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
 
@@ -25,6 +25,8 @@ export default function Popup({
   const router = useRouter();
   const { updateStats } = useAppData();
   const [loading, setLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const [shouldClose, setShouldClose] = useState(false);
 
   const { authorString, title } = book;
 
@@ -55,6 +57,10 @@ export default function Popup({
 
   const { heading, toastMessage, api, updator, message, text } = modes[mode];
 
+  useEffect(() => {
+    if (shouldClose && !isPending) onClose();
+  }, [isPending, shouldClose, onClose]);
+
   async function operationHandler() {
     if (loading) return;
 
@@ -70,13 +76,19 @@ export default function Popup({
       toast.dismiss(id);
 
       if (success) {
-        onClose();
         toast.success(message);
+
+        if (setBorrowedBooks)
+          startTransition(() => {
+            router.refresh();
+          });
+
+        setShouldClose(true);
       } else {
         toast.error(message);
       }
 
-      updator({ data, updateStats, setBorrowedBooks });
+      updator({ data, updateStats, setBorrowedBooks, router });
     } catch (err) {
       toast.error(err.message);
     } finally {
@@ -127,7 +139,7 @@ export default function Popup({
   );
 }
 
-const returnUpdator = ({ data, updateStats, setBorrowedBooks }) => {
+const returnUpdator = ({ data, updateStats, setBorrowedBooks}) => {
   const borrowid = Number(data.borrowid);
 
   updateStats((prev) => ({

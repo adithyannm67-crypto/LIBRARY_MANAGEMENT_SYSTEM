@@ -3,6 +3,7 @@ import {
   getAllBooksService,
   getFullBorrowsService,
   getBookByIdService,
+  getActiveBorrowRecordByIdService,
 } from "./book.service.js";
 
 export async function getAllBooksController({ req }) {
@@ -41,6 +42,19 @@ export async function getBookByIdController({ params, user }) {
     success: true,
     data: { book: book },
     message: "Book Fetched Successfully",
+    error: null,
+  };
+}
+
+
+export async function getActiveBorrowsController({ user }) {
+  const { userid } = user;
+  if (!userid) throw new AuthError("User not found", 404);
+  const books = await getActiveBorrowRecordByIdService(userid);
+  return {
+    success: true,
+    data: { books: books },
+    message: "Books Fetched Successfully",
     error: null,
   };
 }

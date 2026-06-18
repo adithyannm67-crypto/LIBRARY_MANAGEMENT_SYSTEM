@@ -1,28 +1,21 @@
 "use client";
 
-import { createContext, useState, useContext, useEffect } from "react";
-import { jwtDecode } from "jwt-decode";
+import { createContext, useState, useContext } from "react";
+
 
 export const AuthContext = createContext();
 
-export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+export function AuthProvider({ children , initialUser}) {
+  const [user, setUser] = useState(initialUser);
   const [loadingForAuth, setLoadingForAuth] = useState(true);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const decoded = jwtDecode(token);
-      setUser(decoded);
-    }
-    setLoadingForAuth(false);
-  }, []);
 
   return (
     <AuthContext.Provider
       value={{
         user,
         loadingForAuth,
+        setUser,
+        setLoadingForAuth,
       }}
     >
       {children}

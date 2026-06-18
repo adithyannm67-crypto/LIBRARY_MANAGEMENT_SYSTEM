@@ -6,11 +6,18 @@ import {
   getAllBooksController,
   getFullBorrowsController,
   getBookByIdController,
+  getActiveBorrowsController,
 } from "#root/modules/book/book.controller.js";
 import { getDashBoarddataController } from "#root/modules/user/user.controller.js";
 import { loginController } from "#root/modules/auth/auth.controller.js";
 
 const routes = [
+  {
+    method: "GET",
+    path: "api/activeBorrows/",
+    handler: getActiveBorrowsController,
+    isProtected: true,
+  },
   {
     method: "GET",
     path: "api/book/:bookid/",

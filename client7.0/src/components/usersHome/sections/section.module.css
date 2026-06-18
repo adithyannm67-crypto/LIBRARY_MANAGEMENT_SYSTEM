@@ -133,7 +133,10 @@
   flex-direction: column;
   gap: 16px;
   padding: 16px;
+  max-height: 400px;
+  overflow-y: auto;
 }
+
 .viewAll {
   text-align: center;
 }
@@ -145,9 +148,11 @@
   width: 100%;
   padding: 12px;
   border: 1px solid var(--border);
+  color: var(--foreground);
   border-radius: 8px;
   background: transparent;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .browseBtn:hover {

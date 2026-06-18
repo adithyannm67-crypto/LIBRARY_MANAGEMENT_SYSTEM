@@ -9,7 +9,6 @@ import SearchContainer from "#root/components/usersHome/components/searchContain
 import { SORT_OPTIONS } from "#root/components/usersHome/utils/books.utils.js";
 
 import { usePage } from "./usePage";
-import { useAppData } from "#root/context/AppDataContext.jsx";
 
 export const PopupContainer = () => {
   const { selectedBook, setSelectedBook } = usePage();
@@ -69,43 +68,6 @@ export const BookList = () => {
           />
         ))
       )}
-    </div>
-  );
-};
-
-import { useState } from "react";
-
-import btnStyles from "#root/common.module.css";
-
-export const BookAction = ({ book }) => {
-  const { borrowedBookIds } = useAppData();
-
-  const canBorrow =
-    book.availablecopies > 0 && !borrowedBookIds.has(book.bookid);
-  const { setSelectedBook } = usePage();
-  const [shake, setShake] = useState(false);
-  const handleClick = (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    if (!canBorrow) {
-      setShake(true);
-      setTimeout(() => {
-        setShake(false);
-      }, 1000);
-      return;
-    }
-
-    setSelectedBook(book);
-  };
-
-  return (
-    <div className={styles.bookActions}>
-      <button
-        className={btnStyles.btnPrimary + " " + (shake && btnStyles.shake)}
-        onClick={handleClick}
-      >
-        {canBorrow ? "Borrow" : "Unavailable"}
-      </button>
     </div>
   );
 };

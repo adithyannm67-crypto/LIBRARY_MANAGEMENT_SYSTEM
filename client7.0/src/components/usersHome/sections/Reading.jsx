@@ -1,14 +1,7 @@
 import style from "./section.module.css";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
-import { useAppData } from "#root/context/AppDataContext.jsx";
+
 export default function ReadingGoalSection() {
-  const { loading } = useAppData();
-  return loading ? (
-    <div className={style.card}>
-      <Skeleton width="310px" height="170px" />
-    </div>
-  ) : (
+  return (
     <div className={style.card}>
       <h3 className={style.cardTitle}>Reading Goal 2026</h3>
 

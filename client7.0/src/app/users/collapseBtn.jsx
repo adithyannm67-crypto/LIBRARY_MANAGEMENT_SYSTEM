@@ -1,20 +1,22 @@
 "use client";
 
-import { ArrowRight as RightArrow } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import { useAppData } from "#root/context/AppDataContext.jsx";
 
 const CollapseBtn = () => {
-    const { isOpen, setIsOpen } = useAppData();
+  const { setIsOpen } = useAppData();
   return (
     <button
       id="collapseBtn"
       className="collapseBtn"
       onClick={(e) => {
-        setIsOpen(!isOpen);
+        setIsOpen((prev) => !prev);
         e.stopPropagation();
       }}
-    ></button>
+    >
+      <ArrowRight />
+    </button>
   );
 };
 export default CollapseBtn;

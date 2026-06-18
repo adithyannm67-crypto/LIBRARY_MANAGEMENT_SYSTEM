@@ -69,6 +69,8 @@
   padding: 8px 24px;
   border-radius: 8px;
   border: 1px solid var(--border);
+  color: var(--foreground);
+  text-decoration: none;
 }
 .bookCard3 {
   display: flex;
@@ -304,6 +306,7 @@
 }
 
 .btn1 {
+  text-decoration: none;
   width: fit-content;
   display: inline-block;
   border: none;
@@ -313,6 +316,7 @@
   background-color: var(--foreground);
   cursor: pointer;
   transition: all 0.2s ease;
+
 }
 
 .btn1:hover {

@@ -7,7 +7,7 @@ import {
   sortBooks,
 } from "#root/components/usersHome/utils/books.utils.js";
 
-import { PopupContainer, BookList, SearchComponent } from "./clientComponents";
+import { PopupContainer, SearchComponent } from "./clientComponents";
 import { BookCard } from "#root/components/usersHome/components/books.bookCard.jsx";
 
 import PageProvider from "./usePage";
@@ -21,11 +21,11 @@ export default async function Page({ searchParams }) {
   }));
   //Filtering books based on search and filters
   const filteredBooks = getFilteredBooks({availableBooks, filter, searchTerm: q||""});
-  console.log(filteredBooks);
+
 
   //sorting books
   const sortedBooks = sortBooks(filteredBooks, sort);
-  console.log(sortedBooks);
+  
 
   return (
     <PageProvider availableBooks={availableBooks}>
