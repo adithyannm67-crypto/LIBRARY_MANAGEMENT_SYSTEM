@@ -1,11 +1,11 @@
 import "./users.css";
 
-import NavBar from "#root/components/usersHome/navBar/navBar.jsx";
-import SideBar from "#root/components/usersHome/sideBar/sideBar.jsx";
+import NavBar from "#root/features/usersHome/navBar/navBar.jsx";
+import SideBar from "#root/features/usersHome/sideBar/sideBar.jsx";
 
-import fetchDashBoardData from "#root/lib/server/boookActions.js/fetchDashBoardData.js";
+import fetchDashBoardData from "#root/lib/server/fetchDashBoardData.js";
 
-import { AppDataProvider } from "#root/context/AppDataContext.jsx";
+import { AppDataProvider } from "#root/providers/AppDataContext.jsx";
 
 import CollapseBtn from "#root/app/users/collapseBtn.jsx";
 

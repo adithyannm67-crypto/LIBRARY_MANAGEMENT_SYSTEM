@@ -1,16 +1,19 @@
 import styles from "./page.module.css";
 
-import { fetchAvailableBooks } from "#root/components/usersHome/Actions/AvailableBooks";
-import { getAuthorString } from "#root/utils";
+import { fetchAvailableBooks } from "#root/features/usersHome/Actions/AvailableBooks";
+import { getAuthorString } from "#root/shared/utils/utils.js";
 import {
   getFilteredBooks,
   sortBooks,
-} from "#root/components/usersHome/utils/books.utils.js";
+} from "#root/features/usersHome/utils/books.utils.js";
 
-import { PopupContainer, SearchComponent } from "./clientComponents";
-import { BookCard } from "#root/components/usersHome/components/books.bookCard.jsx";
+import {
+  PopupContainer,
+  SearchComponent,
+} from "@/features/usersHome/components/page.components/books.component";
+import { BookCard } from "#root/features/usersHome/components/books.bookCard.jsx";
 
-import PageProvider from "./usePage";
+import PageProvider from "@/features/usersHome/providers/books.context";
 
 export default async function Page({ searchParams }) {
   const { filter, q, sort } = await searchParams;
@@ -20,12 +23,14 @@ export default async function Page({ searchParams }) {
     authorString: getAuthorString(book.authors),
   }));
   //Filtering books based on search and filters
-  const filteredBooks = getFilteredBooks({availableBooks, filter, searchTerm: q||""});
-
+  const filteredBooks = getFilteredBooks({
+    availableBooks,
+    filter,
+    searchTerm: q || "",
+  });
 
   //sorting books
   const sortedBooks = sortBooks(filteredBooks, sort);
-  
 
   return (
     <PageProvider availableBooks={availableBooks}>
@@ -36,11 +41,7 @@ export default async function Page({ searchParams }) {
             <p>No books found.</p>
           ) : (
             sortedBooks.map((book) => (
-              <BookCard
-                
-                key={book.bookid}
-                book={book}
-              />
+              <BookCard key={book.bookid} book={book} />
             ))
           )}
         </div>

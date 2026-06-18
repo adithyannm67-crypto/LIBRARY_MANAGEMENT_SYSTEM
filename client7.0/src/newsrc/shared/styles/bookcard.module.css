@@ -1,0 +1,60 @@
+
+/* BookCards in DashBoard*/
+
+.bookCard1 {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+.bookCard2 {
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+}
+
+.bookCard2:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/*cover for books*/
+
+/* Cover */
+.bookCover {
+  width: 80px;
+  height: 112px;
+
+  border-radius: 4px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Content */
+.bookContent {
+  flex: 1;
+  min-width: 0; /* IMPORTANT */
+}
+
+/* Title */
+.bookTitle {
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Author */
+.bookAuthor {
+  color: var(--muted-foreground);
+  margin-bottom: 12px;
+}
+
+/* Status */
+.bookStatus,
+.bookMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: var(--muted-foreground);
+}

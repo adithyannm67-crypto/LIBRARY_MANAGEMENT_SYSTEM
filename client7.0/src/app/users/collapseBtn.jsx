@@ -2,7 +2,7 @@
 
 import { ArrowRight } from "lucide-react";
 
-import { useAppData } from "#root/context/AppDataContext.jsx";
+import { useAppData } from "#root/providers/AppDataContext.jsx";
 
 const CollapseBtn = () => {
   const { setIsOpen } = useAppData();
