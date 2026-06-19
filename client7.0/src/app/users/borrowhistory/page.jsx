@@ -13,7 +13,7 @@ import {
 } from "#root/features/usersHome/utils/borrowhistory.utils";
 import { getAuthorString } from "#root/shared/utils/utils.js";
 
-import PageProvider from "@/features/usersHome/providers/borrowhistory.context";
+import PageProvider from "#root/features/usersHome/borrowhistory/providers/borrowhistory.context.js";
 
 export default async function Page({ searchParams }) {
   const { filter, q, sort } = await searchParams;

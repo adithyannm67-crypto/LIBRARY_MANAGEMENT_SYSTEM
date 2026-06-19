@@ -10,7 +10,7 @@ import { fetchBookById } from "#root/lib/server/bookActions.js";
 import { getCoverUrl, getAuthorString, formatDate } from "#root/shared/utils/utils.js";
 import { BookActions, BorrowedBadge, PopupContainer } from "@/features/usersHome/components/page.components/bookdetails.component";
 
-import BookDetailsProvider from "@/features/usersHome/providers/bookdetails.context";
+import BookDetailsProvider from "#root/features/usersHome/bookdetails/providers/bookdetails.context.js";
 
 export default async function Page({ params, searchParams }) {
   const { bookid } = await params;

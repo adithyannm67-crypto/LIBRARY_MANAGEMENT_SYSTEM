@@ -2,12 +2,12 @@ import styles from "./page.module.css";
 
 import Link from "next/link";
 
-import { PopUpContainer, BookCardWrapper } from "@/features/usersHome/components/page.components/myborrows.component";
+import { PopUpContainer, BookCardWrapper } from "#root/features/usersHome/myborrows/components/myborrows.component.jsx";
 
 import { fetchActiveBorrows } from "#root/lib/server/bookActions.js";
 import { getAuthorString } from "#root/shared/utils/utils.js";
 
-import PageProvider from "../../../features/usersHome/providers/myborrows.context";
+import PageProvider from "../../../features/usersHome/myborrows/providers/myborrows.context";
 
 export default async function Page() {
   const activeBorrows = await fetchActiveBorrows();

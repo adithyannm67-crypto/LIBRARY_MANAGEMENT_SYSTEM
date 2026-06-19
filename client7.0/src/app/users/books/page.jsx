@@ -5,15 +5,15 @@ import { getAuthorString } from "#root/shared/utils/utils.js";
 import {
   getFilteredBooks,
   sortBooks,
-} from "#root/features/usersHome/utils/books.utils.js";
+} from "#root/features/usersHome/books/utils/books.utils.js";
 
 import {
   PopupContainer,
   SearchComponent,
-} from "@/features/usersHome/components/page.components/books.component";
+} from "#root/features/usersHome/books/components/books.component.jsx";
 import { BookCard } from "#root/features/usersHome/components/books.bookCard.jsx";
 
-import PageProvider from "@/features/usersHome/providers/books.context";
+import PageProvider from "#root/features/usersHome/books/providers/books.context.js";
 
 export default async function Page({ searchParams }) {
   const { filter, q, sort } = await searchParams;
