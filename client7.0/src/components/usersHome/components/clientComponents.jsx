@@ -7,8 +7,8 @@ import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
 import { useAppData } from "#root/context/AppDataContext.jsx";
-import { usePage as usePageBorrow } from "@/app/users/borrowhistory/usePage";
-import { usePage as usePageBook } from "@/app/users/books/usePage";
+import { usePage as usePageBorrow } from "#root/app/users/borrowhistory/borrowhistory.provider.js";
+import { usePage as usePageBook } from "#root/app/users/books/books.provider.js";
 
 export const BorrowedBadge = ({ bookid }) => {
   const { borrowedBookIds } = useAppData();

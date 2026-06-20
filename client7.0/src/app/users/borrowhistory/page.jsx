@@ -1,16 +1,18 @@
 import styles from "./page.module.css";
 
-import { BookCard } from "#root/components/usersHome/components/borrowedBookCard.jsx";
-import { PopupContainer, SearchComponent } from "./clientComponents";
+import { BookCard } from "@/components/usersHome/components/borrowedBookCard";
 
-import { fetchBorrowedBooks } from "#root/lib/server/boookActions.js/bookActions.js";
+import PopupContainer from "./components/popup";
+import SearchComponent from "./components/search";
+
+import { fetchBorrowedBooks } from "#root/lib/server/bookActions.js";
 import {
   getBooksByGroup,
   getFilteredBooks,
 } from "#root/components/usersHome/utils/borrowhistory.utils";
 import { getAuthorString } from "#root/utils.js";
 
-import PageProvider from "./usePage";
+import PageProvider from "./borrowhistory.provider";
 
 export default async function Page({ searchParams }) {
   const { filter, q, sort } = await searchParams;
@@ -26,7 +28,7 @@ export default async function Page({ searchParams }) {
     filter,
     searchTerm: q || "",
   });
-console.count("books")
+  console.count("books");
   //Grouping books based on borrow time
   const groupedBooks = getBooksByGroup(filteredBooks, sort);
 

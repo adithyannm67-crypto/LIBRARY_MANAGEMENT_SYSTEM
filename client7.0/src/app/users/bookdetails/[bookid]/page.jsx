@@ -5,12 +5,16 @@ import styles from "./page.module.css";
 import Link from "next/link";
 import Image from "next/image";
 
-import { fetchBookById } from "#root/lib/server/boookActions.js/bookActions.js";
+import { fetchBookById } from "#root/lib/server/bookActions.js";
 
 import { getCoverUrl, getAuthorString, formatDate } from "#root/utils.js";
-import { BookActions, BorrowedBadge, PopupContainer } from "./clientComponents";
 
-import BookDetailsProvider from "./usePage";
+
+import BookActions from "./components/bookactions";
+import BorrowedBadge from "./components/borrowbadge";
+import PopupContainer from "./components/popup";
+
+import BookDetailsProvider from "./bookdetails.provider";
 
 export default async function Page({ params, searchParams }) {
   const { bookid } = await params;
