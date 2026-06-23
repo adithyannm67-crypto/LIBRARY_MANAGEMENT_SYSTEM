@@ -1,0 +1,63 @@
+.bookCover {
+  background-color: var(--book-cover);
+  border-radius: 4px;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.bookCard1 {
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  gap: 12px;
+  padding: 8px 24px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  text-decoration: none;
+}
+
+.coverImage {
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.coverImage {
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.bookTitle {
+  margin: 0;
+  margin: 8px 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.bookAuthor {
+  color: #0d0d0e;
+}
+
+.bookActions {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
+.bookStatus {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+  margin: 0;
+
+  width: 100%;
+}
+
+.recGenre {
+  font-size: 12px;
+  color: var(--muted-foreground);
+}

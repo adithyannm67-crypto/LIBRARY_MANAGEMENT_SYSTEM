@@ -1,0 +1,66 @@
+.bookContent{
+    display:flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/*STATS CARD */
+
+/* StatCards in DashBoard*/
+
+.statCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.statHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.statIconBox {
+  position: relative;
+
+  padding: 8px;
+  border-radius: 8px;
+
+  flex: 0.075;
+  aspect-ratio: 1/1;
+
+  display: grid;
+  place-items: center;
+
+  background-color: var(--accent);
+}
+
+.statIcon {
+  width: 20px;
+  height: 20px;
+  color: var(--primary);
+}
+
+.statLabel {
+  color: var(--muted-foreground);
+  flex: 0.925;
+}
+
+.statBody {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.statValue {
+  font-size: 30px;
+  color: var(--foreground);
+}
+
+.statSubtitle {
+  font-size: 14px;
+  color: var(--muted-foreground);
+  margin: 0;
+  margin-top: 4px;
+}

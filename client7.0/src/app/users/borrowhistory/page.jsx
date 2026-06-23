@@ -1,18 +1,20 @@
 import styles from "./page.module.css";
 
-import { BookCard } from "@/components/usersHome/components/borrowedBookCard";
-
-import PopupContainer from "./components/popup";
-import SearchComponent from "./components/search";
+import BookCardWrapper from "@/features/users/borrowhistory/components/bookCardWrapper";
+import PopupContainer from "@/features/users/borrowhistory/components/popup";
+import SearchComponent from "@/features/users/borrowhistory/components/search";
 
 import { fetchBorrowedBooks } from "#root/lib/server/bookActions.js";
 import {
   getBooksByGroup,
   getFilteredBooks,
-} from "#root/components/usersHome/utils/borrowhistory.utils";
-import { getAuthorString } from "#root/utils.js";
+} from "@/features/users/borrowhistory/utils/borrowhistory.utils";
+import {
+  getAuthorString,
+  getCoverUrl,
+} from "#root/features/users/shared/utils/utils.js";
 
-import PageProvider from "./borrowhistory.provider";
+import PageProvider from "@/features/users/borrowhistory/providers/borrowhistory.provider";
 
 export default async function Page({ searchParams }) {
   const { filter, q, sort } = await searchParams;
@@ -21,6 +23,7 @@ export default async function Page({ searchParams }) {
   const borrowedBooks = data.map((book) => ({
     ...book,
     authorString: getAuthorString(book.authors),
+    coverurl: getCoverUrl(book.coverid),
   }));
 
   const filteredBooks = getFilteredBooks({
@@ -28,7 +31,7 @@ export default async function Page({ searchParams }) {
     filter,
     searchTerm: q || "",
   });
-  console.count("books");
+
   //Grouping books based on borrow time
   const groupedBooks = getBooksByGroup(filteredBooks, sort);
 
@@ -44,11 +47,7 @@ export default async function Page({ searchParams }) {
                   <summary>{key}</summary>
                   <div className={styles.bookList}>
                     {books.map((book) => (
-                      <BookCard
-                        key={book.borrowid}
-                        book={book}
-                        isUserHome={false}
-                      />
+                      <BookCardWrapper key={book.borrowid} book={book} />
                     ))}
                   </div>
                 </details>

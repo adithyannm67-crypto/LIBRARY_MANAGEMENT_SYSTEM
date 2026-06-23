@@ -1,11 +1,9 @@
-
-
 import style from "./page.module.css";
 
-import BorrowedBooksSection from "#root/components/usersHome/sections/borrowedBooks";
-import ReadingGoalSection from "#root/components/usersHome/sections/Reading";
-import RecommendationsSection from "#root/components/usersHome/sections/recommendation";
-import StatsSection from "#root/components/usersHome/sections/stats";
+import BorrowedBooksSection from "@/features/users/dashboard/sections/borrowedBooks";
+import ReadingGoalSection from "@/features/users/dashboard/sections/Reading";
+import RecommendationsSection from "@/features/users/dashboard/sections/recommendation";
+import StatsSection from "@/features/users/dashboard/sections/stats";
 
 export default function Dashboard() {
   return (

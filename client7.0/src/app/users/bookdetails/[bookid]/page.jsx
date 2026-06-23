@@ -1,20 +1,18 @@
-
-
 import styles from "./page.module.css";
 
 import Link from "next/link";
-import Image from "next/image";
 
 import { fetchBookById } from "#root/lib/server/bookActions.js";
 
-import { getCoverUrl, getAuthorString, formatDate } from "#root/utils.js";
+import { getCoverUrl, getAuthorString, formatDate } from "#root/features/users/shared/utils/utils.js";
 
+import BookActions from "@/features/users/bookdetails/components/bookactions";
+import PopupContainer from "@/features/users/bookdetails/components/popup";
+import CoverImage from "@/features/users/shared/components/coverimage";
+import AvailabilityBadge from "@/features/users/shared/components/badges/AvailabilityBadge";
+import AlreadyBorrowedBadge from "@/features/users/shared/components/badges/AlreadyBorrowedBadge";
 
-import BookActions from "./components/bookactions";
-import BorrowedBadge from "./components/borrowbadge";
-import PopupContainer from "./components/popup";
-
-import BookDetailsProvider from "./bookdetails.provider";
+import BookDetailsProvider from "@/features/users/bookdetails/providers/bookdetails.provider";
 
 export default async function Page({ params, searchParams }) {
   const { bookid } = await params;
@@ -24,6 +22,7 @@ export default async function Page({ params, searchParams }) {
   book = {
     ...book,
     authorString: getAuthorString(book.authors),
+    coverurl: getCoverUrl(book.coverid),
   };
 
   const {
@@ -31,11 +30,11 @@ export default async function Page({ params, searchParams }) {
     authorString,
     genre,
     availablecopies,
-    coverid,
     publishdate,
     publishers,
     editionid,
     description,
+    coverurl,
   } = book;
 
   const DETAILS = [
@@ -50,28 +49,21 @@ export default async function Page({ params, searchParams }) {
       <div className={styles.container}>
         <div className={styles.topSection}>
           <div className={styles.bookCoverContainer}>
-            {coverid ? (
-              <Image
-                src={getCoverUrl(coverid)}
-                alt={`${title} cover`}
-                height={300}
-                width={200}
-                priority
-                fetchPriority="high"
-                className={styles.coverImage}
-              />
-            ) : (
-              <div className={styles.bookCover}></div>
-            )}
+            <CoverImage
+              coverurl={coverurl}
+              width={200}
+              height={300}
+              priority="true"
+              title={title}
+            />
           </div>
           <div className={styles.bookDetails}>
             <h1>{title}</h1>
-            {DETAILS.map((detail) => (
-              <DetailsRow
-                key={detail.label}
-                label={detail.label}
-                value={detail.value}
-              />
+            {DETAILS.map(({ label, value }) => (
+              <p key={label} className={styles.detailsRow}>
+                <span className={styles.label}>{label}</span>:{" "}
+                <span>{value}</span>
+              </p>
             ))}
           </div>
         </div>
@@ -92,14 +84,8 @@ export default async function Page({ params, searchParams }) {
             </Link>
           </p>
           <div className={styles.bookStatus}>
-            {availablecopies > 0 ? (
-              <span className={styles.available}>
-                Available Copies : {availablecopies}
-              </span>
-            ) : (
-              <span className={styles.outOfStock}>*Out of Stock</span>
-            )}
-            <BorrowedBadge />
+            <AvailabilityBadge isAvailable={availablecopies > 0} />
+            <AlreadyBorrowedBadge bookid={bookid} />
           </div>
 
           <BookActions
@@ -113,11 +99,3 @@ export default async function Page({ params, searchParams }) {
     </BookDetailsProvider>
   );
 }
-
-const DetailsRow = ({ label, value }) => {
-  return (
-    <p className={styles.detailsRow}>
-      <span className={styles.label}>{label}</span>: <span>{value}</span>
-    </p>
-  );
-};

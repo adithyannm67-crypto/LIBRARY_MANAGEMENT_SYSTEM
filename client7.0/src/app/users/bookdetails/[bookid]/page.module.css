@@ -22,8 +22,6 @@
 }
 
 .bookCover {
-  width: 200px;
-  height: 300px;
   background-color: var(--book-cover);
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -57,16 +55,6 @@
   font-weight: bold;
 }
 
-.bookActions {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 8px;
-  color: var(--muted-foreground);
-}
-
 .bookStatus {
   display: block;
   align-items: center;
@@ -87,10 +75,6 @@
 
 .outOfStock {
   background: var(--failure);
-}
-
-.borrowed {
-  background: #acafb3;
 }
 
 .bookDescription {

@@ -1,0 +1,9 @@
+.bookActions {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: var(--muted-foreground);
+}

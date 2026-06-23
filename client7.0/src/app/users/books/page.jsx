@@ -1,18 +1,17 @@
 import styles from "./page.module.css";
 
-import { fetchAvailableBooks } from "#root/components/usersHome/Actions/AvailableBooks";
-import { getAuthorString } from "#root/utils";
+import { fetchAvailableBooks } from "@/lib/server/bookActions.js";
+import { getAuthorString , getCoverUrl} from "@/features/users/shared/utils/utils.js";
 import {
   getFilteredBooks,
   sortBooks,
-} from "#root/components/usersHome/utils/books.utils.js";
+} from "#root/features/users/books/utils/books.utils.js";
 
-// import { PopupContainer, SearchComponent } from "./clientComponents";
-import { BookCard } from "#root/components/usersHome/components/books.bookCard.jsx";
-import PopupContainer from "./components/popup";
-import SearchComponent from "./components/search";
+import { BookCard } from "@/features/users/books/components/books.bookCard.jsx";
+import PopupContainer from "@/features/users/books/components/popup";
+import SearchComponent from "@/features/users/books/components/search";
 
-import PageProvider from "./books.provider";
+import PageProvider from "@/features/users/books/providers/books.provider";
 
 export default async function Page({ searchParams }) {
   const { filter, q, sort } = await searchParams;
@@ -20,6 +19,7 @@ export default async function Page({ searchParams }) {
   const availableBooks = data.map((book) => ({
     ...book,
     authorString: getAuthorString(book.authors),
+    coverurl: getCoverUrl(book.coverid),
   }));
   //Filtering books based on search and filters
   const filteredBooks = getFilteredBooks({
@@ -35,7 +35,7 @@ export default async function Page({ searchParams }) {
     <PageProvider availableBooks={availableBooks}>
       <div className={styles.container}>
         <SearchComponent />
-        <div className={`${styles.booklist} ${styles.loaded}`}>
+        <div className={styles.booklist}>
           {sortedBooks.length === 0 ? (
             <p>No books found.</p>
           ) : (

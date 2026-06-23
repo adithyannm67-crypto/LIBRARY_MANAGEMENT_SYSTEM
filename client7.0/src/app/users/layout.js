@@ -1,7 +1,7 @@
 import "./users.css";
 
-import NavBar from "#root/components/usersHome/navBar/navBar.jsx";
-import SideBar from "#root/components/usersHome/sideBar/sideBar.jsx";
+import NavBar from "#root/features/users/dashboard/components/navBar/navBar.jsx";
+import SideBar from "#root/features/users/dashboard/components/sideBar/sideBar.jsx";
 
 import fetchDashBoardData from "#root/lib/server/fetchDashBoardData.js";
 

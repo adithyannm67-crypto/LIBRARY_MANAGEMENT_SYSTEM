@@ -10,7 +10,7 @@ import {
   useEffect,
 } from "react";
 
-import { getAuthorString } from "#root/common.jsx";
+import { getAuthorString, getCoverUrl } from "#root/common.jsx";
 
 export const AppDataContext = createContext();
 export function AppDataProvider({ children, dashBoardData = {} }) {
@@ -30,6 +30,7 @@ export function AppDataProvider({ children, dashBoardData = {} }) {
     activeBorrows: activeBorrows?.map((book) => ({
       ...book,
       authorString: getAuthorString(book.authors),
+      coverurl:getCoverUrl(book.coverurl),
     })),
     totalBorrowsThisYear,
     currentBorrowsCount: activeBorrows?.length,

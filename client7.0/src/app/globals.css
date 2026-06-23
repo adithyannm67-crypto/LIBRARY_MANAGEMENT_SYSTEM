@@ -79,6 +79,24 @@ summary{
   display: block;
 }
 
+.available {
+  background-color: #dcfce7;
+  color: #15803d;
+
+}
+
+.out-of-stock {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  
+}
+
+.borrowed {
+  background-color: #f3f4f6;
+  color: #4b5563;
+  
+}
+
 .active {
   background-color: #dbeafe;
   color: #1d4ed8;

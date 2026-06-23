@@ -6,8 +6,8 @@ import commonStyle from "#root/common.module.css";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { BookOpen } from "lucide-react";
-import Login from "#root/components/auth/login/page.jsx";
-import Signup from "#root/components/auth/signup/page";
+import Login from "#root/features/auth/login/page.jsx";
+import Signup from "#root/features/auth/signup/page";
 
 export default function LoginSignup({ onBack }) {
   const [isLogin, setIsLogin] = useState(true);

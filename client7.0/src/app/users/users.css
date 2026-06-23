@@ -91,3 +91,11 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+.borrowed-badge {
+  background: #acafb3;
+  text-align: center;
+}
+
