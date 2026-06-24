@@ -6,6 +6,7 @@ import SideBar from "#root/features/users/dashboard/components/sideBar/sideBar.j
 import fetchDashBoardData from "#root/lib/server/fetchDashBoardData.js";
 
 import { AppDataProvider } from "#root/context/AppDataContext.jsx";
+import SideBarProvider from "#root/context/sideBar.Context.jsx";
 
 import CollapseBtn from "#root/app/users/collapseBtn.jsx";
 
@@ -14,9 +15,10 @@ export default async function UsersLayout({ children }) {
   return (
     <AppDataProvider dashBoardData={dashBoardData}>
       <div className="usersLayout">
-        <SideBar />
-
-        <CollapseBtn />
+        <SideBarProvider>
+          <SideBar />
+          <CollapseBtn />
+        </SideBarProvider>
         <div className="content">
           <NavBar />
           <main className="main">{children}</main>

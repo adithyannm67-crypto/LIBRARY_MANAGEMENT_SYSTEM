@@ -2,10 +2,10 @@
 
 import { ArrowRight } from "lucide-react";
 
-import { useAppData } from "#root/context/AppDataContext.jsx";
+import { useSideBar } from "#root/context/sideBar.Context.jsx";
 
 const CollapseBtn = () => {
-  const { setIsOpen } = useAppData();
+  const { setIsOpen } = useSideBar();
   return (
     <button
       id="collapseBtn"

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
-import apiHandler from "#root/lib/server/actions/wrapper/apiHandler.js";
-import { success } from "#root/lib/server/actions/wrapper/responces.js";
+import apiHandler from "#root/lib/server/wrapper/apiHandler.js";
+import { success } from "#root/lib/server/wrapper/responces.js";
 
 import getAllBooks from "@/lib/server/actions/getAllBooks";
 import authenticate from "#root/lib/server/middleware/authenticate.js";

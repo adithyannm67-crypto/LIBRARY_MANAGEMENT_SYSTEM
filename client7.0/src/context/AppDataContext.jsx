@@ -6,16 +6,12 @@ import {
   useState,
   useMemo,
   useCallback,
-  useRef,
-  useEffect,
 } from "react";
 
-import { getAuthorString, getCoverUrl } from "#root/common.jsx";
+import formatBook from "#root/features/users/shared/utils/formatBook.js";
 
 export const AppDataContext = createContext();
 export function AppDataProvider({ children, dashBoardData = {} }) {
-  const [isOpen, setIsOpen] = useState(false);
-
   const {
     totalBorrows,
     totalBorrowsThisYear,
@@ -27,11 +23,7 @@ export function AppDataProvider({ children, dashBoardData = {} }) {
 
   const [stats, setStats] = useState({
     totalBorrows,
-    activeBorrows: activeBorrows?.map((book) => ({
-      ...book,
-      authorString: getAuthorString(book.authors),
-      coverurl:getCoverUrl(book.coverurl),
-    })),
+    activeBorrows: activeBorrows?.map((book) => formatBook(book)),
     totalBorrowsThisYear,
     currentBorrowsCount: activeBorrows?.length,
     nearestBorrows,
@@ -45,20 +37,6 @@ export function AppDataProvider({ children, dashBoardData = {} }) {
         : { ...prevStats, ...updater },
     );
   }, []);
-  console.count("AppDataProvider");
-  // console.trace("setAvailableBooks called");
-  const prev = useRef();
-
-  useEffect(() => {
-    console.log("stats changed", prev.current, stats);
-    prev.current = stats;
-  }, [stats]);
-
-  useEffect(() => {
-    console.log("isOpen changed", isOpen);
-  }, [isOpen]);
-
-  console.count("AppDataProvider");
 
   if (stats?.totalBorrowsThisYear > 0)
     console.log("stats from app data context", stats);
@@ -68,19 +46,13 @@ export function AppDataProvider({ children, dashBoardData = {} }) {
     [stats?.activeBorrows],
   );
 
-  const loading = false;
-
   const value = useMemo(
     () => ({
-      loading,
-
       stats,
       updateStats,
-      isOpen,
-      setIsOpen,
       borrowedBookIds,
     }),
-    [loading, stats, isOpen, borrowedBookIds],
+    [stats, borrowedBookIds],
   );
 
   return (

@@ -4,7 +4,8 @@ import Link from "next/link";
 
 import { fetchBookById } from "#root/lib/server/bookActions.js";
 
-import { getCoverUrl, getAuthorString, formatDate } from "#root/features/users/shared/utils/utils.js";
+import { formatDate } from "#root/features/users/shared/utils/utils.js";
+import formatBook from "#root/features/users/shared/utils/formatBook.js";
 
 import BookActions from "@/features/users/bookdetails/components/bookactions";
 import PopupContainer from "@/features/users/bookdetails/components/popup";
@@ -19,11 +20,7 @@ export default async function Page({ params, searchParams }) {
   const { option, from } = await searchParams;
 
   let book = await fetchBookById(bookid);
-  book = {
-    ...book,
-    authorString: getAuthorString(book.authors),
-    coverurl: getCoverUrl(book.coverid),
-  };
+  book = formatBook(book);
 
   const {
     title,

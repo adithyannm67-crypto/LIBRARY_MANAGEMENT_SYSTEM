@@ -1,7 +1,7 @@
 import pool from "../db/db";
 import AppError from "../classes/AppError";
 
-export default async function getBookDetails({ limit }) {
+export default async function getBooks({ limit }) {
   let query = "SELECT * FROM books";
   const params = [];
   if (limit !== null) {
@@ -14,6 +14,5 @@ export default async function getBookDetails({ limit }) {
     throw new AppError("No books found", 404);
   }
   const books = Array.from(dbResult.rows);
-  console.log("books", books);
   return books;
 }

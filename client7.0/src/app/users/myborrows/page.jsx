@@ -6,17 +6,13 @@ import PopUpContainer from "@/features/users/myborrows/components/popup";
 import BookCardWrapper from "#root/features/users/myborrows/components/bookCardWrapper.jsx";
 
 import { fetchActiveBorrows } from "#root/lib/server/bookActions.js";
-import { getAuthorString, getCoverUrl } from "#root/features/users/shared/utils/utils.js";
+import formatBook from "#root/features/users/shared/utils/formatBook.js";
 
 import PageProvider from "@/features/users/myborrows/providers/myborrows.provider";
 
 export default async function Page() {
   const activeBorrows = await fetchActiveBorrows();
-  const formatted = activeBorrows.map((book) => ({
-    ...book,
-    authorString: getAuthorString(book.authors),
-    coverurl: getCoverUrl(book.coverid),
-  }));
+  const formatted = activeBorrows.map((book) => formatBook(book));
   return (
     <PageProvider books={formatted}>
       <div className={styles.bookList}>

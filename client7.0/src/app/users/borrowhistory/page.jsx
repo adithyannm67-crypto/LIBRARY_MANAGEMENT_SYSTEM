@@ -13,6 +13,7 @@ import {
   getAuthorString,
   getCoverUrl,
 } from "#root/features/users/shared/utils/utils.js";
+import formatBook from "#root/features/users/shared/utils/formatBook.js";
 
 import PageProvider from "@/features/users/borrowhistory/providers/borrowhistory.provider";
 
@@ -20,11 +21,7 @@ export default async function Page({ searchParams }) {
   const { filter, q, sort } = await searchParams;
 
   const data = await fetchBorrowedBooks();
-  const borrowedBooks = data.map((book) => ({
-    ...book,
-    authorString: getAuthorString(book.authors),
-    coverurl: getCoverUrl(book.coverid),
-  }));
+  const borrowedBooks = data.map((book) => formatBook(book));
 
   const filteredBooks = getFilteredBooks({
     borrowedBooks,
