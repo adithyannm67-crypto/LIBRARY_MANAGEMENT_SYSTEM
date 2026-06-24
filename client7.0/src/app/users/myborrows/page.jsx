@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 import Link from "next/link";
 
 import PopUpContainer from "@/features/users/myborrows/components/popup";
-import BookCardWrapper from "@/features/users/myborrows/components/bookCardWrapper.jsx";
+import BookCardWrapper from "#root/features/users/myborrows/components/bookCardWrapper.jsx";
 
 import { fetchActiveBorrows } from "#root/lib/server/bookActions.js";
 import { getAuthorString, getCoverUrl } from "#root/features/users/shared/utils/utils.js";
