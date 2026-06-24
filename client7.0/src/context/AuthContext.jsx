@@ -11,7 +11,6 @@ export function AuthProvider({ children, initialUser }) {
     <AuthContext.Provider
       value={{
         user,
-
         setUser,
       }}
     >

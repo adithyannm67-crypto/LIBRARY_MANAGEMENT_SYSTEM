@@ -2,7 +2,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 
-import { useAuth } from "#root/context/AuthContext.jsx";
+// import { useAuth } from "#root/context/AuthContext.jsx";
 
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import style from "./page.module.css";
@@ -10,7 +10,7 @@ import style from "./page.module.css";
 import login from "./loginController";
 
 export default  function Login() {
-  const { setUser } = useAuth();
+  // const { setUser } = useAuth();
 
   const router = useRouter();
   const [password, setPassword] = useState("");
@@ -29,7 +29,7 @@ export default  function Login() {
     }
     setErrors(null);
    
-    setUser(res);
+    // setUser(res);
     // Simulate login success and navigate to dashboard
     router.push("/users");
   };

@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSideBar } from "#root/context/sideBar.Context.jsx";
+import logout from "#root/lib/server/logout.js";
 
 import {
   House,
@@ -54,8 +55,8 @@ const LinkComponent = ({ item }) => {
       className={styles.link}
       onClick={() => {
         if (isLogout) {
-          localStorage.removeItem("token");
-          localStorage.clear();
+          logout();
+          router.push("/auth");
         }
       }}
     >

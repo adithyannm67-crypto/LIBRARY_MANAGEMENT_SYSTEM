@@ -2,8 +2,6 @@
 import { isEmailValid, isPasswordValid } from "../validator";
 import loginUser from "@/lib/server/login";
 
-import { jwtDecode } from "jwt-decode";
-
 export default async function login(email, password) {
   let err = [];
   email = email.trim().toLowerCase();
@@ -25,11 +23,7 @@ export default async function login(email, password) {
 
 async function userVerfy(email, password) {
   try {
-    const token = await loginUser(email, password);
-    localStorage.setItem("token", token);
-    document.cookie = `token=${token};path=/;max-age=${60 * 60 * 24 * 30}`;
-    const decoded = jwtDecode(token);
-
+    const decoded = await loginUser(email, password);
     return decoded;
   } catch (e) {
     return [e.message || "An error occurred during login"];

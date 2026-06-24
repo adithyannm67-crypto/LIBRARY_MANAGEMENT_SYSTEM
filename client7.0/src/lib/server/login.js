@@ -1,5 +1,6 @@
 "use server";
 
+import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
@@ -27,17 +28,30 @@ export default async function loginUser(email, password) {
     throw new AuthError("Token Generation Failed", 500);
   }
 
-  return token;
+  const cookieStore = await cookies();
+
+  cookieStore.set("token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    path: "/",
+    maxAge: 60 * 60 * 24,
+  });
+
+  return user
 }
 
- async function passwordVerify(password, hashedPassword) {
+async function passwordVerify(password, hashedPassword) {
   const ismatch = await bcrypt.compare(password, hashedPassword);
   if (!ismatch) {
-    throw new AuthError("Invalid Password", 401);
+    throw new AuthError("Invalid Email or Password", 401);
   }
 }
 
- function getJWTToken(user) {
+function getJWTToken(user) {
+  if (!JWT_SECRET) {
+    throw new Error("JWT_SECRET not configured");
+  }
   return jwt.sign(
     {
       email: user.email,

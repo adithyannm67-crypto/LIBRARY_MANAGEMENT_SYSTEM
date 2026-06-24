@@ -3,6 +3,7 @@
 import { Bell } from "lucide-react";
 import style from "./navbar.module.css";
 import { useRouter } from "next/navigation";
+import logout from "#root/lib/server/logout.js";
 
 const ButtonContainer = () => {
   const router = useRouter();
@@ -12,9 +13,8 @@ const ButtonContainer = () => {
         id="logoutBtn"
         className={style.logoutBtn}
         onClick={() => {
-          localStorage.removeItem("token");
-          localStorage.clear();
-          router.replace("/auth");
+          logout();
+          router.push("/auth");
         }}
       >
         Logout

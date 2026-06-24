@@ -1,7 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "react-hot-toast";
-import {cookies} from "next/headers"
-import {jwtDecode} from "jwt-decode";
+
+import authenticate from "@/lib/server/authenticate";
+
 import { AuthProvider } from "#root/context/AuthContext";
 import "./globals.css";
 
@@ -21,22 +22,20 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const token = (await cookies()).get("token")?.value;
-
   let initialUser = null;
-
-  if (token) {
-    const decodedUser = jwtDecode(token);
-    initialUser = decodedUser;
+  try {
+    initialUser = await authenticate();
+  } catch (er) {
+    initialUser = null;
   }
-  
+
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        <AuthProvider initialUser={initialUser}>
+        {/* <AuthProvider initialUser={initialUser}> */}
           {children}
           <Toaster position="center" />
-        </AuthProvider>
+        {/* </AuthProvider> */}
       </body>
     </html>
   );
