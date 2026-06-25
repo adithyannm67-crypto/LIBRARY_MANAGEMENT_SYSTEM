@@ -1,9 +1,8 @@
 "use client";
 
-// import "./users.css"
-import commonStyle from "#root/common.module.css";
+import commonStyle from "@/shared/styles/common.module.css";
 import Link from "next/link";
-import { TriangleAlert, RotateCcw, ShieldAlert } from "lucide-react";
+import { RotateCcw, ShieldAlert } from "lucide-react";
 
 export default function Error({ error, reset }) {
   return (
@@ -21,11 +20,7 @@ export default function Error({ error, reset }) {
           <button className={commonStyle.btnPrimary} onClick={() => reset()}>
             <RotateCcw size={12} /> Retry
           </button>
-          <Link
-            className={commonStyle.backBtn}
-            href="/auth"
-
-          >
+          <Link className={commonStyle.backBtn} href="/auth">
             ← Back to Login
           </Link>
         </div>

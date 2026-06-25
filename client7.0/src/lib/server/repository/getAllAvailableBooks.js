@@ -1,5 +1,5 @@
 import pool from "../db/db";
-import AppError from "../classes/AppError";
+
 
 export default async function getBooks({ limit }) {
   let query = "SELECT * FROM books";
@@ -10,9 +10,6 @@ export default async function getBooks({ limit }) {
   }
   const dbResult = await pool.query(query, params);
 
-  if (dbResult.rows.length === 0) {
-    throw new AppError("No books found", 404);
-  }
   const books = Array.from(dbResult.rows);
   return books;
 }

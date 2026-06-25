@@ -6,8 +6,8 @@ import bcrypt from "bcrypt";
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-import getUserDetails from "./actions/login.js";
-import AuthError from "./classes/AuthError.js";
+import getUserDetails from "../repository/getUserById.js";
+import AuthError from "../error/AuthError.js";
 
 export default async function loginUser(email, password) {
   const user = await getUserDetails(email);

@@ -5,7 +5,7 @@ import Link from "next/link";
 import PopUpContainer from "@/features/users/myborrows/components/popup";
 import BookCardWrapper from "#root/features/users/myborrows/components/bookCardWrapper.jsx";
 
-import { fetchActiveBorrows } from "#root/lib/server/bookActions.js";
+import  fetchActiveBorrows  from "#root/lib/server/actions/fetchActiveBorrows.js";
 import formatBook from "#root/features/users/shared/utils/formatBook.js";
 
 import PageProvider from "@/features/users/myborrows/providers/myborrows.provider";

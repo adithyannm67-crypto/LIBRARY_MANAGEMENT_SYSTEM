@@ -1,5 +1,5 @@
 import pool from "../db/db.js";
-import AppError from "../classes/AppError";
+import AppError from "../error/AppError.js";
 
 export default async function getBookById(bookid, userid) {
   const result = await pool.query(

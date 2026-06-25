@@ -1,4 +1,4 @@
-import borrowBook from "#root/lib/server/borrowbook.js";
+import borrowBook from "#root/lib/server/actions/borrowbook.js";
 
 export default async function borrowBookW(bookid) {
   try {

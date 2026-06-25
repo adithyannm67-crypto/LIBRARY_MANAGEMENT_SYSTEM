@@ -1,7 +1,7 @@
 "use client";
 
 import "./users.css";
-import commonStyle from "#root/common.module.css";
+import commonStyle from "@/shared/styles/common.module.css";
 import Link from "next/link";
 import { TriangleAlert, RotateCcw } from "lucide-react";
 

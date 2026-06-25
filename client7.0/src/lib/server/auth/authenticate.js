@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 
-import AuthError from "./classes/AuthError.js";
+import AuthError from "../error/AuthError.js";
 
 const JWT_SECRET = process.env.JWT_SECRET;
 

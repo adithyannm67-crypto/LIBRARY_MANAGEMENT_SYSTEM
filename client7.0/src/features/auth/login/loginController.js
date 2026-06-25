@@ -1,6 +1,6 @@
 "use client";
 import { isEmailValid, isPasswordValid } from "../validator";
-import loginUser from "@/lib/server/login";
+import loginUser from "#root/lib/server/auth/login.js";
 
 export default async function login(email, password) {
   let err = [];

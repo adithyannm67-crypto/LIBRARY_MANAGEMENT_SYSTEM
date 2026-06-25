@@ -1,6 +1,6 @@
 
-import authenticate from "./authenticate";
-import getFullBorrowRecord from "./actions/getFullBorrowRecord";
+import authenticate from "../auth/authenticate";
+import getFullBorrowRecord from "../repository/getFullBorrowRecord";
 
 export default async function fetchDashBoardData() {
   const user = await authenticate();

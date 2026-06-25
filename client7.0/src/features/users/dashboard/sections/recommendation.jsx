@@ -4,16 +4,13 @@ import Link from "next/link";
 
 import BookCard from "../components/availableBookCard";
 
-import { fetchAvailableBooks } from "@/lib/server/bookActions.js";
-import { getAuthorString, getCoverUrl } from "#root/features/users/shared/utils/utils.js";
+import fetchAvailableBooks from "#root/lib/server/actions/fetchAvailablebooks.js";
+
+import formatBook from "@/features/users/shared/utils/formatBook";
 
 export default async function RecommendationsSection() {
   const data = await fetchAvailableBooks({ limit: 5 });
-  const formattedData = data.map((book) => ({
-    ...book,
-    authorString: getAuthorString(book.authors),
-    coverurl: getCoverUrl(book.coverid),
-  }));
+  const formattedData = data.map((book) => formatBook(book));
 
   return (
     <div className={style.card}>

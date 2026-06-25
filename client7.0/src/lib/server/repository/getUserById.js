@@ -1,5 +1,5 @@
 import pool from "../db/db.js";
-import AuthError from "../classes/AuthError.js";
+import AuthError from "../error/AuthError.js";
 
 export default async function getUserDetails(email) {
   const user = await pool.query(`SELECT userid,name,role,password FROM users WHERE email = $1`, [

@@ -1,16 +1,16 @@
 import "./users.css";
 
-import NavBar from "#root/features/users/dashboard/components/navBar/navBar.jsx";
-import SideBar from "#root/features/users/dashboard/components/sideBar/sideBar.jsx";
+import NavBar from "#root/features/users/dashboard/sections/navbar.jsx";
+import SideBar from "#root/features/users/dashboard/sections/sidebar.jsx";
 
-import fetchDashBoardData from "#root/lib/server/fetchDashBoardData.js";
-import authenticate from "#root/lib/server/authenticate.js";
+import fetchDashBoardData from "#root/lib/server/actions/fetchDashBoardData.js";
+import authenticate from "#root/lib/server/auth/authenticate.js";
 
 import { AppDataProvider } from "#root/context/AppDataContext.jsx";
 import { AuthProvider } from "#root/context/AuthContext.jsx";
 import SideBarProvider from "#root/context/sideBar.Context.jsx";
 
-import CollapseBtn from "#root/app/users/collapseBtn.jsx";
+
 
 export default async function UsersLayout({ children }) {
   const initialUser = await authenticate();

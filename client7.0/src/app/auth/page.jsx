@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./page.module.css";
-import commonStyle from "#root/common.module.css";
+import commonStyle from "@/shared/styles/common.module.css";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";

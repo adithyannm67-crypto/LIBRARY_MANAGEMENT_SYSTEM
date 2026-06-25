@@ -4,15 +4,12 @@ import BookCardWrapper from "@/features/users/borrowhistory/components/bookCardW
 import PopupContainer from "@/features/users/borrowhistory/components/popup";
 import SearchComponent from "@/features/users/borrowhistory/components/search";
 
-import { fetchBorrowedBooks } from "#root/lib/server/bookActions.js";
+import  fetchBorrowedBooks  from "#root/lib/server/actions/fetchBorrowedBooks.js";
 import {
   getBooksByGroup,
   getFilteredBooks,
 } from "@/features/users/borrowhistory/utils/borrowhistory.utils";
-import {
-  getAuthorString,
-  getCoverUrl,
-} from "#root/features/users/shared/utils/utils.js";
+
 import formatBook from "#root/features/users/shared/utils/formatBook.js";
 
 import PageProvider from "@/features/users/borrowhistory/providers/borrowhistory.provider";

@@ -1,9 +1,17 @@
-/* Header */
-.dashboardHeader {
-  padding: 12px;
-  background: var(--card);
+
+/* NAVBAR*/
+
+.navBar {
+  position: sticky;
+  top: 0;
+
+  z-index: var(--z2);
+  height: var(--nav-Height);
+
+  background-color: var(--card);
   border-bottom: 1px solid var(--border);
-  width: 100%;
+  
+  height: var(--nav-Height);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -12,16 +20,17 @@
 
 .headerLeft,
 .headerRight {
+  padding:0 12px ;
+  flex: 0.7;
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.headerLeft {
-  flex: 0.7;
-}
 .headerRight {
   flex: 0.3;
+
+  margin-left: auto;
   justify-content: flex-end;
 }
 
@@ -56,6 +65,13 @@
 
   font-size: 14px;
   color: var(--muted-foreground);
+
+  width:80%;
+}
+
+.headerContent h3{
+  margin: 0;
+   font-size: clamp(1rem, 3vw, 1.5rem);
 }
 
 .logoutBtn {
@@ -65,9 +81,20 @@
   background: var(--foreground);
   color: var(--background);
   cursor: pointer;
+
+
+
+  display:block;
 }
 .logoutBtn:hover {
   opacity: 0.9;
+}
+
+@media(max-width:370px){
+  .logoutBtn{
+    display:none;
+  }
+
 }
 
 .notificationBtn {
@@ -105,6 +132,69 @@
   background: var(--failure);
   border-radius: 50%;
 }
+
+/*SIDEBAR*/
+.sideBar {
+  z-index: var(--z3);
+  background-color: var(--card);
+  border-bottom: 1px solid var(--border);
+
+  overflow-y: hidden;
+
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: 0.5rem 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 768px) {
+  .sideBar {
+    height: auto;
+    position: fixed;
+    top: 70px;
+    left: calc(-1 * var(--sidebar-Width));
+    transition: left 0.3s ease;
+  }
+
+  .open {
+    top: 70px;
+    left: 0;
+  }
+}
+
+.link {
+  text-decoration: none;
+  color: var(--foreground);
+  padding: 1rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.link:hover .iconWrapper,
+.iconWrapper.active {
+  background-color: var(--b);
+  color: var(--card);
+}
+
+.iconWrapper {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+}
+
+
+
+
+
+
+
 
 .statsGrid {
   width: 100%;

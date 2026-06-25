@@ -1,7 +1,7 @@
 import styles from "./page.module.css";
 
-import { fetchAvailableBooks } from "@/lib/server/bookActions.js";
-import { getAuthorString , getCoverUrl} from "@/features/users/shared/utils/utils.js";
+import  fetchAvailableBooks  from "#root/lib/server/actions/fetchAvailablebooks.js";
+
 import {
   getFilteredBooks,
   sortBooks,

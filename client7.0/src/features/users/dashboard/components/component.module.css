@@ -64,3 +64,53 @@
   margin: 0;
   margin-top: 4px;
 }
+
+/* Navbar */
+
+.headerContent {
+  flex: 0.8;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.headerSubtitle {
+  margin: 0;
+  margin-top: 14px;
+
+  font-size: 14px;
+  color: var(--muted-foreground);
+
+  width:80%;
+}
+
+.headerContent h3{
+  margin: 0;
+   font-size: clamp(1rem, 3vw, 1.5rem);
+}
+/*SIDEBAR*/
+
+.link {
+  text-decoration: none;
+  color: var(--foreground);
+  padding: 1rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.link:hover .iconWrapper,
+.iconWrapper.active {
+  background-color: var(--b);
+  color: var(--card);
+}
+
+.iconWrapper {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+}

@@ -1,8 +1,8 @@
 "use server";
 
-import authenticate from "./authenticate.js";
+import authenticate from "../auth/authenticate.js";
 
-import { returnTransaction } from "./actions/borrow.repository.js";
+import { returnTransaction } from "../repository/borrow.repository.js";
 
 export default async function returnBookController(borrowid) {
   const user = await authenticate();

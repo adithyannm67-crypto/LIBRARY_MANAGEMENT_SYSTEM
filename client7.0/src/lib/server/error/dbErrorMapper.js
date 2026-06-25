@@ -1,4 +1,4 @@
-import AppError from "./classes/AppError.js";
+import AppError from "./AppError.js";
 
 export default function dbErrorMapper(err) {
   switch (err.code) {
