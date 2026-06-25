@@ -24,10 +24,7 @@ export default function Error({ error, reset }) {
           <Link
             className={commonStyle.backBtn}
             href="/auth"
-            onClick={() => {
-              localStorage.removeItem("token");
-              localStorage.clear();
-            }}
+
           >
             ← Back to Login
           </Link>

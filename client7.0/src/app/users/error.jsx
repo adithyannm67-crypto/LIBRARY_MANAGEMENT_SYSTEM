@@ -21,14 +21,7 @@ export default function Error({ error, reset }) {
           <button className={commonStyle.btnPrimary} onClick={() => reset()}>
             <RotateCcw size={12} /> Retry
           </button>
-          <Link
-            className={commonStyle.backBtn}
-            href="/auth"
-            onClick={() => {
-              localStorage.removeItem("token");
-              localStorage.clear();
-            }}
-          >
+          <Link className={commonStyle.backBtn} href="/auth">
             ← Back to Login
           </Link>
         </div>

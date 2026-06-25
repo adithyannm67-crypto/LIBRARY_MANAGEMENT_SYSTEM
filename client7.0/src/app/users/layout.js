@@ -22,12 +22,13 @@ export default async function UsersLayout({ children }) {
         <div className="usersLayout">
           <SideBarProvider>
             <SideBar />
-            <CollapseBtn />
+            {/* <CollapseBtn /> */}
+
+            <div className="content">
+              <NavBar />
+              <main className="main">{children}</main>
+            </div>
           </SideBarProvider>
-          <div className="content">
-            <NavBar />
-            <main className="main">{children}</main>
-          </div>
         </div>
       </AppDataProvider>
     </AuthProvider>

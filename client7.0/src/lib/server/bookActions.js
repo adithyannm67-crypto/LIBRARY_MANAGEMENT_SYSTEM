@@ -1,5 +1,6 @@
-import { cookies } from "next/headers";
-import { jwtDecode } from "jwt-decode";
+
+
+import authenticate from "./authenticate";
 
 import getBookById from "./actions/getBookById";
 import getFullBorrowRecord from "./actions/getFullBorrowRecord";
@@ -7,34 +8,21 @@ import getActiveBorrowRecordById from "./actions/getActiveBorrowRecordById";
 import getBookDetails from "./actions/getAllBooks";
 
 export async function fetchBookById(bookid) {
-  return helper(getBookById, true, bookid);
+  const user = await authenticate();
+  return getBookById(bookid, user?.userid);
 }
 
 export async function fetchBorrowedBooks() {
-  return helper(getFullBorrowRecord, true);
+  const user = await authenticate();
+  return getFullBorrowRecord(user?.userid);
 }
 
 export async function fetchActiveBorrows() {
-  return helper(getActiveBorrowRecordById, true);
+  const user = await authenticate();
+  return getActiveBorrowRecordById(user?.userid);
 }
 
 export async function fetchAvailableBooks({ limit } = {}) {
-  return helper(getBookDetails, false, { limit });
+  await authenticate();
+  return getBookDetails({ limit });
 }
-
-const helper = async (handler, isProtected, ...args) => {
-  if (isProtected) {
-    const cookieStore = await cookies();
-    const token = cookieStore.get("token")?.value;
-
-    if (!token) {
-      throw new Error("User not authenticated");
-    }
-
-    const user = jwtDecode(token);
-
-    return handler(user.userid, ...args);
-  }
-
-  return handler(...args);
-};

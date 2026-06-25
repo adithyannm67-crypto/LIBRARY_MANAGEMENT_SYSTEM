@@ -1,13 +1,20 @@
-import AppError from "#root/classes/AppError.js";
+"use server";
+
+import authenticate from "./authenticate.js";
+
+import AppError from "./classes/AppError";
 
 import {
   getBorrowedCount,
   getNumberOfCopiesAvailable,
   createBorrowTransaction,
-  returnTransaction,
-} from "./borrow.repository.js";
+} from "./actions/borrow.repository.js";
 
-export async function borrowBook(userid, bookid) {
+export default async function borrowBook(bookid) {
+  //SET A BORRO LIMIT SUCH THAT which is available across client and server ..no i put it as 10 it is set in service
+  const user = await authenticate();
+  const userid = user?.userid;
+
   const borrowlimit = 10;
 
   const borrowed = await getBorrowedCount(userid);
@@ -27,12 +34,11 @@ export async function borrowBook(userid, bookid) {
   duedate.setDate(borrowdate.getDate() + 9);
   const status = "borrowed";
 
-  return await createBorrowTransaction(userid, bookid, borrowdate, duedate, status);
-}
-
-export async function returnBook(borrowid, userid) {
-  const returndate = new Date();
-
-  const status = "returned";
-  return await returnTransaction(borrowid, userid, returndate, status);
+  return await createBorrowTransaction(
+    userid,
+    bookid,
+    borrowdate,
+    duedate,
+    status,
+  );
 }

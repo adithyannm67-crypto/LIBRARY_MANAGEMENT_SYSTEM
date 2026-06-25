@@ -9,6 +9,8 @@ export default async function authenticate() {
   const token =
     (await cookies()).get("token")?.value;
 
+
+
   if (!token) {
     throw new AuthError("Unauthorized", 401);
   }

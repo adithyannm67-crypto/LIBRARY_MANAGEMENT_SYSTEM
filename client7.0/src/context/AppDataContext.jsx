@@ -38,7 +38,7 @@ export function AppDataProvider({ children, dashBoardData = {} }) {
     );
   }, []);
 
-  if (stats?.totalBorrowsThisYear > 0)
+  
     console.log("stats from app data context", stats);
 
   const borrowedBookIds = useMemo(

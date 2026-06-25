@@ -1,6 +1,9 @@
-import pool from "#root/db/db.js";
-import AppError from "#root/classes/AppError.js";
-import AuthError from "#root/classes/AuthError.js";
+"use server"
+
+
+import pool from "../db/db.js";
+import AppError from "../classes/AppError.js";
+import AuthError from "../classes/AuthError.js";
 
 export async function getBorrowedCount(userid) {
   const userResult = await pool.query(
