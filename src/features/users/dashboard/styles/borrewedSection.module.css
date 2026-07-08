@@ -1,0 +1,120 @@
+.browseCatalog {
+    text-decoration: none;
+  width: 100%;
+  padding: 22px 28px;
+  background: white;
+  border: 1px solid #E5E7EB;
+  border-radius: 18px;
+
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.browseCatalog:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, .06);
+}
+
+.browseIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+
+  background: #EEF2FF;
+  color: #4F46E5;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 1.6rem;
+}
+
+.browseContent {
+  flex: 1;
+  text-align: left;
+}
+
+.browseContent h3 {
+  margin: 0;
+  color: #0F172A;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.browseContent p {
+  margin: 6px 0 0;
+  color: #64748B;
+  font-size: .95rem;
+}
+
+.arrow {
+  color: #64748B;
+  font-size: 1.5rem;
+  font-weight: 700;
+  transition: transform .2s;
+}
+
+.browseCatalog:hover .arrow {
+  transform: translateX(4px);
+}
+
+.emptyBorrows {
+  height: 100%;
+  min-height: 280px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+  padding: 2rem;
+}
+
+.emptyIllustration {
+  width: 90px;
+  height: auto;
+  margin-bottom: 1.25rem;
+  opacity: 0.9;
+}
+
+.emptyTitle {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.emptyDescription {
+  margin: 0.75rem 0 1.5rem;
+  color: var(--muted);
+  font-size: 1rem;
+  max-width: 320px;
+  line-height: 1.6;
+}
+
+.emptyLink {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  color: #5b5ce2;
+  text-decoration: none;
+  font-size: 1.05rem;
+  font-weight: 500;
+
+  transition: gap 0.2s ease;
+}
+
+.emptyLink:hover {
+  gap: 0.8rem;
+}
+
+.arrow {
+  font-size: 1.3rem;
+}

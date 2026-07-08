@@ -1,0 +1,726 @@
+/*OVERVIEW SECTION*/
+.overviewContainer {
+  display: grid;
+  grid-template-columns: 1fr; /* grid-cols-1 */
+  gap: 1.5rem; /* gap-6 = 24px */
+}
+.readingGoalContainer{
+  background-color: var(--card);
+  border:1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+}
+
+@media (min-width: 1024px) {
+  .overviewContainer {
+    grid-template-columns: repeat(3, minmax(0, 1fr)); /* lg:grid-cols-3 */
+  }
+}
+.overViewLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* equivalent to space-y-6 */
+}
+
+@media (min-width: 1024px) {
+  .overViewLeft {
+    grid-column: span 2 / span 2;
+  }
+}
+.overViewRight {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* 24px */
+}
+.goalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem; /* mb-4 */
+}
+
+.goalTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* gap-2 */
+  margin: 0;
+  font-size: 1.125rem; /* 18px */
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--foreground);
+}
+
+.goalIcon {
+  width: 1rem;  /* w-4 */
+  height: 1rem; /* h-4 */
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.goalButton {
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-size: 0.75rem; /* text-xs */
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.goalButton:hover {
+  color: var(--foreground);
+}
+
+.goalEdit {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;         /* gap-3 */
+  margin-bottom: 1rem;  /* mb-4 */
+}
+
+.goalInput {
+  width: 5rem;          /* w-20 */
+  padding: 0.375rem 0;  /* py-1.5 */
+  border: 1px solid var(--border);
+  border-radius: 0.5rem; /* rounded-lg */
+  background: var(--input-background);
+  text-align: center;
+  font-size: 0.875rem;  /* text-sm */
+}
+
+.goalInput:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring);
+}
+
+.goalLabel {
+  font-size: 0.875rem; /* text-sm */
+  color: var(--muted-foreground);
+}
+
+.saveButton {
+  margin-left: auto;    /* ml-auto */
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;        /* gap-1.5 */
+  padding: 0.375rem 0.75rem; /* py-1.5 px-3 */
+  border: none;
+  border-radius: 0.5rem;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: opacity 150ms ease;
+}
+
+.saveButton:hover {
+  opacity: 0.9;
+}
+
+.saveIcon {
+  width: 0.875rem;      /* w-3.5 */
+  height: 0.875rem;     /* h-3.5 */
+}
+
+
+.goalProgress {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;          /* space-y-2 */
+}
+
+.goalStats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;  /* text-sm */
+}
+
+.goalCurrent {
+  color: var(--muted-foreground);
+}
+
+.goalPercentage {
+  font-weight: 500;
+}
+
+.progressTrack {
+  width: 100%;
+  height: 0.625rem;     /* h-2.5 */
+  background: var(--muted);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  background: var(--primary);
+  border-radius: inherit;
+  transition: width 500ms ease;
+}
+
+.goalMessage {
+  padding-top: 0.25rem; /* pt-1 */
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.goalRemaining {
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 1.25rem; /* p-5 */
+}
+
+/* Shared heading */
+.cardHeading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 1rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.cardHeadingIcon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--primary);
+}
+
+
+/* Recent reads */
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.viewAllButton {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem; /* gap-1 */
+  border: none;
+  background: transparent;
+  padding: 0;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.viewAllButton:hover {
+  color: var(--foreground);
+}
+
+.viewAllIcon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.recentReads {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* space-y-3 */
+}
+
+.bookItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.bookCover {
+  width: 2.25rem; /* w-9 */
+  height: 3rem; /* h-12 */
+  border-radius: 0.25rem;
+  flex-shrink: 0;
+  box-shadow:
+    0 1px 2px rgba(0,0,0,0.05),
+    0 1px 3px rgba(0,0,0,0.1);
+}
+
+.bookInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.bookTitle {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.bookAuthor {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}
+
+.bookMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.bookDate {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}
+
+.genreCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 1.25rem; /* p-5 */
+}
+
+.genreHeading {
+  margin: 0 0 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--foreground);
+}
+
+.genreList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* space-y-3 */
+}
+
+.genreItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem; /* space-y-1 */
+}
+
+.genreHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem; /* text-sm */
+}
+
+.genreName {
+  color: var(--foreground);
+}
+
+.genreCount {
+  color: var(--muted-foreground);
+}
+
+.genreTrack {
+  width: 100%;
+  height: 0.375rem; /* h-1.5 */
+  background: var(--muted);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.genreBar {
+  height: 100%;
+  border-radius: inherit;
+  transition: width 150ms ease;
+}
+
+.streakCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 1.25rem; /* p-5 */
+}
+
+.streakHeading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* gap-2 */
+  margin: 0 0 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.streakIcon {
+  width: 1rem; /* w-4 */
+  height: 1rem; /* h-4 */
+  color: #f97316; /* orange-500 */
+}
+
+.streakSummary {
+  text-align: center;
+  padding: 0.5rem 0; /* py-2 */
+}
+
+.streakCount {
+  font-size: 2.25rem; /* text-4xl */
+  font-weight: 600;
+  line-height: 1;
+}
+
+.streakLabel {
+  margin-top: 0.25rem; /* mt-1 */
+  font-size: 0.875rem; /* text-sm */
+  color: var(--muted-foreground);
+}
+
+.streakGrid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.25rem; /* gap-1 */
+  margin-top: 1rem; /* mt-4 */
+}
+
+.streakDay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem; /* gap-1 */
+}
+
+.streakBadge {
+  width: 1.75rem; /* w-7 */
+  height: 1.75rem; /* h-7 */
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem; /* text-xs */
+  font-weight: 500; /* font-medium */
+}
+
+.streakBadgeActive {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.streakBadgeInactive {
+  background: var(--muted);
+  color: var(--muted-foreground);
+}
+
+.streakBest {
+  margin-top: 0.75rem; /* mt-3 */
+  text-align: center;
+  font-size: 0.75rem; /* text-xs */
+  color: var(--muted-foreground);
+}
+
+.streakBest strong {
+  color: var(--foreground);
+}
+
+
+.topAuthorCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 1.25rem;       /* p-5 */
+}
+
+.cardHeading {
+  margin: 0 0 0.75rem 0;  /* mb-3 */
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--foreground);
+}
+
+.authorInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;           /* gap-3 */
+}
+
+.authorAvatar {
+  width: 2.5rem;          /* w-10 */
+  height: 2.5rem;         /* h-10 */
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;    /* text-sm */
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.authorDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.authorName {
+  margin: 0;
+  font-size: 0.875rem;    /* text-sm */
+  font-weight: 500;       /* font-medium */
+  color: var(--foreground);
+}
+
+.authorStats {
+  margin: 0;
+  font-size: 0.75rem;     /* text-xs */
+  color: var(--muted-foreground);
+}
+/*Achievements*/
+/* Achievement header */
+.achievementHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem; /* mb-4 */
+}
+
+.achievementStats {
+  margin: 0;
+  font-size: 0.875rem; /* text-sm */
+  color: var(--muted-foreground);
+}
+
+/* Achievement grid */
+.achievementGrid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1rem; /* gap-4 */
+}
+
+@media (min-width: 640px) {
+  .achievementGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .achievementGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Achievement card */
+.achievementCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 1.25rem; /* p-5 */
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease,
+    opacity 150ms ease;
+}
+
+.achievementCardEarned:hover {
+  box-shadow:
+    0 4px 6px -1px rgb(0 0 0 / 0.1),
+    0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.achievementCardLocked {
+  opacity: 0.5;
+  filter: grayscale(100%);
+}
+
+/* Layout */
+.achievementContent {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem; /* gap-4 */
+}
+
+.achievementIconWrapper {
+  padding: 0.75rem; /* p-3 */
+  border-radius: 0.75rem;
+  background: var(--muted);
+  flex-shrink: 0;
+}
+
+.achievementIcon {
+  width: 1.25rem; /* w-5 */
+  height: 1.25rem; /* h-5 */
+}
+
+.achievementInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.achievementTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* gap-2 */
+  flex-wrap: wrap;
+}
+
+.achievementTitle {
+  margin: 0;
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500;
+}
+
+.achievementDescription {
+  margin: 0.25rem 0 0;
+  font-size: 0.75rem; /* text-xs */
+  color: var(--muted-foreground);
+}
+
+/* Earned badge */
+.earnedBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem; /* gap-1 */
+  padding: 0.125rem 0.5rem; /* py-0.5 px-2 */
+  border-radius: 9999px;
+  background: color-mix(
+    in srgb,
+    var(--primary) 10%,
+    transparent
+  );
+  color: var(--primary);
+  font-size: 0.75rem;
+}
+
+.earnedIcon {
+  width: 0.75rem; /* w-3 */
+  height: 0.75rem;
+}
+
+/*History*/
+
+
+
+.historyCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem; /* rounded-xl */
+  overflow: hidden;
+}
+
+/* Header */
+.historyHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem; /* py-4 px-5 */
+  border-bottom: 1px solid var(--border);
+}
+
+.historyCount {
+  margin: 0;
+  font-size: 0.875rem; /* text-sm */
+  color: var(--muted-foreground);
+}
+
+.historySort {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem; /* gap-1.5 */
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.historySortIcon {
+  width: 1rem; /* w-4 */
+  height: 1rem;
+}
+
+/* List */
+.historyList {
+  display: flex;
+  flex-direction: column;
+}
+
+.historyItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* gap-4 */
+  padding: 1rem 1.25rem; /* py-4 px-5 */
+  transition: background-color 150ms ease;
+}
+
+.historyItem:not(:last-child) {
+  border-bottom: 1px solid var(--border); /* divide-y */
+}
+
+.historyItem:hover {
+  background: color-mix(
+    in srgb,
+    var(--accent) 40%,
+    transparent
+  );
+}
+
+/* Index */
+.historyIndex {
+  width: 1.25rem; /* w-5 */
+  flex-shrink: 0;
+  text-align: right;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+/* Cover */
+.historyCover {
+  width: 2.5rem; /* w-10 */
+  height: 3.5rem; /* h-14 */
+  border-radius: 0.25rem;
+  flex-shrink: 0;
+  box-shadow:
+    0 1px 2px rgba(0,0,0,.05),
+    0 1px 3px rgba(0,0,0,.1);
+}
+
+/* Book info */
+.historyBook {
+  flex: 1;
+  min-width: 0;
+}
+
+.historyTitle {
+  margin: 0;
+  font-weight: 500;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.historyAuthor {
+  margin: 0.25rem 0;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+/* Meta */
+.historyMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem; /* gap-1 */
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.historyDate {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+.historyPages {
+  font-size: 0.75rem; /* text-xs */
+  color: var(--muted-foreground);
+}

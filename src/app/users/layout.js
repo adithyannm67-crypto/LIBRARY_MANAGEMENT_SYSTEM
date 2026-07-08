@@ -3,14 +3,12 @@ import "./users.css";
 import NavBar from "#root/features/users/dashboard/sections/navbar.jsx";
 import SideBar from "#root/features/users/dashboard/sections/sidebar.jsx";
 
-import fetchDashBoardData from "#root/lib/server/actions/fetchDashBoardData.js";
+import fetchDashBoardData from "@/lib/server/services/users.service.js";
 import authenticate from "#root/lib/server/auth/authenticate.js";
 
 import { AppDataProvider } from "#root/context/AppDataContext.jsx";
 import { AuthProvider } from "#root/context/AuthContext.jsx";
 import SideBarProvider from "#root/context/sideBar.Context.jsx";
-
-
 
 export default async function UsersLayout({ children }) {
   const initialUser = await authenticate();
@@ -22,8 +20,6 @@ export default async function UsersLayout({ children }) {
         <div className="usersLayout">
           <SideBarProvider>
             <SideBar />
-            {/* <CollapseBtn /> */}
-
             <div className="content">
               <NavBar />
               <main className="main">{children}</main>

@@ -26,7 +26,7 @@ export default function Login() {
 
     // setUser(res);
     // Simulate login success and navigate to dashboard
-    router.push("/users");
+    router.push("/users/home");
   };
 
   return (

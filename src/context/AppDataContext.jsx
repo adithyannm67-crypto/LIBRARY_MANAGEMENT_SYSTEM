@@ -39,7 +39,7 @@ export function AppDataProvider({ children, dashBoardData = {} }) {
   }, []);
 
   
-    console.log("stats from app data context", stats);
+    // console.log("stats from app data context", stats);
 
   const borrowedBookIds = useMemo(
     () => new Set((stats?.activeBorrows ?? []).map((b) => b.bookid)),

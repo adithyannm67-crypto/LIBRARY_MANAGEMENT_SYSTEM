@@ -2,7 +2,7 @@ import styles from "./page.module.css";
 
 import Link from "next/link";
 
-import fetchBookById from "#root/lib/server/actions/fetchBookById.js";
+import {fetchBookById} from "@/lib/server/services/books.service";
 
 import { formatDate } from "#root/features/users/shared/utils/utils.js";
 import formatBook from "#root/features/users/shared/utils/formatBook.js";

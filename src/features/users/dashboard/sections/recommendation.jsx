@@ -1,10 +1,13 @@
 import style from "./section.module.css";
+import styles from "../styles/recommendation.module.css";
+
+import { BookOpen, ArrowRight } from "lucide-react";
 
 import Link from "next/link";
 
 import BookCard from "../components/availableBookCard";
 
-import fetchAvailableBooks from "#root/lib/server/actions/fetchAvailablebooks.js";
+import { fetchAvailableBooks } from "@/lib/server/services/books.service";
 
 import formatBook from "@/features/users/shared/utils/formatBook";
 
@@ -20,8 +23,17 @@ export default async function RecommendationsSection() {
         {formattedData.map((book, index) => (
           <BookCard key={index} book={book} />
         ))}
-        <Link className={style.viewAll} href="/users/books">
-          View all
+
+        <Link href="/users/books" className={styles.viewAllBtn}>
+          <div className={styles.left}>
+            <div className={styles.icon}>
+              <BookOpen size={20} />
+            </div>
+
+            <span>View all</span>
+          </div>
+
+          <ArrowRight size={22} className={styles.arrow} />
         </Link>
       </div>
     </div>

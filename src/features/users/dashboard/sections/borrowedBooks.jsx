@@ -1,12 +1,16 @@
 "use client";
 
 import style from "./section.module.css";
+import styles from "../styles/borrewedSection.module.css";
+
+import { BookOpen } from "lucide-react";
 
 import Link from "next/link";
 import { useState } from "react";
 
 import { BookCard } from "@/features/users/shared/components/borrowedBookCard";
 import Popup from "@/features/users/shared/components/dashBoard.popup";
+import ReturnModal from "@/features/users/shared/components/ReturnModal";
 
 import { useAppData } from "#root/context/AppDataContext.jsx";
 
@@ -40,8 +44,15 @@ export default function BorrowedBooksSection() {
                   isUserHome={true}
                 />
               ))}
-              <Link className={style.viewAll} href="/users/myborrows">
-                View in Detail
+              <Link
+                href="/users/borrowhistory"
+                className={style.viewAllBorrows}
+              >
+                <div className={style.icon}>🗓</div>
+
+                <span>View All Borrowed Books</span>
+
+                <span className={style.arrow}>→</span>
               </Link>
             </>
           ) : (
@@ -55,20 +66,27 @@ export default function BorrowedBooksSection() {
         </div>
 
         {selectedBook && (
-          <Popup
-            mode="return"
+          <ReturnModal
             book={selectedBook}
-            isOpen={!!selectedBook}
+            shouldRefresh={true}
             onClose={() => {
               setSelectedBook(null);
-              document.body.style.overflow = "auto";
             }}
           />
         )}
       </div>
 
-      <Link href="/users/borrowhistory" className={style.browseBtn}>
-        Browse Catalog
+      <Link href="/users/books" className={styles.browseCatalog}>
+        <div className={styles.browseIcon}>
+          <BookOpen />
+        </div>
+
+        <div className={styles.browseContent}>
+          <h3>Browse Catalog</h3>
+          <p>Explore our collection of books</p>
+        </div>
+
+        <span className={styles.arrow}>→</span>
       </Link>
     </div>
   );

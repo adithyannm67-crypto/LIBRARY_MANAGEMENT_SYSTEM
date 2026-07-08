@@ -1,4 +1,3 @@
-import styles from "@/features/users/shared/components/component.module.css";
 import common from "@/features/users/shared/styles/common.styles.module.css";
 import styles1 from "./component.module.css";
 
@@ -16,14 +15,14 @@ export default function BookCard({ book }) {
     >
       <CoverImage
         coverurl={coverurl}
-        width={50}
-        height={70}
+        width={60}
+        height={80}
         priority={false}
         title={title}
       />
 
       <div className={styles1.bookContent}>
-        <h4 className={common.bookTitle}>{title}</h4>
+        <h3 className={common.bookTitle}>{title}</h3>
 
         <span className={common.bookAuthor}>By {book.authorString}</span>
 

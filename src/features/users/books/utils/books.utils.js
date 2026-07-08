@@ -1,3 +1,5 @@
+
+
 export function getFilteredBooks({
   availableBooks,
   filter=[],
@@ -28,7 +30,7 @@ export function getFilteredBooks({
           genre.includes(value) ||
           (value === "available" && book.availablecopies > 0) ||
           (value === "out of stock" && book.availablecopies <= 0)
-          // ||(value === "borrowed" && borrowedBookIds.has(book.bookid))
+          ||(value === "borrowed" && borrowedBookIds.has(book.bookid))
         );
       });
 

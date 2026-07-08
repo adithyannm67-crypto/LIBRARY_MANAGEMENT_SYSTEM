@@ -1,0 +1,13 @@
+.pageContainer {
+  max-width: 80rem;      /* max-w-7xl = 1280px */
+  margin-left: auto;     /* mx-auto */
+  margin-right: auto;
+  padding: 2rem 1.5rem;  /* py-8 px-6 */
+}
+.profileHero {
+  background: var(--card);      /* bg-card */
+  border: 1px solid var(--border); /* border border-border */
+  border-radius: 0.75rem;       /* rounded-xl */
+  padding: 1.5rem;              /* p-6 */
+  margin-bottom: 1.5rem;        /* mb-6 */
+}

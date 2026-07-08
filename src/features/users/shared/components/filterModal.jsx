@@ -10,9 +10,10 @@ export default function FilterModal({ filterOptions, filterState }) {
     filterRef,
     draftFilters,
     setIsOpen,
-    removeFilter,
+
     applyFilters,
     clearFilters,
+    toggleDraftFilter,
   } = filterState;
   return (
     <div ref={filterRef} className={styles.filterContainer}>
@@ -58,7 +59,7 @@ export default function FilterModal({ filterOptions, filterState }) {
                   <button
                     aria-label="Remove filter"
                     className={styles.filterXWrapper}
-                    onClick={() => removeFilter(f)}
+                    onClick={() => toggleDraftFilter(f)}
                   >
                     <X className={styles.filterX} />
                   </button>
@@ -81,7 +82,7 @@ export default function FilterModal({ filterOptions, filterState }) {
 }
 
 const FilterCheckBoxList = ({ filterName, options, filterState }) => {
-  const { draftFilters, addFilter } = filterState;
+  const { draftFilters, toggleDraftFilter } = filterState;
   return (
     <ul className={styles.filterCheckboxContainer}>
       {options.map((option) => (
@@ -90,7 +91,7 @@ const FilterCheckBoxList = ({ filterName, options, filterState }) => {
             <input
               type="checkbox"
               checked={draftFilters.includes(option)}
-              onChange={() => addFilter(option)}
+              onChange={() => toggleDraftFilter(option)}
             />
             {option}
           </label>

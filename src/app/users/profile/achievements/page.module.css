@@ -1,0 +1,120 @@
+/*Achievements*/
+/* Achievement header */
+.achievementHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem; /* mb-4 */
+}
+
+.achievementStats {
+  margin: 0;
+  font-size: 0.875rem; /* text-sm */
+  color: var(--muted-foreground);
+}
+
+/* Achievement grid */
+.achievementGrid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1rem; /* gap-4 */
+}
+
+@media (min-width: 640px) {
+  .achievementGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .achievementGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Achievement card */
+.achievementCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 1.25rem; /* p-5 */
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease,
+    opacity 150ms ease;
+}
+
+.achievementCardEarned:hover {
+  box-shadow:
+    0 4px 6px -1px rgb(0 0 0 / 0.1),
+    0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.achievementCardLocked {
+  opacity: 0.5;
+  filter: grayscale(100%);
+}
+
+/* Layout */
+.achievementContent {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem; /* gap-4 */
+}
+
+.achievementIconWrapper {
+  padding: 0.75rem; /* p-3 */
+  border-radius: 0.75rem;
+  background: var(--muted);
+  flex-shrink: 0;
+}
+
+.achievementIcon {
+  width: 1.25rem; /* w-5 */
+  height: 1.25rem; /* h-5 */
+}
+
+.achievementInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.achievementTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* gap-2 */
+  flex-wrap: wrap;
+}
+
+.achievementTitle {
+  margin: 0;
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500;
+}
+
+.achievementDescription {
+  margin: 0.25rem 0 0;
+  font-size: 0.75rem; /* text-xs */
+  color: var(--muted-foreground);
+}
+
+/* Earned badge */
+.earnedBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem; /* gap-1 */
+  padding: 0.125rem 0.5rem; /* py-0.5 px-2 */
+  border-radius: 9999px;
+  background: color-mix(
+    in srgb,
+    var(--primary) 10%,
+    transparent
+  );
+  color: var(--primary);
+  font-size: 0.75rem;
+}
+
+.earnedIcon {
+  width: 0.75rem; /* w-3 */
+  height: 0.75rem;
+}

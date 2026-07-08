@@ -4,12 +4,3 @@
   flex-direction: column;
 }
 
-.booklist {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 24px;
-  align-items: start;
-  padding: 1rem;
-  max-height: 550px;
-  overflow-y: auto;
-}

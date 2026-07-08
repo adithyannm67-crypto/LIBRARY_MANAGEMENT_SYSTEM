@@ -10,7 +10,6 @@ export default async function authenticate() {
     (await cookies()).get("token")?.value;
 
 
-
   if (!token) {
     throw new AuthError("Unauthorized", 401);
   }

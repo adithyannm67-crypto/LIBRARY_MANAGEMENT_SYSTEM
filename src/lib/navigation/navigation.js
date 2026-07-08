@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 
 const links = [
-  { Icon: House, label: "Home", path: "/users" },
+  { Icon: House, label: "Home", path: "/users/home" },
   { Icon: BookOpenCheck, label: "My Borrows", path: "/users/myborrows" },
   { Icon: Bell, label: "Notifications", path: "/users/notifications" },
   { Icon: Library, label: "Books", path: "/users/books" },

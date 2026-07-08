@@ -1,9 +1,7 @@
-import  returnBook  from "#root/lib/server/actions/returnbook.js";
-export default async function returnBookW(borrowid) {
-  // i should implimemt the cokki based
-
+import { returnBookService } from "@/lib/server/services/borrow.service";
+export default async function returnBook(borrowid) {
   try {
-    const data = await returnBook(borrowid);
+    const data = await returnBookService(borrowid);
     return {
       success: true,
       message: "Book Returned Successfully",

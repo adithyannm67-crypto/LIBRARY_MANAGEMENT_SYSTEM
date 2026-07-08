@@ -14,12 +14,12 @@ const BorrowedStatusBadge = ({ duedate, returndate }) => {
     }
   }
 
-  if (duedate < today) {
+  if (!returndate && duedate < today) {
     badge = "Overdue";
     cls = "overdue";
   }
 
-  if (daysLeft <= 3) {
+  if (!returndate && daysLeft <= 3) {
     badge = "Due Soon";
     cls = "due-soon";
   }

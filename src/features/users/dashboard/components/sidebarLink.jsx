@@ -8,12 +8,12 @@ import logout from "#root/lib/server/auth/logout.js";
 const LinkComponent = ({ item }) => {
   const pathname = usePathname();
   const { Icon, path, label } = item;
-  const active = pathname === path;
+  const active = pathname.includes(path);
   const isLogout = label === "Logout";
   return (
     <Link
       href={path}
-      className={styles.link}
+      className={styles.link + " " + (active ? styles.active : "")}
       onClick={() => {
         if (isLogout) {
           logout();

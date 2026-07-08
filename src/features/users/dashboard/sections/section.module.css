@@ -181,6 +181,7 @@
   color: var(--card);
 }
 
+
 .iconWrapper {
   width: 32px;
   height: 32px;
@@ -227,8 +228,48 @@
   overflow-y: auto;
 }
 
-.viewAll {
-  text-align: center;
+.viewAllBorrows {
+  height: 66px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+
+  text-decoration: none;
+
+  color: #4f46e5;
+  font-size: 1.1rem;
+  font-weight: 600;
+
+  border: 1px solid #e5e7eb;
+
+  transition: all .2s ease;
+}
+
+.viewAllBorrows:hover {
+  background: #fafafa;
+}
+
+.icon {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: #111827;
+  font-size: 1.1rem;
+}
+
+.arrow {
+  font-size: 1.4rem;
+  transition: transform .2s;
+}
+
+.viewAllBorrows:hover .arrow {
+  transform: translateX(4px);
 }
 .overdue {
   color: var(--failure);

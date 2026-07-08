@@ -1,8 +1,8 @@
-import borrowBook from "#root/lib/server/actions/borrowbook.js";
+import { borrowBookService } from "@/lib/server/services/borrow.service.js";
 
-export default async function borrowBookW(bookid) {
+export default async function borrowBook(bookid) {
   try {
-    const data = await borrowBook(bookid);
+    const data = await borrowBookService(bookid);
     return {
       success: true,
       message: "Book Borrowed Successfully",

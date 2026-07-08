@@ -1,3 +1,5 @@
+"use client";
+
 import styles from "../styles/dashboardPopup.styles.module.css";
 
 import { toast } from "react-hot-toast";
@@ -17,7 +19,7 @@ export default function Popup({
   from,
   mode,
   book,
-  isOpen,
+  isOpen=true,
   onClose,
   shouldRefresh,
 }) {
@@ -69,6 +71,7 @@ export default function Popup({
 
     try {
       const { success, message, data } = await api(book);
+      console.log(data);
 
       if (!success) throw new Error(message);
 
@@ -103,6 +106,7 @@ export default function Popup({
   } else {
     document.body.style.overflow = "hidden";
   }
+  
 
   return createPortal(
     <div className={styles.overlay} onClick={onClose}>
@@ -149,6 +153,7 @@ const returnUpdator = ({ data, updateStats }) => {
 };
 
 const borrowUpdator = ({ data, updateStats }) => {
+  
   updateStats((prev) => {
     let newTotalBorrowsThisYear = prev.totalBorrowsThisYear;
     let newTotalBorrowsThisMonth = prev.totalBorrowsThisMonth;

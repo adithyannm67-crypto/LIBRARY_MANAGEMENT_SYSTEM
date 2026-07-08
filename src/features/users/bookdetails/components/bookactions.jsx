@@ -1,6 +1,6 @@
 "use client";
 import styles from "./component.module.css";
-import btnStyles from "#root/common.module.css";
+import btnStyles from "@/shared/styles/common.module.css";
 
 import { useState } from "react";
 

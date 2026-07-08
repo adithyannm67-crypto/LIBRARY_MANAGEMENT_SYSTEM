@@ -8,3 +8,72 @@
   overflow-y: auto;
   gap: 12px;
 }
+
+.emptyState {
+  min-height: 70vh;
+  padding: 4rem 2rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+}
+
+.illustration {
+  width: 280px;
+  height: auto;
+  object-fit: contain;
+}
+
+.content {
+  max-width: 500px;
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.description {
+  color: var(--muted-foreground);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.primaryBtn,
+.secondaryBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  padding: 0.9rem 1.5rem;
+  border-radius: 12px;
+
+  font-weight: 600;
+  text-decoration: none;
+
+  transition: 0.2s;
+}
+
+.primaryBtn {
+  background: #4caf50;
+  color: white;
+}
+
+.secondaryBtn {
+  border: 1px solid var(--border);
+  color: var(--text);
+}

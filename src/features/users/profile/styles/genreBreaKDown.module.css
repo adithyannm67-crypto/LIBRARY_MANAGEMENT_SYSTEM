@@ -1,0 +1,56 @@
+
+.genreCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 1.25rem; /* p-5 */
+}
+
+.genreHeading {
+  margin: 0 0 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--foreground);
+}
+
+.genreList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* space-y-3 */
+}
+
+.genreItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem; /* space-y-1 */
+}
+
+.genreHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.875rem; /* text-sm */
+}
+
+.genreName {
+  color: var(--foreground);
+}
+
+.genreCount {
+  color: var(--muted-foreground);
+}
+
+.genreTrack {
+  width: 100%;
+  height: 0.375rem; /* h-1.5 */
+  background: var(--muted);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.genreBar {
+  height: 100%;
+  border-radius: inherit;
+  transition: width 150ms ease;
+}

@@ -22,39 +22,40 @@ export default function SearchContainer({
   const filterState = useFilters(filter, setFilter, setSearchTerm, setSortBy);
 
   return (
-    <div className={styles.searchBarContainer}>
-      <div className={styles.searchWrapper}>
-        <Search className={styles.searchIcon} />
-        <input
-          type="text"
-          placeholder={searchBarPlaceholder}
-          className={styles.searchInput}
-          value={searchTerm}
-          onChange={filterState.handleSearch}
-        />
-      </div>
-      <button
-        aria-label="Open filters"
-        className={styles.filterWrapper}
-        onClick={filterState.toggleFilters}
-      >
-        <Filter className={styles.filterIcon} />
-      </button>
-
-      {sortBy && (
-        <select
-          value={sortBy}
-          onChange={filterState.handleSort}
-          className={styles.sortContainer}
+    <div className={styles.searchMain}>
+      <div className={styles.searchBarContainer}>
+        <div className={styles.searchWrapper}>
+          <Search className={styles.searchIcon} />
+          <input
+            type="text"
+            placeholder={searchBarPlaceholder}
+            className={styles.searchInput}
+            value={searchTerm}
+            onChange={filterState.handleSearch}
+          />
+        </div>
+        <button
+          aria-label="Open filters"
+          className={styles.filterWrapper}
+          onClick={filterState.toggleFilters}
         >
-          {sortOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-      )}
+          <Filter className={styles.filterIcon} />
+        </button>
 
+        {sortBy && (
+          <select
+            value={sortBy}
+            onChange={filterState.handleSort}
+            className={styles.sortContainer}
+          >
+            {sortOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        )}
+      </div>
       {filterState.isOpen && (
         <FilterModal filterOptions={filterOptions} filterState={filterState} />
       )}
@@ -94,13 +95,13 @@ function useFilters(filter, setFilter, setSearchTerm, setSortBy) {
 
   const updateQueryParam = (key, value) => {
     const params = new URLSearchParams(searchParams);
-
-    if (
+    const isEmpty =
       value === undefined ||
       value === null ||
       value === "" ||
-      (Array.isArray(value) && value.length === 0)
-    ) {
+      (Array.isArray(value) && value.length === 0);
+
+    if (isEmpty) {
       params.delete(key);
     } else {
       params.set(key, value);
@@ -111,16 +112,20 @@ function useFilters(filter, setFilter, setSearchTerm, setSortBy) {
     });
   };
 
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-    updateQueryParam("q", e.target.value);
-  };
-  const handleSort = (e) => {
-    setSortBy(e.target.value);
-    updateQueryParam("sort", e.target.value);
+  const updateStateAndQuery = (setter, key, value) => {
+    setter(value);
+    updateQueryParam(key, value);
   };
 
-  const addFilter = (option) => {
+  const handleSearch = (e) => {
+    updateStateAndQuery(setSearchTerm, "q", e.target.value);
+  };
+
+  const handleSort = (e) => {
+    updateStateAndQuery(setSortBy, "sort", e.target.value);
+  };
+
+  const toggleDraftFilter = (option) => {
     setDraftFilters((prev) =>
       prev.includes(option)
         ? prev.filter((f) => f !== option)
@@ -128,40 +133,26 @@ function useFilters(filter, setFilter, setSearchTerm, setSortBy) {
     );
   };
 
-  const removeFilter = (option) => {
-    setDraftFilters((prev) => prev.filter((f) => f !== option));
+  const closeAndUpdateFilters = (filters) => {
+    setIsOpen(false);
+    updateQueryParam("filter", filters);
   };
 
   const clearFilters = () => {
     setDraftFilters([]);
     setFilter([]);
-    setIsOpen(false);
+    closeAndUpdateFilters([]);
   };
 
   const applyFilters = () => {
     setFilter(draftFilters);
-
-    setIsOpen(false);
-
-    const params = new URLSearchParams(searchParams);
-
-    params.delete("filter");
-
-    draftFilters.forEach((filter) => {
-      params.append("filter", filter);
-    });
-
-    router.replace(`?${params.toString()}`, {
-      scroll: false,
-    });
+    closeAndUpdateFilters(draftFilters);
   };
 
   const toggleFilters = () => setIsOpen((prev) => !prev);
   return {
     draftFilters,
     isOpen,
-    addFilter,
-    removeFilter,
     applyFilters,
     clearFilters,
     setIsOpen,
@@ -169,5 +160,6 @@ function useFilters(filter, setFilter, setSearchTerm, setSortBy) {
     toggleFilters,
     handleSearch,
     handleSort,
+    toggleDraftFilter,
   };
 }

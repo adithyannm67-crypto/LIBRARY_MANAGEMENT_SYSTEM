@@ -1,11 +1,11 @@
 import style from "./component.module.css";
 
-export default function StatCard({ icon: Icon, label, value, subtitle }) {
+export default function StatCard({ icon: Icon, label, value, subtitle, color , background}) {
   return (
     <div className={style.statCard}>
       <div className={style.statHeader}>
-        <div className={style.statIconBox}>
-          <Icon className={style.statIcon} />
+        <div className={style.statIconBox} style={{ background: background }}>
+          <Icon className={style.statIcon} style={{ color: color }} />
         </div>
         <span className={style.statLabel}>{label}</span>
       </div>

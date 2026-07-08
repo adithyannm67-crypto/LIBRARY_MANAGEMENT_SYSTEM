@@ -1,30 +1,21 @@
 "use client";
 
-import Popup from "@/features/users/shared/components/dashBoard.popup.jsx";
+import ReturnModal from "@/features/users/shared/components/ReturnModal";
+
 import { usePage } from "../providers/borrowhistory.provider";
 
-const PopupContainer = () => {
-  const { selectedBook, setSelectedBook, setBorrowedBooks } = usePage();
-
-  const closePopup = () => {
-    setSelectedBook(null);
-    document.body.style.overflow = "auto";
-  };
+export default function PopupContainer() {
+  const { selectedBook, setSelectedBook } = usePage();
 
   return (
     selectedBook && (
-      <Popup
-        from="borrowhistory"
-        text="return"
-        mode="return"
+      <ReturnModal
         book={selectedBook}
-        isOpen={!!selectedBook}
-        onClose={closePopup}
-        setBorrowedBooks={setBorrowedBooks}
         shouldRefresh={true}
+        onClose={() => {
+          setSelectedBook(null);
+        }}
       />
     )
   );
-};
-
-export default PopupContainer;
+}

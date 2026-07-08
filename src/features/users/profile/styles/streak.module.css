@@ -1,0 +1,87 @@
+
+
+.streakCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 1.25rem; /* p-5 */
+}
+
+.streakHeading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* gap-2 */
+  margin: 0 0 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.streakIcon {
+  width: 1rem; /* w-4 */
+  height: 1rem; /* h-4 */
+  color: #f97316; /* orange-500 */
+}
+
+.streakSummary {
+  text-align: center;
+  padding: 0.5rem 0; /* py-2 */
+}
+
+.streakCount {
+  font-size: 2.25rem; /* text-4xl */
+  font-weight: 600;
+  line-height: 1;
+}
+
+.streakLabel {
+  margin-top: 0.25rem; /* mt-1 */
+  font-size: 0.875rem; /* text-sm */
+  color: var(--muted-foreground);
+}
+
+.streakGrid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.25rem; /* gap-1 */
+  margin-top: 1rem; /* mt-4 */
+}
+
+.streakDay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem; /* gap-1 */
+}
+
+.streakBadge {
+  width: 1.75rem; /* w-7 */
+  height: 1.75rem; /* h-7 */
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem; /* text-xs */
+  font-weight: 500; /* font-medium */
+}
+
+.streakBadgeActive {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.streakBadgeInactive {
+  background: var(--muted);
+  color: var(--muted-foreground);
+}
+
+.streakBest {
+  margin-top: 0.75rem; /* mt-3 */
+  text-align: center;
+  font-size: 0.75rem; /* text-xs */
+  color: var(--muted-foreground);
+}
+
+.streakBest strong {
+  color: var(--foreground);
+}

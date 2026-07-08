@@ -1,0 +1,40 @@
+/* Monthly Activity */
+.monthlyChart {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem; /* gap-2 */
+  height: 6rem; /* h-24 */
+}
+
+.monthColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem; /* gap-1 */
+
+  height: 100%;
+}
+.monthBarContainer {
+  flex: 0.95;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.25rem; /* gap-1 */
+  background-color: var(--muted);
+  height: 100%;
+}
+
+.monthBar {
+  width: 0.5rem; /* w-2 */
+  border-radius: 0.125rem; /* rounded-sm */
+  transition: opacity 150ms ease;
+  background: var(--primary);
+}
+
+.monthLabel {
+  font-size: 10px; /* text-[10px] */
+  color: var(--muted-foreground);
+}

@@ -1,34 +1,29 @@
 "use client";
 
-import styles from "./component.module.css";
+import styles from "../styles/borrowedbookcard.module.css";
 
-import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
-const BookAction = ({ book, isReturned, isUserHome, clickHandler }) => {
-  const router = useRouter();
-
+const BookAction = ({ bookid, isReturned,  clickHandler }) => {
   const pathname = usePathname();
   const pathSegments = pathname.split("/").filter(Boolean);
-
-  const handleClick1 = () => {
-    const option = isReturned ? "Borrow Again" : "Return";
-    router.push(
-      `/users/bookdetails/${book.bookid}?option=${option}&from=${pathSegments[1]}`,
-    );
-  };
+  const option = isReturned ? "Borrow Again" : "Return";
 
   return (
-    <div className={styles.bookActions1}>
+    <div className={styles.actions}>
       {!isReturned && (
-        <button className={styles.btn1} onClick={clickHandler}>
+        <button className={styles.returnBtn} onClick={clickHandler}>
           Return
         </button>
       )}
-      {!isUserHome && (
-        <button className={styles.btn1} onClick={handleClick1}>
-          View Book Details
-        </button>
-      )}
+
+      <Link
+        href={`/users/bookdetails/${bookid}?option=${option}&from=${pathSegments[1]}`}
+        className={styles.detailsBtn}
+      >
+        View Details
+      </Link>
     </div>
   );
 };

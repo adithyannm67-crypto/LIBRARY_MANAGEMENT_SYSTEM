@@ -1,0 +1,53 @@
+
+.topAuthorCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 1.25rem;       /* p-5 */
+}
+
+.cardHeading {
+  margin: 0 0 0.75rem 0;  /* mb-3 */
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--foreground);
+}
+
+.authorInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;           /* gap-3 */
+}
+
+.authorAvatar {
+  width: 2.5rem;          /* w-10 */
+  height: 2.5rem;         /* h-10 */
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;    /* text-sm */
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.authorDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.authorName {
+  margin: 0;
+  font-size: 0.875rem;    /* text-sm */
+  font-weight: 500;       /* font-medium */
+  color: var(--foreground);
+}
+
+.authorStats {
+  margin: 0;
+  font-size: 0.75rem;     /* text-xs */
+  color: var(--muted-foreground);
+}

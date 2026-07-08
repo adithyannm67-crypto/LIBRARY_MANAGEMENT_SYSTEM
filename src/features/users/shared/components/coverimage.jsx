@@ -2,6 +2,7 @@ import common from "../styles/common.styles.module.css";
 import Image from "next/image";
 
 const Cover = ({ coverurl, width, height, priority, title }) => {
+  
   return (
     <div
       className={common.bookCover}

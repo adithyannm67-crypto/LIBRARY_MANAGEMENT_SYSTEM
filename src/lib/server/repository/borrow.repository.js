@@ -5,6 +5,10 @@ import pool from "../db/db.js";
 import AppError from "../error/AppError.js";
 import AuthError from "../error/AuthError.js";
 
+import {getNoOfBorrowsInLastYear,getNoOfUniqueGenres} from "./books.repository.js";
+import { calculateStreaks } from "../services/books.service.js";
+import { updateUserAchievements } from "./other.repository.js";
+
 export async function getBorrowedCount(userid) {
   const userResult = await pool.query(
     `SELECT borrowed FROM users WHERE userid = $1`,
@@ -85,6 +89,15 @@ export async function createBorrowTransaction(
       ...borrowRow,
       ...bookResult.rows[0],
     };
+
+    //Need to CHECK
+    //Update user achievements 
+    const streaks=await calculateStreaks();
+    await updateUserAchievements(userid, {
+      booksThisYear: await getNoOfBorrowsInLastYear(userid),
+      uniqueGenres: await getNoOfUniqueGenres(userid),
+      streak:streaks[0],
+    });
 
     return formattedRow;
   } catch (err) {

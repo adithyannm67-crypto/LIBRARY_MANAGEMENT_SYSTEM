@@ -11,30 +11,32 @@ const DashBoardHeadings = () => {
   let headerSubTitle = "";
   let headerTitle = "";
   switch (pathname) {
-    case "/users":
-      headerSubTitle = `Welcome back, ${user?.username}`;
+    case "/users/home":
+      headerSubTitle = `Welcome back, ${user?.name}`;
       headerTitle = "Library DashBoard";
+      break;
 
     case "/users/borrowhistory":
       headerSubTitle = `${stats?.totalBorrows} books borrowed`;
       headerTitle = "Borrow History";
+      break;
 
     case "/users/books":
       headerSubTitle = `Discover your next read`;
       headerTitle = "Books";
-
+      break;
     case "/users/myborrows":
       headerSubTitle = `Check your active borrows`;
       headerTitle = "My Borrows";
-
-    case "/users/profile":
-      headerSubTitle = "Manage your profile";
-      headerTitle = "Profile";
+      break;
 
     default:
       if (pathname.includes("bookdetails")) {
         headerSubTitle = "View Book informations";
         headerTitle = "Book Details";
+      } else if (pathname.includes("profile")) {
+        headerSubTitle = "Manage your profile";
+        headerTitle = "Profile";
       }
   }
 

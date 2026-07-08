@@ -1,0 +1,311 @@
+/* star */
+.starContainer {
+    display: flex;
+    gap: 0.5;    /* gap-1.5 */
+}
+.star {
+  width: 0.75rem;   /* w-3 */
+  height: 0.75rem;  /* h-3 */
+}
+
+.starFilled {
+  fill: #facc15;    /* yellow-400 */
+  color: #facc15;
+}
+
+.starMuted {
+  color: var(--muted, #9ca3af); /* replace with your muted color */
+}
+
+/*QUICK STATS*/
+
+/*QUICK STATS*/
+.quickStats {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 1rem; /* gap-4 */
+  margin-top: 1.5rem; /* mt-6 */
+  padding-top: 1.5rem; /* pt-6 */
+  border-top: 1px solid var(--border);
+}
+
+@media (min-width: 640px) {
+  .quickStats {
+    grid-template-columns: repeat(4, minmax(0, 1fr)); /* sm:grid-cols-4 */
+  }
+}
+
+.statCard {
+  text-align: center;
+}
+
+.statValue {
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 600;   /* font-semibold */
+}
+
+.statLabel {
+  margin-top: 0.125rem; /* mt-0.5 */
+  font-size: 0.75rem;   /* text-xs */
+  color: var(--muted-foreground);
+}
+
+.statSub {
+  font-size: 0.75rem; /* text-xs */
+  color: color-mix(
+    in srgb,
+    var(--muted-foreground) 60%,
+    transparent
+  ); /* text-muted-foreground/60 */
+}
+
+/*Tab*/
+.tabs {
+  display: flex;
+  gap: 0.25rem;              /* gap-1 */
+  margin-bottom: 1.5rem;     /* mb-6 */
+  border-bottom: 1px solid var(--border);
+}
+
+.tabButton {
+  text-decoration: none;
+  position: relative;
+  padding: 0.5rem 1rem;      /* py-2 px-4 */
+  border: none;
+  background: transparent;
+  font-size: 0.875rem;       /* text-sm */
+  font-weight: 500;          /* font-medium */
+  color: var(--muted-foreground);
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.tabButton:hover {
+  color: var(--foreground);
+}
+
+.activeTab {
+  color: var(--foreground);
+}
+
+.tabIndicator {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0.125rem;          /* h-0.5 */
+  font-size: 0.875rem;        /* text-sm */
+  background: var(--primary);
+  border-top-left-radius: 9999px;
+  border-top-right-radius: 9999px;
+}
+/*Profileheader*/
+
+.profileHeader {
+  display: flex;
+  flex-direction: column; /* flex-col */
+  align-items: flex-start; /* items-start */
+  gap: 1.5rem; /* gap-6 */
+}
+
+@media (min-width: 640px) {
+  .profileHeader {
+    flex-direction: row;   /* sm:flex-row */
+    align-items: center;   /* sm:items-center */
+  }
+}
+
+/* Avatar */
+.avatarContainer {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: 5rem;              /* w-20 */
+  height: 5rem;             /* h-20 */
+  border-radius: 9999px;    /* rounded-full */
+  background: var(--primary);
+  color: var(--primary-foreground);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;        /* text-2xl */
+  font-weight: 600;         /* font-semibold */
+  user-select: none;        /* select-none */
+}
+
+.editButton {
+  position: absolute;
+  bottom: -0.25rem;         /* -bottom-1 */
+  right: -0.25rem;          /* -right-1 */
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  padding: 0.25rem;         /* p-1 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 150ms ease;
+  cursor: pointer;
+}
+
+.editButton:hover {
+  background: var(--accent);
+}
+
+.editIcon {
+  width: 0.75rem;           /* w-3 */
+  height: 0.75rem;          /* h-3 */
+  color: var(--muted-foreground);
+}
+
+/*Identity*/
+.identity {
+  flex: 1;
+  min-width: 0;
+}
+
+.identityHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem; /* gap-4 */
+}
+
+.userInfo {
+  min-width: 0;
+}
+
+.userName {
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: 600;
+  line-height: 1.25; /* leading-tight */
+  margin: 0;
+}
+
+.userMeta {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 1rem;  /* gap-x-4 */
+  row-gap: 0.25rem; /* gap-y-1 */
+  margin-top: 0.375rem; /* mt-1.5 */
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem; /* gap-1.5 */
+  font-size: 0.875rem; /* text-sm */
+  color: var(--muted-foreground);
+}
+
+.metaIcon {
+  width: 0.875rem;  /* w-3.5 */
+  height: 0.875rem; /* h-3.5 */
+  flex-shrink: 0;
+}
+
+.cardInfo {
+  margin-top: 0.5rem; /* mt-2 */
+}
+
+.cardBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem; /* gap-1.5 */
+  padding: 0.25rem 0.625rem; /* py-1 px-2.5 */
+  border-radius: 9999px;
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+  color: var(--primary);
+  font-size: 0.75rem; /* text-xs */
+  font-weight: 500;
+}
+
+.badgeIcon {
+  width: 0.75rem;  /* w-3 */
+  height: 0.75rem; /* h-3 */
+}
+
+.editProfileBtn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* gap-2 */
+  padding: 0.375rem 0.75rem; /* py-1.5 px-3 */
+  border: 1px solid var(--border);
+  border-radius: 0.5rem; /* rounded-lg */
+  background: transparent;
+  font-size: 0.875rem; /* text-sm */
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+
+.editProfileBtn:hover {
+  background: var(--accent);
+}
+
+.editProfileIcon {
+  width: 0.875rem;  /* w-3.5 */
+  height: 0.875rem; /* h-3.5 */
+}
+
+
+
+
+/*RecentReads*/
+
+.recentReads {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* space-y-3 */
+}
+
+.bookItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.bookCover {
+  width: 2.25rem; /* w-9 */
+  height: 3rem; /* h-12 */
+  border-radius: 0.25rem;
+  flex-shrink: 0;
+  box-shadow:
+    0 1px 2px rgba(0,0,0,0.05),
+    0 1px 3px rgba(0,0,0,0.1);
+}
+
+.bookInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.bookTitle {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.bookAuthor {
+  margin: 0;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}
+
+.bookMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.bookDate {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}
